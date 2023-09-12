@@ -9,19 +9,23 @@ export default function Home() {
     let [cell, setCell] = useState([]);
     const [graphType, setGraphType] = useState("bar");
 
+    const graphProps = {
+        manual,
+        setManual,
+        rows,
+        setRows,
+        cols,
+        setCols,
+        cell,
+        setCell,
+        type: graphType,
+        setType: setGraphType,
+    };
+
     return (
         <main className="m-[50px]">
             <TableContainer
-                manual={manual}
-                setManual={setManual}
-                rows={rows}
-                setRows={setRows}
-                cols={cols}
-                setCols={setCols}
-                cell={cell}
-                setCell={setCell}
-                type={graphType}
-                setType={setGraphType}
+                {...graphProps}
             />
         </main>
     );
