@@ -6,6 +6,12 @@ import { useState, useRef } from "react";
 import { type Crop, type PixelCrop } from "react-image-crop";
 
 export default function Home() {
+    const [mediaType, setMediaType] = useState("Article");
+    const mediaTypes = ["Article", "Podcast", "Video", "Infographic"];
+
+    const [articleType, setArticleType] = useState("Essay");
+    const articleTypes = ["Essay", "Digest"];
+
     const [manual, setManual] = useState(false);
     const [rows, setRows] = useState(3);
     const [cols, setCols] = useState(2);
@@ -19,6 +25,15 @@ export default function Home() {
     const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
     const [scale, setScale] = useState(1);
     const [rotate, setRotate] = useState(0);
+
+    const topSectionProps = {
+        mediaType,
+        setMediaType,
+        mediaTypes,
+        articleType,
+        setArticleType,
+        articleTypes,
+    };
 
     const graphProps = {
         manual,
@@ -51,7 +66,7 @@ export default function Home() {
     return (
         <main className="m-[50px]">
             {/* <ImageContainer {...imageProps} /> */}
-            <TopSection />
+            <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />
         </main>
     );
