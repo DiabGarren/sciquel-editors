@@ -25,3 +25,17 @@ body {
     )
     rgb(var(--background-start-rgb)); */
 }
+
+@layer components {
+  .button {
+    @apply bg-blue text-white rounded px-[5px] hover:underline hover:bg-blue-light;
+  }
+
+  .plus-icon {
+    @apply w-[25px] block rounded-[50%] text-center bg-blue text-white cursor-pointer hover:bg-blue-light;
+  }
+
+  .trash-icon {
+    @apply h-[25px] block rounded-[50%] text-center p-[4px] cursor-pointer hover:text-red;
+  }
+}

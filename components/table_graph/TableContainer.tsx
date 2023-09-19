@@ -12,9 +12,9 @@ export default function TableContainer(props: any) {
         <div>
             <div>
                 <h1>Table</h1>
-                <button onClick={() => props.setManual(true)}>Enter Manually</button>
+                <button className="button" onClick={() => props.setManual(true)}>Enter Manually</button>
                 <h2>Or</h2>
-                <button onClick={() => props.setManual(false)}>
+                <button className="button" onClick={() => props.setManual(false)}>
                     Updload Spreadsheet
                 </button>
             </div>

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import { useRef } from "react";
 
 export default function RenderTable(props: any) {
     if (props.manual === false) {
@@ -39,6 +40,7 @@ export default function RenderTable(props: any) {
                                 colsCel.push(
                                     <td className="border-[2px] border-[#9A9B9C]">
                                         <input
+                                            id="input"
                                             placeholder="X Heading"
                                             onChange={(event) => {
                                                 const newCell = props.cell.map(
@@ -82,6 +84,7 @@ export default function RenderTable(props: any) {
                                 colsCel.push(
                                     <td className="border-[2px] border-[#9A9B9C]">
                                         <input
+                                            className="input"
                                             placeholder="Heading"
                                             onChange={(event) => {
                                                 const newCell = props.cell.map(
@@ -123,6 +126,7 @@ export default function RenderTable(props: any) {
                                 colsCel.push(
                                     <td className="border-[2px] border-[#9A9B9C]">
                                         <input
+                                            className="input"
                                             placeholder="Y Heading"
                                             onChange={(event) => {
                                                 const newCell = props.cell.map(
@@ -171,6 +175,7 @@ export default function RenderTable(props: any) {
                     colsCel.push(
                         <td className="border-[2px] border-[#CDCED1]">
                             <input
+                                className="input"
                                 onChange={(event) => {
                                     const newCell = props.cell.map(
                                         (cellRow: any, cellIndex: any) => {
@@ -203,6 +208,7 @@ export default function RenderTable(props: any) {
                     colsCel.push(
                         <td className="border-[2px] border-[#CDCED1]">
                             <input
+                                className="input"
                                 type="number"
                                 onChange={(event) => {
                                     const newCell = props.cell.map(
@@ -247,7 +253,7 @@ export default function RenderTable(props: any) {
                     colsCel.push(
                         <td rowSpan={props.rows}>
                             <button
-                                className="block rounded-[50%] bg-[#57ADDE] text-white w-[25px] text-center hover:bg-[#8ECAEC]"
+                                className="plus-icon"
                                 onClick={() => {
                                     props.setCols(props.cols + 1);
                                     let cell = props.cell.map(
@@ -297,12 +303,12 @@ export default function RenderTable(props: any) {
                     colSpan={props.cols}
                 >
                     <button
-                        className="block rounded-[50%] bg-[#57ADDE] text-white w-[25px] items-center text-center hover:bg-[#8ECAEC]"
+                        className="block rounded-[50%] bg-blue text-white w-[25px] items-center text-center hover:bg-[#8ECAEC]"
                         onClick={() => {
                             props.setRows(props.rows + 1);
                             let newRow: string[] = [];
                             if (props.type === "bar") {
-                                newRow = [`Col ${props.cell.length + 1}`];
+                                newRow = [`Col ${props.cell.length}`];
                             } else {
                                 newRow = ["0"];
                             }
@@ -329,17 +335,25 @@ export default function RenderTable(props: any) {
                 </td>
             </tr>
         );
+
+        const handleReset = () => {
+            document.querySelectorAll(".input").forEach((event: any) => {
+                event.value = "";
+                props.setCell([]);
+                props.setRows(3);
+                props.setCols(2);
+            });
+        };
+
         return (
             <div>
                 <table>
                     <tbody>{table}</tbody>
                 </table>
                 <button
-                    className="block rounded-[5px] p-[2px] bg-[#57ADDE] text-white items-center text-center hover:bg-[#8ECAEC]"
+                    className="button"
                     onClick={() => {
-                        props.setCell([]);
-                        props.setRows(3);
-                        props.setCols(2);
+                        handleReset();
                     }}
                 >
                     Reset&#8634;
@@ -347,45 +361,37 @@ export default function RenderTable(props: any) {
                 <div>
                     <h3>Graph Type:</h3>
                     <button
-                        className="bg-[#57ADDE] underline rounded-[5px] mx-[2px] px-[4px] text-white hover:bg-[#8ECAEC]"
+                        className="button mx-[5px]"
                         onClick={() => {
                             props.setType("bar");
-                            props.setCell([]);
-                            props.setRows(3);
-                            props.setCols(2);
+                            handleReset();
                         }}
                     >
                         Bar Graph
                     </button>
                     <button
-                        className="bg-[#57ADDE] underline rounded-[5px] mx-[2px] px-[4px] text-white hover:bg-[#8ECAEC]"
+                        className="button mx-[5px]"
                         onClick={() => {
                             props.setType("pie");
-                            props.setCell([]);
-                            props.setRows(3);
-                            props.setCols(2);
+                            handleReset();
                         }}
                     >
                         Pie Chart
                     </button>
                     <button
-                        className="bg-[#57ADDE] underline rounded-[5px] mx-[2px] px-[4px] text-white hover:bg-[#8ECAEC]"
+                        className="button mx-[5px]"
                         onClick={() => {
                             props.setType("scatter");
-                            props.setCell([]);
-                            props.setRows(3);
-                            props.setCols(2);
+                            handleReset();
                         }}
                     >
                         Scatter Plot
                     </button>
                     <button
-                        className="bg-[#57ADDE] underline rounded-[5px] mx-[2px] px-[4px] text-white hover:bg-[#8ECAEC]"
+                        className="button mx-[5px]"
                         onClick={() => {
                             props.setType("line");
-                            props.setCell([]);
-                            props.setRows(3);
-                            props.setCols(2);
+                            handleReset();
                         }}
                     >
                         Line Graph

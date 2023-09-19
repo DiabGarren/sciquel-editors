@@ -1,6 +1,7 @@
 "use client";
 import ImageContainer from "@/components/cover_image/ImageContainer";
 import TableContainer from "@/components/table_graph/TableContainer";
+import TopSection from "@/components/top_section/TopSection";
 import { useState, useRef } from "react";
 import { type Crop, type PixelCrop } from "react-image-crop";
 
@@ -49,10 +50,9 @@ export default function Home() {
 
     return (
         <main className="m-[50px]">
-            {/* <TableContainer
-                {...graphProps}
-            /> */}
-            <ImageContainer {...imageProps} />
+            {/* <ImageContainer {...imageProps} /> */}
+            <TopSection />
+            <TableContainer {...graphProps} />
         </main>
     );
 }
