@@ -6,14 +6,14 @@ export default function TopSection(props: any) {
         drp?.classList.toggle("flex");
     };
 
-    const displayTypes = (typeArray: any[]) => {
+    const displayTypes = (typeArray: any[], setType: any, typeDrp: string) => {
         let types = typeArray.map((type: string) => {
             return (
                 <button
                     className="text-left hover:bg-blue-light px-[5px] py-[2px]"
                     onClick={() => {
-                        props.setMediaType({type});
-                        handleDrp(".MediaType-drp");
+                        setType(type);
+                        handleDrp(typeDrp);
                     }}
                 >
                     {type}
@@ -36,7 +36,7 @@ export default function TopSection(props: any) {
                     />
                 </div>
                 <div className="MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTypes(props.mediaTypes)}
+                    {displayTypes(props.mediaTypes, props.setMediaType, ".MediaType-drp")}
                 </div>
             </div>
             <div className="relative">
@@ -50,7 +50,7 @@ export default function TopSection(props: any) {
                     />
                 </div>
                 <div className="ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                {displayTypes(props.articleTypes)}
+                {displayTypes(props.articleTypes, props.setArticleType, ".ArticleType-drp")}
                 </div>
             </div>
         </div>
