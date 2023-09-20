@@ -68,14 +68,12 @@ export default function TopSection(props: any) {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
-                    <div
-                        className="tag"
-                        style={{ backgroundColor: tag.color }}
-                    >
+                    <div className="tag" style={{ backgroundColor: tag.color }}>
                         <p className="inline-block text-white mr-[5px]">
                             {tag.name}
                         </p>
-                        <button className="text-black hover:text-white"
+                        <button
+                            className="text-black hover:text-white"
                             onClick={() => {
                                 setTag(
                                     tagArray.map((t: any, i: number) => {
@@ -98,6 +96,33 @@ export default function TopSection(props: any) {
         return tags;
     };
 
+    const articleType = () => {
+        if (props.mediaType === "Article") {
+            return (
+                <div className="relative">
+                    Article Type
+                    <div>
+                        <input
+                            className="ArticleType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
+                            value={props.articleType}
+                            onClick={() => handleDrp(".ArticleType-drp")}
+                            readOnly
+                        />
+                    </div>
+                    <div className="ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                        {displayTypes(
+                            props.articleTypes,
+                            props.setArticleType,
+                            ".ArticleType-drp"
+                        )}
+                    </div>
+                </div>
+            );
+        } else {
+            return <></>;
+        }
+    };
+
     return (
         <div className="my-[50px]">
             <div className="relative">
@@ -118,24 +143,7 @@ export default function TopSection(props: any) {
                     )}
                 </div>
             </div>
-            <div className="relative">
-                Article Type
-                <div>
-                    <input
-                        className="ArticleType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
-                        value={props.articleType}
-                        onClick={() => handleDrp(".ArticleType-drp")}
-                        readOnly
-                    />
-                </div>
-                <div className="ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTypes(
-                        props.articleTypes,
-                        props.setArticleType,
-                        ".ArticleType-drp"
-                    )}
-                </div>
-            </div>
+            {articleType()}
             <div className="relative">
                 <div>
                     <h3 className="inline-block">Topics</h3>

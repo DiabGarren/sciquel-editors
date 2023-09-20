@@ -6,12 +6,38 @@ import TopSection from "@/components/top_section/TopSection";
 import { useState, useRef } from "react";
 import { type Crop, type PixelCrop } from "react-image-crop";
 
-export default function Home() {
+type Props = {
+    topics: [Topics];
+};
+
+type Topics = {
+    _id: string;
+    name: string;
+    color: string;
+    checked: boolean;
+};
+
+export async function getServerSideProps() {
+    try {
+        let res = await fetch("http://localhost:3000/api/getTopics");
+        let topics = await res.json();
+
+        return { props: { topics: JSON.parse(JSON.stringify(topics)) } };
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export default function Home(props: Props) {
     const [mediaType, setMediaType] = useState("Article");
     const mediaTypes = ["Article", "Podcast", "Video", "Infographic"];
 
     const [articleType, setArticleType] = useState("Essay");
     const articleTypes = ["Essay", "Digest"];
+
+    const [topic, setTopic] = useState<[Topics]>(props.topics);
+
+    console.log(topic);
 
     const [topics, setTopics] = useState([
         { name: "Geology", color: "#22C55E", checked: false },
