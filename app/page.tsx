@@ -1,5 +1,6 @@
 "use client";
 import ImageContainer from "@/components/cover_image/ImageContainer";
+import GeneralByline from "@/components/general_byline/GeneralByline";
 import TableContainer from "@/components/table_graph/TableContainer";
 import TopSection from "@/components/top_section/TopSection";
 import { useState, useRef } from "react";
@@ -11,6 +12,50 @@ export default function Home() {
 
     const [articleType, setArticleType] = useState("Essay");
     const articleTypes = ["Essay", "Digest"];
+
+    const [topics, setTopics] = useState([
+        { name: "Geology", color: "#22C55E", checked: false },
+        { name: "Chemistry", color: "#EF4444", checked: false },
+        { name: "Biology", color: "#3B82F6", checked: false },
+        { name: "Comp Sci.", color: "#f97316", checked: false },
+        { name: "Astronomy", color: "#EAB308", checked: false },
+        { name: "Medicine", color: "#84CC16", checked: false },
+        { name: "Mathematics", color: "#10B981", checked: false },
+        { name: "Physics", color: "#06B6D4", checked: false },
+        { name: "Psychology", color: "#D946EF", checked: false },
+        { name: "Sociology", color: "#14B8A6", checked: false },
+        { name: "Technology", color: "#EC4899", checked: false },
+        { name: "Envir. Science", color: "#F43F5E", checked: false },
+        { name: "Mechanical Eng.", color: "#6366F1", checked: false },
+        { name: "Electrical Eng.", color: "#8B5CF6", checked: false },
+        { name: "Chemical Eng.", color: "#84CC16", checked: false },
+    ]);
+
+    const [subtopics, setSubtopics] = useState([
+        { name: "Oncology", color: "#84CC16", checked: false },
+        { name: "Cardiology", color: "#84CC16", checked: false },
+        { name: "Rheumatology", color: "#D946EF", checked: false },
+        { name: "Mineralogy", color: "#F59E0B", checked: false },
+        { name: "Geochemistry", color: "#3B82F6", checked: false },
+        { name: "Paleontology", color: "#D946EF", checked: false },
+        { name: "Tectonics", color: "#F59E0B", checked: false },
+        { name: "Artificial Intelligence", color: "#EF4444", checked: false },
+        { name: "Internet of things", color: "#F59E0B", checked: false },
+        { name: "Robotics", color: "#8B5CF6", checked: false },
+    ]);
+
+    const [subjects, setSubjects] = useState([
+        { name: "Anatomy", color: "#EF4444", checked: false },
+        { name: "Biochemistry", color: "#EC4899", checked: false },
+        { name: "Genetics", color: "#EF4444", checked: false },
+        { name: "Nutrition", color: "#14B8A6", checked: false },
+        { name: "Mineralogy", color: "#A855F7", checked: false },
+        { name: "Geochronology", color: "#22C55E", checked: false },
+        { name: "Geophysics", color: "#F59E0B", checked: false },
+        { name: "Risk Management", color: "#A855F7", checked: false },
+        { name: "Programming", color: "#14B8A6", checked: false },
+        { name: "Data Management", color: "#EC4899", checked: false },
+    ]);
 
     const [manual, setManual] = useState(false);
     const [rows, setRows] = useState(3);
@@ -33,6 +78,16 @@ export default function Home() {
         articleType,
         setArticleType,
         articleTypes,
+        topics,
+        setTopics,
+        subtopics,
+        setSubtopics,
+        subjects,
+        setSubjects,
+    };
+
+    const generalProps = {
+        topSection: topSectionProps,
     };
 
     const graphProps = {
@@ -64,10 +119,11 @@ export default function Home() {
     };
 
     return (
-        <main className="m-[50px]">
+        <main className="m-[50px]" onClick={() => {}}>
             {/* <ImageContainer {...imageProps} /> */}
             <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />
+            <GeneralByline {...generalProps} />
         </main>
     );
 }

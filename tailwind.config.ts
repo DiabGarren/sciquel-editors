@@ -24,11 +24,17 @@ const config: Config = {
       },
       red: {
         DEFAULT: '#D41515',
+      },
+      black: {
+        DEFAULT: '#000000',
+      },
+      grey: {
+        DEFAULT: '#505250',
       }
     },
     borderRadius: {
       DEFAULT: '5px',
-
+      tag: '12px'
     }
   },
   plugins: [],
