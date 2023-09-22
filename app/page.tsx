@@ -37,8 +37,6 @@ export default function Home(props: Props) {
 
     const [topic, setTopic] = useState<[Topics]>(props.topics);
 
-    console.log(topic);
-
     const [topics, setTopics] = useState([
         { name: "Geology", color: "#22C55E", checked: false },
         { name: "Chemistry", color: "#EF4444", checked: false },
@@ -145,7 +143,17 @@ export default function Home(props: Props) {
     };
 
     return (
-        <main className="m-[50px]" onClick={() => {}}>
+        <main
+            className="m-[50px]"
+            onClick={(event:any) => {
+                document.querySelectorAll(".drp").forEach((el) => {
+                    if (event.target.parentNode.parentNode.children[1] != el && !event.target.parentNode.parentNode.children[0].classList.contains("tagDrp")) {
+                        el?.classList.add("hidden");
+                        el?.classList.remove("flex");
+                    }
+                });
+            }}
+        >
             {/* <ImageContainer {...imageProps} /> */}
             <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />

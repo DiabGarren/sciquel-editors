@@ -2,8 +2,15 @@
 export default function TopSection(props: any) {
     const handleDrp = (dropdown: string) => {
         let drp = document.querySelector(dropdown);
-        drp?.classList.toggle("hidden");
-        drp?.classList.toggle("flex");
+        document.querySelectorAll(".drp").forEach((el) => {
+            if (el == drp) {
+                el?.classList.toggle("hidden");
+                el?.classList.toggle("flex");
+            } else {
+                el?.classList.add("hidden");
+                el?.classList.remove("flex");
+            }
+        });
     };
 
     const displayTypes = (typeArray: any[], setType: any, typeDrp: string) => {
@@ -25,11 +32,10 @@ export default function TopSection(props: any) {
 
     const displayTagDrp = (tagArray: any[], setTag: any, tagDrp: string) => {
         let tags = tagArray.map((tag: any, index: number) => {
-            let check = (
-                <input
-                    type="checkbox"
-                    checked={tag.checked}
-                    onChange={() => {
+            return (
+                <div
+                    className="tagDrp flex cursor-pointer hover:bg-blue-light"
+                    onClick={() => {
                         setTag(
                             tagArray.map((t: any, i: number) => {
                                 if (i === index) {
@@ -45,19 +51,19 @@ export default function TopSection(props: any) {
                             })
                         );
                     }}
-                />
-            );
-            return (
-                <div>
-                    {check}
-                    <button
+                >
+                    <input
+                        type="checkbox"
+                        checked={tag.checked}
+                    />
+                    <p
                         style={{
+                            display: "inline-block",
                             textAlign: "left",
-                            backgroundColor: tag.color,
                         }}
                     >
                         {tag.name}
-                    </button>
+                    </p>
                 </div>
             );
         });
@@ -109,7 +115,7 @@ export default function TopSection(props: any) {
                             readOnly
                         />
                     </div>
-                    <div className="ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                    <div className="drp ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
                         {displayTypes(
                             props.articleTypes,
                             props.setArticleType,
@@ -135,7 +141,7 @@ export default function TopSection(props: any) {
                         readOnly
                     />
                 </div>
-                <div className="MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
                     {displayTypes(
                         props.mediaTypes,
                         props.setMediaType,
@@ -154,7 +160,7 @@ export default function TopSection(props: any) {
                         +
                     </button>
                 </div>
-                <div className="Topics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                <div className="drp Topics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
                     {displayTagDrp(
                         props.topics,
                         props.setTopics,
@@ -173,7 +179,7 @@ export default function TopSection(props: any) {
                         +
                     </button>
                 </div>
-                <div className="Subtopics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                <div className="drp Subtopics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
                     {displayTagDrp(
                         props.subtopics,
                         props.setSubtopics,
@@ -192,7 +198,7 @@ export default function TopSection(props: any) {
                         +
                     </button>
                 </div>
-                <div className="Subjects-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                <div className="drp Subjects-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
                     {displayTagDrp(
                         props.subjects,
                         props.setSubjects,
