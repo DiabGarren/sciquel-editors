@@ -39,6 +39,11 @@ body {
     @apply h-[25px] block rounded-[50%] text-center p-[4px] cursor-pointer hover:text-red;
   }
 
+  .drp {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
   .tag {
     @apply inline-block rounded-tag px-[8px] mx-[2px] text-white;
   }

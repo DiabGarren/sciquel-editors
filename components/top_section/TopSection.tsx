@@ -131,68 +131,73 @@ export default function TopSection(props: any) {
 
     return (
         <div className="my-[50px]">
-            <div className="relative">
-                Media Type
-                <div>
-                    <input
-                        className="MediaType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
-                        value={props.mediaType}
-                        onClick={() => handleDrp(".MediaType-drp")}
-                        readOnly
-                    />
+            <div className="grid mb-[30px]" style={{gridTemplateColumns: "450px 1fr"}}>
+                <div className="relative">
+                    Media Type
+                    <div>
+                        <input
+                            className="MediaType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
+                            value={props.mediaType}
+                            onClick={() => handleDrp(".MediaType-drp")}
+                            readOnly
+                        />
+                    </div>
+                    <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                        {displayTypes(
+                            props.mediaTypes,
+                            props.setMediaType,
+                            ".MediaType-drp"
+                        )}
+                    </div>
                 </div>
-                <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTypes(
-                        props.mediaTypes,
-                        props.setMediaType,
-                        ".MediaType-drp"
-                    )}
+                {articleType()}
+            </div>
+            <div className="grid mb-[25px]" style={{gridTemplateColumns: "450px 1fr"}}>
+
+                <div className="relative my-[10px]">
+                    <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
+                        <h3 className="inline-block">Topics</h3>
+                        <button
+                            className="plus-icon inline-block justify-right"
+                            onClick={() => handleDrp(".Topics-drp")}
+                        >
+                            +
+                        </button>
+                    </div>
+                    <div className="drp Topics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                        {displayTagDrp(
+                            props.topics,
+                            props.setTopics,
+                            ".Topics-drp"
+                        )}
+                    </div>
+                    <div>{displayTags(props.topics, props.setTopics)}</div>
+                </div>
+                <div className="relative  my-[10px]">
+                    <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
+                        <h3 className="inline-block">Subtopics</h3>
+                        <button
+                            className="plus-icon inline-block justify-right"
+                            onClick={() => handleDrp(".Subtopics-drp")}
+                        >
+                            +
+                        </button>
+                    </div>
+                    <div className="drp Subtopics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                        {displayTagDrp(
+                            props.subtopics,
+                            props.setSubtopics,
+                            ".Subtopics-drp"
+                        )}
+                    </div>
+                    <div>{displayTags(props.subtopics, props.setSubtopics)}</div>
                 </div>
             </div>
-            {articleType()}
-            <div className="relative">
-                <div>
-                    <h3 className="inline-block">Topics</h3>
-                    <button
-                        className="plus-icon inline-block"
-                        onClick={() => handleDrp(".Topics-drp")}
-                    >
-                        +
-                    </button>
-                </div>
-                <div className="drp Topics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTagDrp(
-                        props.topics,
-                        props.setTopics,
-                        ".Topics-drp"
-                    )}
-                </div>
-                <div>{displayTags(props.topics, props.setTopics)}</div>
-            </div>
-            <div className="relative">
-                <div>
-                    <h3 className="inline-block">Subtopics</h3>
-                    <button
-                        className="plus-icon inline-block"
-                        onClick={() => handleDrp(".Subtopics-drp")}
-                    >
-                        +
-                    </button>
-                </div>
-                <div className="drp Subtopics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTagDrp(
-                        props.subtopics,
-                        props.setSubtopics,
-                        ".Subtopics-drp"
-                    )}
-                </div>
-                <div>{displayTags(props.subtopics, props.setSubtopics)}</div>
-            </div>
-            <div className="relative">
-                <div>
+            <div className="relative my-[10px]">
+                <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
                     <h3 className="inline-block">Subjects</h3>
                     <button
-                        className="plus-icon inline-block"
+                        className="plus-icon inline-block justify-right"
                         onClick={() => handleDrp(".Subjects-drp")}
                     >
                         +
