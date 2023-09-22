@@ -1,16 +1,35 @@
 /* eslint-disable react/jsx-key */
+"use client";
+import { useState } from "react";
+import { ChromePicker } from "react-color";
 export default function TopSection(props: any) {
+    const [tagName, setTagName] = useState("");
+    const [tagColor, setTagColor] = useState("#8ECAEC");
+
     const handleDrp = (dropdown: string) => {
         let drp = document.querySelector(dropdown);
-        document.querySelectorAll(".drp").forEach((el) => {
-            if (el == drp) {
-                el?.classList.toggle("hidden");
-                el?.classList.toggle("flex");
-            } else {
-                el?.classList.add("hidden");
-                el?.classList.remove("flex");
-            }
-        });
+
+        if (dropdown.includes("drp")) {
+            document.querySelectorAll(".drp").forEach((el) => {
+                if (el == drp) {
+                    el?.classList.toggle("hidden");
+                    el?.classList.toggle("flex");
+                } else {
+                    el?.classList.add("hidden");
+                    el?.classList.remove("flex");
+                }
+            });
+        } else if (dropdown.includes("color")) {
+            document.querySelectorAll(".color").forEach((el) => {
+                if (el == drp) {
+                    el?.classList.toggle("hidden");
+                    el?.classList.toggle("block");
+                } else {
+                    el?.classList.add("hidden");
+                    el?.classList.remove("block");
+                }
+            });
+        }
     };
 
     const displayTypes = (typeArray: any[], setType: any, typeDrp: string) => {
@@ -30,8 +49,113 @@ export default function TopSection(props: any) {
         return types;
     };
 
-    const displayTagDrp = (tagArray: any[], setTag: any, tagDrp: string) => {
-        let tags = tagArray.map((tag: any, index: number) => {
+    const displayTagHolder = (
+        title: string,
+        tagArray: any[],
+        setTagArray: any
+    ) => {
+        return (
+            <div className="relative my-[10px]">
+                <div
+                    className="grid w-[130px]"
+                    style={{ gridTemplateColumns: "1fr 25px" }}
+                >
+                    <h3 className="inline-block">{title}</h3>
+                    <button
+                        className="plus-icon inline-block justify-right"
+                        onClick={() => handleDrp(`.${title}-drp`)}
+                    >
+                        +
+                    </button>
+                </div>
+                <div
+                    className={`drp ${title}-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden`}
+                >
+                    {displayTagDrp(title, tagArray, setTagArray)}
+                </div>
+                <div>{displayTags(tagArray, setTagArray)}</div>
+                {addTag(title, tagArray, setTagArray)}
+            </div>
+        );
+    };
+
+    const addTag = (title: string, tagArray: any[], setTagArray: any) => {
+        return (
+            <div
+                className={`color ${title}-color absolute flex-col z-10 hidden`}
+                style={{ maxHeight: "none" }}
+            >
+                <input
+                    className="border block"
+                    placeholder={title.substring(0, title.length - 1)}
+                    onChange={(event: any) => setTagName(event.target.value)}
+                />
+                <ChromePicker
+                    color={tagColor}
+                    onChange={(color) => setTagColor(color.hex)}
+                />
+                <button
+                    className="button w-[100%]"
+                    style={{ background: tagColor }}
+                    onClick={() => {
+                        if (tagName === "") {
+                        } else {
+                            setTagArray([
+                                ...tagArray,
+                                {
+                                    name: tagName,
+                                    color: tagColor,
+                                    checked: false,
+                                },
+                            ]);
+
+                            setTagName("");
+
+                            document
+                                .querySelectorAll(".color")
+                                .forEach((el) => {
+                                    el?.classList.remove("block");
+                                    el?.classList.add("hidden");
+                                });
+                        }
+                    }}
+                >
+                    Add
+                </button>
+                <button
+                    className="button w-[100%]"
+                    onClick={() => {
+                        document.querySelectorAll(".color").forEach((el) => {
+                            el?.classList.remove("block");
+                            el?.classList.add("hidden");
+                        });
+                    }}
+                >
+                    Cancel
+                </button>
+            </div>
+        );
+    };
+
+    const displayTagDrp = (title: string, tagArray: any[], setTag: any) => {
+        let tags;
+        let input = (
+            <div
+                className="realative grid"
+                style={{ gridTemplateColumns: "1fr 30px" }}
+            >
+                <input className="tagDrp border w-[100%]" />
+                <button
+                    className="tagDrp plus-icon"
+                    onClick={() => {
+                        handleDrp(`.${title}-color`);
+                    }}
+                >
+                    +
+                </button>
+            </div>
+        );
+        tags = tagArray.map((tag: any, index: number) => {
             return (
                 <div
                     className="tagDrp flex cursor-pointer hover:bg-blue-light"
@@ -53,10 +177,12 @@ export default function TopSection(props: any) {
                     }}
                 >
                     <input
+                        className="tagDrp"
                         type="checkbox"
                         checked={tag.checked}
                     />
                     <p
+                        className="tagDrp"
                         style={{
                             display: "inline-block",
                             textAlign: "left",
@@ -67,10 +193,15 @@ export default function TopSection(props: any) {
                 </div>
             );
         });
-        return tags;
+        return (
+            <div>
+                {input}
+                {tags}
+            </div>
+        );
     };
 
-    const displayTags = (tagArray: any[], setTag: any) => {
+    const displayTags = (tagArray: any[], setTagArray: any) => {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
@@ -81,7 +212,7 @@ export default function TopSection(props: any) {
                         <button
                             className="text-black hover:text-white"
                             onClick={() => {
-                                setTag(
+                                setTagArray(
                                     tagArray.map((t: any, i: number) => {
                                         if (i === index) {
                                             t.checked = false;
@@ -131,7 +262,10 @@ export default function TopSection(props: any) {
 
     return (
         <div className="my-[50px]">
-            <div className="grid mb-[30px]" style={{gridTemplateColumns: "450px 1fr"}}>
+            <div
+                className="grid mb-[30px]"
+                style={{ gridTemplateColumns: "450px 1fr" }}
+            >
                 <div className="relative">
                     Media Type
                     <div>
@@ -152,65 +286,21 @@ export default function TopSection(props: any) {
                 </div>
                 {articleType()}
             </div>
-            <div className="grid mb-[25px]" style={{gridTemplateColumns: "450px 1fr"}}>
-
-                <div className="relative my-[10px]">
-                    <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
-                        <h3 className="inline-block">Topics</h3>
-                        <button
-                            className="plus-icon inline-block justify-right"
-                            onClick={() => handleDrp(".Topics-drp")}
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div className="drp Topics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                        {displayTagDrp(
-                            props.topics,
-                            props.setTopics,
-                            ".Topics-drp"
-                        )}
-                    </div>
-                    <div>{displayTags(props.topics, props.setTopics)}</div>
-                </div>
-                <div className="relative  my-[10px]">
-                    <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
-                        <h3 className="inline-block">Subtopics</h3>
-                        <button
-                            className="plus-icon inline-block justify-right"
-                            onClick={() => handleDrp(".Subtopics-drp")}
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div className="drp Subtopics-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                        {displayTagDrp(
-                            props.subtopics,
-                            props.setSubtopics,
-                            ".Subtopics-drp"
-                        )}
-                    </div>
-                    <div>{displayTags(props.subtopics, props.setSubtopics)}</div>
-                </div>
-            </div>
-            <div className="relative my-[10px]">
-                <div className="grid w-[130px]" style={{ gridTemplateColumns: "1fr 25px" }}>
-                    <h3 className="inline-block">Subjects</h3>
-                    <button
-                        className="plus-icon inline-block justify-right"
-                        onClick={() => handleDrp(".Subjects-drp")}
-                    >
-                        +
-                    </button>
-                </div>
-                <div className="drp Subjects-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                    {displayTagDrp(
-                        props.subjects,
-                        props.setSubjects,
-                        ".Subjects-drp"
-                    )}
-                </div>
-                <div>{displayTags(props.subjects, props.setSubjects)}</div>
+            <div
+                className="grid mb-[25px]"
+                style={{ gridTemplateColumns: "450px 1fr" }}
+            >
+                {displayTagHolder("Topics", props.topics, props.setTopics)}
+                {displayTagHolder(
+                    "Subtopics",
+                    props.subtopics,
+                    props.setSubtopics
+                )}
+                {displayTagHolder(
+                    "Subjects",
+                    props.subjects,
+                    props.setSubjects
+                )}
             </div>
         </div>
     );
