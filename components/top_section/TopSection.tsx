@@ -88,6 +88,7 @@ export default function TopSection(props: any) {
                 <input
                     className="border block"
                     placeholder={title.substring(0, title.length - 1)}
+                    value={tagName}
                     onChange={(event: any) => setTagName(event.target.value)}
                 />
                 <ChromePicker
@@ -137,14 +138,24 @@ export default function TopSection(props: any) {
         );
     };
 
-    const displayTagDrp = (title: string, tagArray: any[], setTag: any) => {
+    const displayTagDrp = (
+        title: string,
+        tagArray: any[],
+        setTagArray: any
+    ) => {
         let tags;
         let input = (
             <div
                 className="realative grid"
                 style={{ gridTemplateColumns: "1fr 30px" }}
             >
-                <input className="tagDrp border w-[100%]" />
+                <input
+                    className="tagDrp border w-[100%]"
+                    placeholder={`Search ${title}`}
+                    onChange={(event: any) => {
+                        setTagName(event.target.value);
+                    }}
+                />
                 <button
                     className="tagDrp plus-icon"
                     onClick={() => {
@@ -155,44 +166,89 @@ export default function TopSection(props: any) {
                 </button>
             </div>
         );
-        tags = tagArray.map((tag: any, index: number) => {
-            return (
-                <div
-                    className="tagDrp flex cursor-pointer hover:bg-blue-light"
-                    onClick={() => {
-                        setTag(
-                            tagArray.map((t: any, i: number) => {
-                                if (i === index) {
-                                    if (t.checked) {
-                                        t.checked = false;
+        if (tagName) {
+            tags = tagArray.map((tag: any, index: number) => {
+                if (tag.name.includes(tagName)) {
+                    return (
+                        <div
+                            className="tagDrp flex cursor-pointer hover:bg-blue-light"
+                            onClick={() => {
+                                setTagArray(
+                                    tagArray.map((t: any, i: number) => {
+                                        if (i === index) {
+                                            if (t.checked) {
+                                                t.checked = false;
+                                            } else {
+                                                t.checked = true;
+                                            }
+                                            return t;
+                                        } else {
+                                            return t;
+                                        }
+                                    })
+                                );
+                            }}
+                        >
+                            <input
+                                className="tagDrp"
+                                type="checkbox"
+                                checked={tag.checked}
+                            />
+                            <p
+                                className="tagDrp"
+                                style={{
+                                    display: "inline-block",
+                                    textAlign: "left",
+                                }}
+                            >
+                                {tag.name}
+                            </p>
+                        </div>
+                    );
+                } else {
+                    return <></>;
+                }
+            });
+        } else {
+            tags = tagArray.map((tag: any, index: number) => {
+                return (
+                    <div
+                        className="tagDrp flex cursor-pointer hover:bg-blue-light"
+                        onClick={() => {
+                            setTagArray(
+                                tagArray.map((t: any, i: number) => {
+                                    if (i === index) {
+                                        if (t.checked) {
+                                            t.checked = false;
+                                        } else {
+                                            t.checked = true;
+                                        }
+                                        return t;
                                     } else {
-                                        t.checked = true;
+                                        return t;
                                     }
-                                    return t;
-                                } else {
-                                    return t;
-                                }
-                            })
-                        );
-                    }}
-                >
-                    <input
-                        className="tagDrp"
-                        type="checkbox"
-                        checked={tag.checked}
-                    />
-                    <p
-                        className="tagDrp"
-                        style={{
-                            display: "inline-block",
-                            textAlign: "left",
+                                })
+                            );
                         }}
                     >
-                        {tag.name}
-                    </p>
-                </div>
-            );
-        });
+                        <input
+                            className="tagDrp"
+                            type="checkbox"
+                            checked={tag.checked}
+                        />
+                        <p
+                            className="tagDrp"
+                            style={{
+                                display: "inline-block",
+                                textAlign: "left",
+                            }}
+                        >
+                            {tag.name}
+                        </p>
+                    </div>
+                );
+            });
+        }
         return (
             <div>
                 {input}
