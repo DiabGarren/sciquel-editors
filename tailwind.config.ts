@@ -16,14 +16,14 @@ const config: Config = {
     },
     colors: {
       blue: {
-        DEFAULT: '#57ADDE',
-        light: '#8ECAEC',
+        DEFAULT: '#57adde',
+        light: '#8ecaec',
       },
       white: {
-        DEFAULT: '#FFFFFF',
+        DEFAULT: '#ffffff',
       },
       red: {
-        DEFAULT: '#D41515',
+        DEFAULT: '#d41515',
       },
       black: {
         DEFAULT: '#000000',

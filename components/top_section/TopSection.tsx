@@ -1,10 +1,42 @@
 /* eslint-disable react/jsx-key */
-"use client";
-import { useState } from "react";
 import { ChromePicker } from "react-color";
 export default function TopSection(props: any) {
-    const [tagName, setTagName] = useState("");
-    const [tagColor, setTagColor] = useState("#8ECAEC");
+    if (props.topics.length === 0 || !props.topics) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:3000/api/topics");
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                props.setTopics(JSON.parse(xhr.responseText).topics);
+            }
+        };
+        xhr.send();
+    }
+
+    if (props.subtopics) {
+        if (props.subtopics.length === 0) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/api/subtopics");
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    props.setSubtopics(JSON.parse(xhr.responseText).subtopics);
+                }
+            };
+            xhr.send();
+        }
+    }
+
+    if (props.subjects) {
+        if (props.subjects.length === 0) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/api/subjects");
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    props.setSubjects(JSON.parse(xhr.responseText).subjects);
+                }
+            };
+            xhr.send();
+        }
+    }
 
     const handleDrp = (dropdown: string) => {
         let drp = document.querySelector(dropdown);
@@ -88,29 +120,31 @@ export default function TopSection(props: any) {
                 <input
                     className="border block"
                     placeholder={title.substring(0, title.length - 1)}
-                    value={tagName}
-                    onChange={(event: any) => setTagName(event.target.value)}
+                    value={props.tagName}
+                    onChange={(event: any) =>
+                        props.setTagName(event.target.value)
+                    }
                 />
                 <ChromePicker
-                    color={tagColor}
-                    onChange={(color) => setTagColor(color.hex)}
+                    color={props.tagColor}
+                    onChange={(color) => props.setTagColor(color.hex)}
                 />
                 <button
                     className="button w-[100%]"
-                    style={{ background: tagColor }}
+                    style={{ background: props.tagColor }}
                     onClick={() => {
-                        if (tagName === "") {
+                        if (props.tagName === "") {
                         } else {
                             setTagArray([
                                 ...tagArray,
                                 {
-                                    name: tagName,
-                                    color: tagColor,
+                                    name: props.tagName,
+                                    color: props.tagColor,
                                     checked: false,
                                 },
                             ]);
 
-                            setTagName("");
+                            props.setTagName("");
 
                             document
                                 .querySelectorAll(".color")
@@ -153,7 +187,7 @@ export default function TopSection(props: any) {
                     className="tagDrp border w-[100%]"
                     placeholder={`Search ${title}`}
                     onChange={(event: any) => {
-                        setTagName(event.target.value);
+                        props.setTagName(event.target.value);
                     }}
                 />
                 <button
@@ -166,9 +200,11 @@ export default function TopSection(props: any) {
                 </button>
             </div>
         );
-        if (tagName) {
+        if (props.tagName) {
             tags = tagArray.map((tag: any, index: number) => {
-                if (tag.name.includes(tagName)) {
+                if (
+                    tag.name.toLowerCase().includes(props.tagName.toLowerCase())
+                ) {
                     return (
                         <div
                             className="tagDrp flex cursor-pointer hover:bg-blue-light"
