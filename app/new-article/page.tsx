@@ -25,54 +25,16 @@ export default function NewPage(props: Props) {
     const articleTypes = ["Essay", "Digest"];
 
     const [topics, setTopics] = useState([]);
-    // const [topics, setTopics] = useState([
-    //     { name: "Astronomy", color: "#EAB308", checked: false },
-    //     { name: "Biology", color: "#3B82F6", checked: false },
-    //     { name: "Chemical Eng.", color: "#84CC16", checked: false },
-    //     { name: "Chemistry", color: "#EF4444", checked: false },
-    //     { name: "Comp Sci.", color: "#f97316", checked: false },
-    //     { name: "Electrical Eng.", color: "#8B5CF6", checked: false },
-    //     { name: "Envir. Science", color: "#F43F5E", checked: false },
-    //     { name: "Geology", color: "#22C55E", checked: false },
-    //     { name: "Mathematics", color: "#10B981", checked: false },
-    //     { name: "Medicine", color: "#84CC16", checked: false },
-    //     { name: "Mechanical Eng.", color: "#6366F1", checked: false },
-    //     { name: "Physics", color: "#06B6D4", checked: false },
-    //     { name: "Psychology", color: "#D946EF", checked: false },
-    //     { name: "Sociology", color: "#14B8A6", checked: false },
-    //     { name: "Technology", color: "#EC4899", checked: false },
-    // ]);
 
     const [subtopics, setSubtopics] = useState([]);
-    // const [subtopics, setSubtopics] = useState([
-    //     { name: "Artificial Intelligence", color: "#EF4444", checked: false },
-    //     { name: "Cardiology", color: "#84CC16", checked: false },
-    //     { name: "Geochemistry", color: "#3B82F6", checked: false },
-    //     { name: "Internet of things", color: "#F59E0B", checked: false },
-    //     { name: "Mineralogy", color: "#F59E0B", checked: false },
-    //     { name: "Oncology", color: "#84CC16", checked: false },
-    //     { name: "Paleontology", color: "#D946EF", checked: false },
-    //     { name: "Rheumatology", color: "#D946EF", checked: false },
-    //     { name: "Robotics", color: "#8B5CF6", checked: false },
-    //     { name: "Tectonics", color: "#F59E0B", checked: false },
-    // ]);
 
     const [subjects, setSubjects] = useState([]);
-    // const [subjects, setSubjects] = useState([
-    //     { name: "Anatomy", color: "#ef4444", checked: false },
-    //     { name: "Biochemistry", color: "#ec4899", checked: false },
-    //     { name: "Data Management", color: "#ec4899", checked: false },
-    //     { name: "Genetics", color: "#ef4444", checked: false },
-    //     { name: "Geochronology", color: "#22c55e", checked: false },
-    //     { name: "Geophysics", color: "#f59e0b", checked: false },
-    //     { name: "Mineralogy", color: "#a855f7", checked: false },
-    //     { name: "Nutrition", color: "#14b8a6", checked: false },
-    //     { name: "Programming", color: "#14b8a6", checked: false },
-    //     { name: "Risk Management", color: "#a855f7", checked: false },
-    // ]);
 
     const [tagName, setTagName] = useState("");
     const [tagColor, setTagColor] = useState("#8ECAEC");
+
+    const [allContributors, setAllContributors] = useState([]);
+    const [contributors, setContributors] = useState([]);
 
     const [manual, setManual] = useState(false);
     const [rows, setRows] = useState(3);
@@ -105,6 +67,10 @@ export default function NewPage(props: Props) {
         setTagName,
         tagColor,
         setTagColor,
+        allContributors,
+        setAllContributors,
+        contributors,
+        setContributors,
     };
 
     const generalProps = {

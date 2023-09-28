@@ -38,6 +38,22 @@ export default function TopSection(props: any) {
         }
     }
 
+    if (props.allContributors) {
+        if (props.allContributors.length === 0) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/api/users");
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    props.setAllContributors(JSON.parse(xhr.responseText).users);
+                }
+            };
+            xhr.send();
+        }
+    }
+    console.log(props.allContributors);
+
+    
+
     const handleDrp = (dropdown: string) => {
         let drp = document.querySelector(dropdown);
 
