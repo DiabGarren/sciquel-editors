@@ -34,8 +34,92 @@ export async function getTopics(filter: TopicsFilter = {}) {
     }
 }
 
-// export async function createTopic(topic: string) {
-//     try {
+export async function createTopic(name: string, color: string) {
+    try {
+        await connectDb();
 
-//     }
-// }
+        const topic = await Topics.create({
+            name: name,
+            color: color,
+            checked: false,
+        });
+
+        return {
+            topic,
+        };
+    } catch (err) {
+        return { err };
+    }
+}
+
+export async function getTopic(id: string) {
+    try {
+        await connectDb();
+        const parsedId = stringToObjectId(id);
+
+        if (!parsedId) {
+            return { error: "Topic not found" };
+        }
+
+        const topic = await Topics.findById(parsedId).lean().exec();
+        if (topic) {
+            return { topic };
+        } else {
+            return { error: "Topic not found" };
+        }
+    } catch (err) {
+        return { err };
+    }
+}
+
+export async function updateTopic(
+    id: string,
+    { name, color }: { name: string; color: string }
+) {
+    try {
+        await connectDb();
+
+        const parsedId = stringToObjectId(id);
+
+        if (!parsedId) {
+            return { error: "Topic not found" };
+        }
+
+        const topic = await Topics.findByIdAndUpdate(
+            parsedId,
+            { name, color, checked: false },
+            { new: true }
+        )
+            .lean()
+            .exec();
+        if (topic) {
+            return { topic };
+        } else {
+            return { error: "Topic not found" };
+        }
+    } catch (err) {
+        return { err };
+    }
+}
+
+export async function deleteTopic(id: string) {
+    try {
+        await connectDb();
+
+        const parsedId = stringToObjectId(id);
+
+        if (!parsedId) {
+            return { error: "Topic not found" };
+        }
+
+        const topic = await Topics.findByIdAndDelete(parsedId).exec();
+
+        if (topic) {
+            return {};
+        } else {
+            return { error: "Topic not found" };
+        }
+    } catch (err) {
+        return { err };
+    }
+}

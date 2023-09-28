@@ -112,13 +112,18 @@ export default function TopSection(props: any) {
     };
 
     const addTag = (title: string, tagArray: any[], setTagArray: any) => {
+        const pickerStyles = {
+            default: {
+                picker: { width: "100%" },
+            },
+        };
         return (
             <div
-                className={`color ${title}-color absolute flex-col z-10 hidden`}
+                className={`color ${title}-color absolute flex-col w-[250px] z-10 hidden`}
                 style={{ maxHeight: "none" }}
             >
                 <input
-                    className="border block"
+                    className="border block w-[100%]"
                     placeholder={title.substring(0, title.length - 1)}
                     value={props.tagName}
                     onChange={(event: any) =>
@@ -127,6 +132,8 @@ export default function TopSection(props: any) {
                 />
                 <ChromePicker
                     color={props.tagColor}
+                    disableAlpha={true}
+                    styles={pickerStyles}
                     onChange={(color) => props.setTagColor(color.hex)}
                 />
                 <button
