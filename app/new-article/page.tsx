@@ -1,14 +1,10 @@
 "use client";
-import ImageContainer from "@/components/cover_image/ImageContainer";
-import GeneralByline from "@/components/general_byline/GeneralByline";
-import TableContainer from "@/components/table_graph/TableContainer";
-import TopSection from "@/components/top_section/TopSection";
+import ImageContainer from "@/components/cover_image/imageContainer";
+import GeneralByline from "@/components/general_byline/generalByline";
+import TableContainer from "@/components/table_graph/tableContainer";
+import TopSection from "@/components/top_section/topSection";
 import { useState, useRef } from "react";
 import { type Crop, type PixelCrop } from "react-image-crop";
-
-type Props = {
-    topics: [Topics];
-};
 
 type Topics = {
     _id: string;
@@ -17,7 +13,7 @@ type Topics = {
     checked: boolean;
 };
 
-export default function NewPage(props: Props) {
+export default function NewPage(props: any) {
     const [mediaType, setMediaType] = useState("Article");
     const mediaTypes = ["Article", "Podcast", "Video", "Infographic"];
 
@@ -34,7 +30,11 @@ export default function NewPage(props: Props) {
     const [tagColor, setTagColor] = useState("#8ECAEC");
 
     const [allContributors, setAllContributors] = useState([]);
-    const [contributors, setContributors] = useState([]);
+    const [contributors, setContributors] = useState([
+        { name: "Animator", contributors: [], checked: false },
+        { name: "Author", contributors: [], checked: false },
+        { name: "Illustrator", contributors: [], checked: false },
+    ]);
 
     const [manual, setManual] = useState(false);
     const [rows, setRows] = useState(3);
@@ -112,10 +112,7 @@ export default function NewPage(props: Props) {
                 document.querySelectorAll(".drp").forEach((el) => {
                     if (
                         event.target.parentNode.parentNode.children[1] != el &&
-                        !event.target.parentNode.parentNode.children[0].classList.contains(
-                            "tagDrp"
-                        ) &&
-                        !event.target.classList.contains("tagDrp")
+                        !event.target.classList.contains("Drp")
                     ) {
                         el?.classList.add("hidden");
                         el?.classList.remove("flex");

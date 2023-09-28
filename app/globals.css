@@ -64,18 +64,19 @@ body {
         @apply inline-block rounded-tag px-[8px] mx-[2px] text-white;
     }
 
-    .tagDrp input[type="checkbox"] {
+    input[type="checkbox"].switch {
         appearance: none;
         width: 20px;
         margin: 2.5px;
         aspect-ratio: 1/1;
+        cursor: pointer;
         background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="51" height="26" viewBox="0 0 51 26" fill="none"><path d="M20 25H6C3.23858 25 1 22.7614 1 20V6C1 3.23858 3.23858 1 6 1H20C22.7614 1 25 3.23858 25 6V20C25 22.7614 22.7614 25 20 25Z" fill="%2357ADDE" stroke="black"/><path d="M11 19L5.5 13.5L8 11L11 14L18 7L21 10L11 19Z" fill="white"/><path d="M45 25H31C28.2386 25 26 22.7614 26 20V6C26 3.23858 28.2386 1 31 1H45C47.7614 1 50 3.23858 50 6V20C50 22.7614 47.7614 25 45 25Z" stroke="black"/></svg>');
         background-size: cover;
         background-position: 20px;
         transition: background-position 0.5s;
     }
 
-    .tagDrp input[type="checkbox"]:checked {
+    input[type="checkbox"].switch:checked {
         background-position: 0px;
     }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect } from "react";
-import ImagePreview from "./ImagePreview";
+import ImagePreview from "./imagePreview";
 import ReactCrop from "react-image-crop";
 
 export default function ImageContainer(props: any) {

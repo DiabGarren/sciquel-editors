@@ -1,5 +1,5 @@
-import RenderTable from "./RenderTable";
-import Render_Graph from "./RenderGraph";
+import RenderTable from "./renderTable";
+import Render_Graph from "./renderGraph";
 
 export default function TableContainer(props: any) {
 
