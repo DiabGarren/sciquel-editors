@@ -1,58 +1,45 @@
 /* eslint-disable react/jsx-key */
 import { ChromePicker } from "react-color";
 export default function TopSection(props: any) {
-    if (props.topics.length === 0 || !props.topics) {
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "http://localhost:3000/api/topics");
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-                props.setTopics(JSON.parse(xhr.responseText).topics);
-            }
-        };
-        xhr.send();
-    }
-
-    if (props.subtopics) {
-        if (props.subtopics.length === 0) {
+    if (
+        props.topics &&
+        props.subtopics &&
+        props.subjects &&
+        props.allContributors
+    ) {
+        if (
+            props.topics.length === 0 ||
+            props.subtopics.length === 0 ||
+            props.subjects.length === 0 ||
+            props.allContributors.length === 0
+        ) {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3000/api/subtopics");
+            xhr.open("GET", "http://localhost:3000/api/top-section");
             xhr.onload = () => {
                 if (xhr.status === 200) {
-                    props.setSubtopics(JSON.parse(xhr.responseText).subtopics);
+                    if (props.topics.length === 0) {
+                        props.setTopics(JSON.parse(xhr.responseText).topics);
+                    }
+                    if (props.subtopics.length === 0) {
+                        props.setSubtopics(
+                            JSON.parse(xhr.responseText).subtopics
+                        );
+                    }
+                    if (props.subjects.length === 0) {
+                        props.setSubjects(
+                            JSON.parse(xhr.responseText).subjects
+                        );
+                    }
+                    if (props.allContributors.length === 0) {
+                        props.setAllContributors(
+                            JSON.parse(xhr.responseText).contributors
+                        );
+                    }
                 }
             };
             xhr.send();
         }
     }
-
-    if (props.subjects) {
-        if (props.subjects.length === 0) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3000/api/subjects");
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    props.setSubjects(JSON.parse(xhr.responseText).subjects);
-                }
-            };
-            xhr.send();
-        }
-    }
-
-    if (props.allContributors) {
-        if (props.allContributors.length === 0) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3000/api/users");
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    props.setAllContributors(JSON.parse(xhr.responseText).users);
-                }
-            };
-            xhr.send();
-        }
-    }
-    console.log(props.allContributors);
-
-    
 
     const handleDrp = (dropdown: string) => {
         let drp = document.querySelector(dropdown);
