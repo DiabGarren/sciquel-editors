@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /* eslint-disable react/jsx-key */
 export default function GeneralByline(props: any) {
     const displayTags = (tagArray: any[]) => {
@@ -21,6 +23,35 @@ export default function GeneralByline(props: any) {
         }
     };
 
+    const displayContributors = () => {
+        let contributors = props.topSection.contributors.map((t: any) => {
+            let type = t.contributors.map((con: any, index: number) => {
+                if (con.checked) {
+                    return (
+                        <div>
+                            <Image
+                                className="inline-block"
+                                src={"default_profile.svg"}
+                                alt={"default_profile"}
+                                width={55}
+                                height={55}
+                            />
+                            <p className="inline-block">{con.name}</p>
+                        </div>
+                    );
+                }
+            });
+            if (t.contributors.length === 0) return <></>;
+            else
+                return (
+                    <div>
+                        <p>{t.name}s:</p> {type}
+                    </div>
+                );
+        });
+        return <div>{contributors}</div>;
+    };
+
     return (
         <div className="my-[50px]">
             <div>Media Type: {props.topSection.mediaType}</div>
@@ -28,6 +59,7 @@ export default function GeneralByline(props: any) {
             <div>Topics:{displayTags(props.topSection.topics)}</div>
             <div>Subtopics:{displayTags(props.topSection.subtopics)}</div>
             <div>Subjects:{displayTags(props.topSection.subjects)}</div>
+            {displayContributors()}
         </div>
     );
 }

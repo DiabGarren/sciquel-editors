@@ -114,12 +114,14 @@ export default function Contributors(props: any) {
                 if (t.checked) {
                     return (
                         <div>
-                            <Image 
-                            src={"default_profile.svg"}
-                            alt={"default_profile"}
-                            width={68}
-                            height={68}/>
-                            <p>{t.name}</p>
+                            <Image
+                                className="inline-block"
+                                src={"default_profile.svg"}
+                                alt={"default_profile"}
+                                width={68}
+                                height={68}
+                            />
+                            <p className="inline-block">{t.name}</p>
                         </div>
                     );
                 }
