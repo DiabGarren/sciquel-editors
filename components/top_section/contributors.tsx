@@ -27,7 +27,16 @@ export default function Contributors(props: any) {
                                         t.contributors = [];
                                     } else {
                                         t.checked = true;
-                                        t.contributors = props.allContributors;
+                                        t.contributors =
+                                            props.allContributors.map(
+                                                (user: any) => {
+                                                    return {
+                                                        name: `${user.firstName} ${user.lastName}`,
+                                                        image: user.image,
+                                                        checked: false,
+                                                    };
+                                                }
+                                            );
                                     }
 
                                     return t;

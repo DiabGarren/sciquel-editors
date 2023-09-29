@@ -34,15 +34,7 @@ export default function TopSection(props: any) {
                     }
                     if (props.allContributors.length === 0) {
                         props.setAllContributors(
-                            JSON.parse(xhr.responseText).contributors.map(
-                                (user: any) => {
-                                    return {
-                                        name: `${user.firstName} ${user.lastName}`,
-                                        image: user.image,
-                                        checked: false,
-                                    };
-                                }
-                            )
+                            JSON.parse(xhr.responseText).contributors
                         );
                     }
                 }
@@ -56,7 +48,7 @@ export default function TopSection(props: any) {
 
         if (dropdown.includes("drp")) {
             document.querySelectorAll(".drp").forEach((el) => {
-                if (el == drp) {                    
+                if (el == drp) {
                     el?.classList.toggle("hidden");
                     el?.classList.toggle("flex");
                 } else {
