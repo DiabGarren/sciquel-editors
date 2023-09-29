@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /* eslint-disable react/jsx-key */
 export default function Contributors(props: any) {
     const displayTypesDrp = () => {
@@ -108,6 +110,20 @@ export default function Contributors(props: any) {
                     </div>
                 );
             });
+            let tags = type.contributors.map((t: any, i: number) => {
+                if (t.checked) {
+                    return (
+                        <div>
+                            <Image 
+                            src={"default_profile.svg"}
+                            alt={"default_profile"}
+                            width={68}
+                            height={68}/>
+                            <p>{t.name}</p>
+                        </div>
+                    );
+                }
+            });
             if (type.contributors.length > 0) {
                 return (
                     <div className="relative my-[10px]">
@@ -140,6 +156,7 @@ export default function Contributors(props: any) {
                             </div>
                             {cons}
                         </div>
+                        <div>{tags}</div>
                     </div>
                 );
             } else {
