@@ -30,6 +30,7 @@ const config: Config = {
       },
       grey: {
         DEFAULT: '#505250',
+        light: '#91918e',
       }
     },
     borderRadius: {
