@@ -137,6 +137,25 @@ export default function TopSection(props: any) {
 
     return (
         <div className="my-[50px]">
+            <div className="w-[450px] my-[15px]">
+                <h3>
+                    Key words{" "}
+                    <span className="text-red text-[15px]">
+                        *only letters and numbers
+                    </span>
+                </h3>
+                <input
+                    className="border rounded px-[5px] w-[250px]"
+                    placeholder="certain-key-words"
+                    value={props.urlSlug}
+                    onChange={(event) =>
+                        props.setUrlSlug(event.target.value.replace(" ", "-").replace(/[,./\\!@#$%^&*()_+=<>?`~;:'"|]/g, ""))
+                    }
+                />
+                <p className="text-grey-light text-[12px]">
+                    sciquel.org/stories/yyyy/mm/dd/{props.urlSlug || "certain-key-words"}
+                </p>
+            </div>
             <div
                 className="grid mb-[30px]"
                 style={{ gridTemplateColumns: "450px 1fr" }}
@@ -145,13 +164,13 @@ export default function TopSection(props: any) {
                     Media Type
                     <div>
                         <input
-                            className="MediaType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
+                            className="MediaType inline w-[250px] rounded border cursor-pointer px-[5px]"
                             value={props.mediaType}
                             onClick={() => handleDrp(".MediaType-drp")}
                             readOnly
                         />
                     </div>
-                    <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
+                    <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border bg-white z-10 hidden">
                         {displayTypes(
                             props.mediaTypes,
                             props.setMediaType,
