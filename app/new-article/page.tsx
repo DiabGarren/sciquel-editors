@@ -4,15 +4,7 @@ import GeneralByline from "@/components/general_byline/generalByline";
 import HeadingContainer from "@/components/heading/headingContainer";
 import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
-import { useState, useRef } from "react";
-import { type Crop, type PixelCrop } from "react-image-crop";
-
-type Topics = {
-    _id: string;
-    name: string;
-    color: string;
-    checked: boolean;
-};
+import { useState } from "react";
 
 export default function NewPage(props: any) {
     const [heading, setHeading] = useState("");
@@ -47,13 +39,8 @@ export default function NewPage(props: any) {
     let [cell, setCell] = useState([]);
     const [graphType, setGraphType] = useState("bar");
 
-    const [image, setImage] = useState("");
-    const imgRef = useRef<HTMLImageElement>(null);
-    const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-    const [crop, setCrop] = useState<Crop>();
-    const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-    const [scale, setScale] = useState(1);
-    const [rotate, setRotate] = useState(0);
+    const [image, setImage] = useState(null);
+    const [finalImage, setFinalImage] = useState(null);
 
     const headingProps = {
         heading,
@@ -107,16 +94,8 @@ export default function NewPage(props: any) {
     const imageProps = {
         image,
         setImage,
-        imgRef,
-        previewCanvasRef,
-        crop,
-        setCrop,
-        completedCrop,
-        setCompletedCrop,
-        scale,
-        setScale,
-        rotate,
-        setRotate,
+        finalImage,
+        setFinalImage,
     };
 
     return (
@@ -134,7 +113,7 @@ export default function NewPage(props: any) {
                 });
             }}
         >
-            {/* <ImageContainer {...imageProps} /> */}
+            <ImageContainer {...imageProps} />
             <HeadingContainer {...headingProps} />
             <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />
