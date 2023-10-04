@@ -7,7 +7,7 @@ import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 
 export default function NewPage(props: any) {
-    const [preview, setPreview] = useState(false);
+    const [preview, setPreview] = useState(true);
 
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");

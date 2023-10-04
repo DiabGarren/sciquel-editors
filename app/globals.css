@@ -38,15 +38,19 @@ body {
     background: #57adde;
     border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #8ecaec;
 }
+
 h1 {
     font-size: 2em;
 }
+
 h2 {
     font-size: 1.5em;
 }
+
 h3 {
     font-size: 1.17em;
 }
@@ -93,11 +97,13 @@ h3 {
         width: 250px;
     }
 
-    .textEditor .ql-toolbar{
+    .textEditor .ql-toolbar {
         border-radius: 5px 5px 0 0;
         padding: 2px 5px !important;
     }
-    .textEditor .ql-container{
+
+    .textEditor .ql-container {
         border-radius: 0 0 5px 5px;
     }
+
 }

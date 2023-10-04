@@ -1,32 +1,41 @@
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import parse from "html-react-parser";
+import { alegreya_sans_sc } from "@/utils/fonts";
 
 export default function HeadingContainer(props: any) {
     var toolbarOptions = ["bold", "italic", "underline", "strike"];
     const modules = { toolbar: toolbarOptions };
     if (props.preview) {
-        const  style={textShadow: "0 0 5px black, 0 0 15px black"};
+        const style = {
+            textShadow: "0 0 5px black, 0 0 15px black",
+            fontFamily: alegreya_sans_sc.style.fontFamily,
+            fontWeight: "700",
+        };
         let heading;
         let subheading;
 
         if (props.heading === "") {
-            heading = <h1 style={style}>Heading</h1>;
+            heading = "Heading";
         } else {
-            heading = <h1 style={style}>{parse(props.heading)}</h1>;
+            heading = parse(props.heading);
         }
         if (props.subheading === "") {
-            subheading = <h2 className="mt-[15px]" style={style}>Subheading</h2>;
+            subheading = "Subheading";
         } else {
-            subheading = <h2 className="mt-[15px]" style={style}>{parse(props.subheading)}</h2>;
+            subheading = parse(props.subheading);
         }
 
         return (
-            <div className="absolute left-[150px] top-[500px] text-white">
-                {heading}
-                {subheading}
+            <div className="absolute left-[100px] top-[680px] text-white">
+                <h1 className="text-[6rem]" style={style}>
+                    {heading}
+                </h1>
+                <h2 className="text-[2.25rem]" style={style}>
+                    {subheading}
+                </h2>
             </div>
-        )
+        );
     } else {
         return (
             <div className="w-[750px] mx-[auto]  my-[50px]">
