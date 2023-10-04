@@ -41,9 +41,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #8ecaec;
 }
-
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.5em;
+}
 h3 {
-    font-size: 18px;
+    font-size: 1.17em;
 }
 
 @layer components {
@@ -82,6 +87,10 @@ h3 {
 
     input[type="checkbox"].switch:checked {
         background-position: 0px;
+    }
+
+    .textEditor {
+        width: 250px;
     }
 
     .textEditor .ql-toolbar{

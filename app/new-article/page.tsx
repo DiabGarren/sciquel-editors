@@ -7,6 +7,8 @@ import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 
 export default function NewPage(props: any) {
+    const [preview, setPreview] = useState(false);
+
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
 
@@ -43,6 +45,7 @@ export default function NewPage(props: any) {
     const [finalImage, setFinalImage] = useState(null);
 
     const headingProps = {
+        preview,
         heading,
         setHeading,
         subheading,
@@ -50,6 +53,7 @@ export default function NewPage(props: any) {
     };
 
     const topSectionProps = {
+        preview,
         urlSlug,
         setUrlSlug,
         mediaType,
@@ -79,6 +83,7 @@ export default function NewPage(props: any) {
     };
 
     const graphProps = {
+        preview,
         manual,
         setManual,
         rows,
@@ -92,15 +97,38 @@ export default function NewPage(props: any) {
     };
 
     const imageProps = {
+        preview,
         image,
         setImage,
         finalImage,
         setFinalImage,
     };
 
+    const previewButton = () => {
+        if (preview) {
+            return (
+                <button
+                    className="button absolute right-[25px]"
+                    style={{boxShadow: "0 0 0 2px rgb(0,0,0)"}}
+                    onClick={() => setPreview(false)}
+                >
+                    End preview
+                </button>
+            );
+        } else {
+            return (
+                <button
+                    className="button absolute right-[25px]"
+                    onClick={() => setPreview(true)}
+                >
+                    Preview page
+                </button>
+            );
+        }
+    };
+
     return (
         <main
-            className="m-[50px]"
             onClick={(event: any) => {
                 document.querySelectorAll(".drp").forEach((el) => {
                     if (
@@ -113,11 +141,12 @@ export default function NewPage(props: any) {
                 });
             }}
         >
-            <ImageContainer {...imageProps} />
-            <HeadingContainer {...headingProps} />
-            <TopSection {...topSectionProps} />
-            <TableContainer {...graphProps} />
-            <GeneralByline {...generalProps} />
+                <div className="sticky top-[20px]">{previewButton()}</div>
+                <ImageContainer {...imageProps} />
+                <HeadingContainer {...headingProps} />
+                <TopSection {...topSectionProps} />
+                <TableContainer {...graphProps} />
+                <GeneralByline {...generalProps} />
         </main>
     );
 }

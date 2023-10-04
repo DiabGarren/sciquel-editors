@@ -9,11 +9,11 @@ export default function TableContainer(props: any) {
     // Line graph
     //Histogram
     return (
-        <div>
+        <div className="w-[750px] mx-[auto] my-[50px]">
             <div>
-                <h1>Table</h1>
+                <h3>Table</h3>
                 <button className="button" onClick={() => props.setManual(true)}>Enter Manually</button>
-                <h2>Or</h2>
+                <h4>Or</h4>
                 <button className="button" onClick={() => props.setManual(false)}>
                     Updload Spreadsheet
                 </button>

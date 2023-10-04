@@ -53,7 +53,7 @@ export default function GeneralByline(props: any) {
     };
 
     return (
-        <div className="my-[50px]">
+        <div className="w-[750px] mx-[auto]  my-[50px]">
             <div>Media Type: {props.topSection.mediaType}</div>
             {articleType()}
             <div>Topics:{displayTags(props.topSection.topics)}</div>

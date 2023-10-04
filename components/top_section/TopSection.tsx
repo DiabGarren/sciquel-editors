@@ -136,7 +136,7 @@ export default function TopSection(props: any) {
     };
 
     return (
-        <div className="my-[50px]">
+        <div className="w-[750px] mx-[auto]">
             <div className="w-[450px] my-[15px]">
                 <h3>
                     Key words{" "}

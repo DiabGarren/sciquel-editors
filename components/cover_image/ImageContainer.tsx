@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { join } from "path";
 
 export default function ImageContainer(props: any) {
     const upload = async () => {
@@ -17,7 +16,7 @@ export default function ImageContainer(props: any) {
         if (!props.finalImage) {
             return <></>;
         }
-        
+
         return (
             <Image
                 src={`/images/${props.finalImage.name}`}
@@ -28,22 +27,47 @@ export default function ImageContainer(props: any) {
             // <img src={`/images/${props.finalImage.name}`} width={250}/>
         );
     };
-    return (
-        <div className="my-[15px]">
-            <h3>Cover Image</h3>
-            <input
-                className="block"
-                type="file"
-                onChange={(event) => {
-                    props.setFinalImage(null);
-                    props.setImage(event.target.files?.[0]);
-                }}
-                accept="image/png, image/gif, image/jpeg"
-            />
-            <button className="button" onClick={upload}>
-                Upload
-            </button>
-            {displayImage()}
-        </div>
-    );
+
+    if (props.preview) {
+        // return (
+        //     <div
+        //         className="w-[100%] h-[700px] bg-center bg-no-repeat"
+        //         style={{ backgroundImage: "url('/images/bobtail.png')" }}
+        //     ></div>
+        // );
+        if (props.finalImage) {
+            return (
+                <div
+                    className="w-[100%] h-[700px] bg-center bg-no-repeat"
+                    style={{ backgroundImage: `url('/images/${props.finalImage.name}')` }}
+                ></div>
+            );
+        } else {
+            return (
+                <div
+                    className="w-[100%] h-[700px] bg-center bg-no-repeat"
+                    style={{ backgroundImage: "url('/images/bobtail.png')" }}
+                ></div>
+            );
+        }
+    } else {
+        return (
+            <div className="w-[750px] mx-[auto]  my-[50px] mt-[20px]">
+                <h3>Cover Image</h3>
+                <input
+                    className="block"
+                    type="file"
+                    onChange={(event) => {
+                        props.setFinalImage(null);
+                        props.setImage(event.target.files?.[0]);
+                    }}
+                    accept="image/png, image/gif, image/jpeg"
+                />
+                <button className="button" onClick={upload}>
+                    Upload
+                </button>
+                {displayImage()}
+            </div>
+        );
+    }
 }
