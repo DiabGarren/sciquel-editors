@@ -7,7 +7,7 @@ import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 
 export default function NewPage(props: any) {
-    const [preview, setPreview] = useState(true);
+    const [preview, setPreview] = useState(false);
 
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
@@ -105,26 +105,26 @@ export default function NewPage(props: any) {
     };
 
     const previewButton = () => {
+        let text;
+        let clickFunc;
         if (preview) {
-            return (
-                <button
-                    className="button absolute right-[25px]"
-                    style={{boxShadow: "0 0 0 2px rgb(0,0,0)"}}
-                    onClick={() => setPreview(false)}
-                >
-                    End preview
-                </button>
-            );
+            text = "End preview"
+            clickFunc = () => setPreview(false)
+
         } else {
-            return (
-                <button
-                    className="button absolute right-[25px]"
-                    onClick={() => setPreview(true)}
-                >
-                    Preview page
-                </button>
-            );
+            text = "Preview page"
+            clickFunc = () => setPreview(true)
+
         }
+        return (
+            <button
+                className="button absolute right-[0px] py-[10px] px-[10px] text-[1.1rem]"
+                style={{boxShadow: "0 0 10px black"}}
+                onClick={clickFunc}
+            >
+                {text}
+            </button>
+        )
     };
 
     return (
@@ -141,12 +141,12 @@ export default function NewPage(props: any) {
                 });
             }}
         >
-                <div className="sticky top-[20px]">{previewButton()}</div>
-                <ImageContainer {...imageProps} />
-                <HeadingContainer {...headingProps} />
-                <TopSection {...topSectionProps} />
-                <TableContainer {...graphProps} />
-                <GeneralByline {...generalProps} />
+            <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div>
+            <ImageContainer {...imageProps} />
+            <HeadingContainer {...headingProps} />
+            <TopSection {...topSectionProps} />
+            <TableContainer {...graphProps} />
+            <GeneralByline {...generalProps} />
         </main>
     );
 }
