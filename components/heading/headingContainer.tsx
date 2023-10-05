@@ -27,13 +27,15 @@ export default function HeadingContainer(props: any) {
         }
 
         return (
-            <div className="absolute left-[100px] top-[680px] text-white">
-                <h1 className="text-[6rem]" style={style}>
-                    {heading}
-                </h1>
-                <h2 className="text-[2.25rem]" style={style}>
-                    {subheading}
-                </h2>
+            <div className="absolute w-[100%] top-[350px] text-white">
+                <div className="w-[850px] mx-[auto]">
+                    <h1 className="text-[4rem] h-[70px]" style={style}>
+                        {heading}
+                    </h1>
+                    <h2 className="text-[2.25rem]" style={style}>
+                        {subheading}
+                    </h2>
+                </div>
             </div>
         );
     } else {
