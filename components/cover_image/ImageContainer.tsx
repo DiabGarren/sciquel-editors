@@ -35,21 +35,18 @@ export default function ImageContainer(props: any) {
         //         style={{ backgroundImage: "url('/images/bobtail.png')" }}
         //     ></div>
         // );
+        let image = { backgroundImage: "url('/images/bobtail.png')" };
         if (props.finalImage) {
-            return (
-                <div
-                    className="w-[100%] h-[700px] bg-center bg-no-repeat"
-                    style={{ backgroundImage: `url('/images/${props.finalImage.name}')` }}
-                ></div>
-            );
-        } else {
-            return (
-                <div
-                    className="w-[100%] h-[955px] bg-center bg-cover bg-no-repeat"
-                    style={{ backgroundImage: "url('/images/bobtail.png')"}}
-                ></div>
-            );
+            image = {
+                backgroundImage: `url('/images/${props.finalImage.name}')`,
+            };
         }
+        return (
+            <div
+                className="w-[100%] h-[955px] bg-center bg-cover bg-no-repeat"
+                style={image}
+            ></div>
+        );
     } else {
         return (
             <div className="w-[750px] mx-[auto]  my-[50px] mt-[20px]">
