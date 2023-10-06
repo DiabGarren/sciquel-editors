@@ -1,7 +1,9 @@
 "use client";
-import ImageContainer from "@/components/cover_image/imageContainer";
+import CoverImageEditor from "@/components/cover_image/editor/coverImageEditor";
+import CoverImagePreview from "@/components/cover_image/preview/coverImagePreivew";
 import GeneralByline from "@/components/general_byline/generalByline";
-import HeadingContainer from "@/components/heading/headingContainer";
+import HeadingContainerEditor from "@/components/heading/editor/headingContainerEditor";
+import HeadingContainerPreview from "@/components/heading/preview/headingContainerPreview";
 import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
@@ -102,33 +104,33 @@ export default function NewPage(props: any) {
         setImage,
         finalImage,
         setFinalImage,
+        headingProps
     };
 
     const previewButton = () => {
         let text;
         let clickFunc;
         if (preview) {
-            text = "End preview"
-            clickFunc = () => setPreview(false)
-
+            text = "End preview";
+            clickFunc = () => setPreview(false);
         } else {
-            text = "Preview page"
-            clickFunc = () => setPreview(true)
-
+            text = "Preview page";
+            clickFunc = () => setPreview(true);
         }
         return (
             <button
                 className="button absolute right-[0px] py-[10px] px-[10px] text-[1.1rem]"
-                style={{boxShadow: "0 0 10px black"}}
+                style={{ boxShadow: "0 0 10px black" }}
                 onClick={clickFunc}
             >
                 {text}
             </button>
-        )
+        );
     };
 
     return (
-        <main
+        <main className="grid"
+        style={{gridTemplateColumns: "650px 1200px"}}
             onClick={(event: any) => {
                 document.querySelectorAll(".drp").forEach((el) => {
                     if (
@@ -141,12 +143,23 @@ export default function NewPage(props: any) {
                 });
             }}
         >
-            <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div>
-            <ImageContainer {...imageProps} />
-            <HeadingContainer {...headingProps} />
+            {/* <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div> */}
+            <div className="p-[15px]">
+                <div>
+                    <CoverImageEditor {...imageProps} />
+                </div>
+                <div>
+                    <HeadingContainerEditor {...headingProps} />
+                </div>
+            </div>
+            <div className="relative">
+                <CoverImagePreview {...imageProps} />
+
+            </div>
+            {/* 
             <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />
-            <GeneralByline {...generalProps} />
+            <GeneralByline {...generalProps} /> */}
         </main>
     );
 }
