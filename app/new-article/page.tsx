@@ -116,7 +116,6 @@ export default function NewPage(props: any) {
 
     return (
         <main className="grid" style={{ gridTemplateColumns: "650px 1200px" }}>
-            {/* <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div> */}
             <div
                 className="p-[15px]"
                 style={{
