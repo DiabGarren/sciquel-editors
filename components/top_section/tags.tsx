@@ -1,3 +1,4 @@
+import { TrashIcon } from "@heroicons/react/20/solid";
 import { ChromePicker } from "react-color";
 
 /* eslint-disable react/jsx-key */
@@ -8,9 +9,9 @@ export default function Tags(props: any) {
         setTagArray: any
     ) => {
         return (
-            <div className="relative my-[10px]">
+            <div className="relative mb-[20px]">
                 <div
-                    className="grid w-[130px]"
+                    className="grid w-[150px]"
                     style={{ gridTemplateColumns: "1fr 25px" }}
                 >
                     <h3 className="inline-block">{title}</h3>
@@ -26,7 +27,12 @@ export default function Tags(props: any) {
                 >
                     {displayTagDrp(title, tagArray, setTagArray)}
                 </div>
-                <div>{displayTags(tagArray, setTagArray)}</div>
+                <div
+                    className="my-[5px] w-[450px]"
+                    style={{ maxHeight: "65px", overflowY: "auto" }}
+                >
+                    {displayTags(tagArray, setTagArray)}
+                </div>
                 {addTag(title, tagArray, setTagArray)}
             </div>
         );
@@ -217,11 +223,14 @@ export default function Tags(props: any) {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
-                    <div className="tag" style={{ backgroundColor: tag.color }}>
+                    <div
+                        className="tag my-[2px]"
+                        style={{ backgroundColor: tag.color }}
+                    >
                         <p className="inline-block text-white mr-[5px]">
                             {tag.name}
                         </p>
-                        <button
+                        {/* <button
                             className="text-black hover:text-white"
                             onClick={() => {
                                 setTagArray(
@@ -235,7 +244,21 @@ export default function Tags(props: any) {
                             }}
                         >
                             x
-                        </button>
+                        </button> */}
+                        <TrashIcon
+                            className="trash-icon inline-block h-[21px]"
+                            aria-hidden="true"
+                            onClick={() => {
+                                setTagArray(
+                                    tagArray.map((t: any, i: number) => {
+                                        if (i === index) {
+                                            t.checked = false;
+                                            return t;
+                                        } else return t;
+                                    })
+                                );
+                            }}
+                        />
                     </div>
                 );
             }
@@ -243,10 +266,7 @@ export default function Tags(props: any) {
         return tags;
     };
     return (
-        <div
-            className="grid mb-[25px]"
-            style={{ gridTemplateColumns: "450px 1fr" }}
-        >
+        <div className="mb-[30px]">
             {displayTagHolder("Topics", props.topics, props.setTopics)}
             {displayTagHolder("Subtopics", props.subtopics, props.setSubtopics)}
             {displayTagHolder("Subjects", props.subjects, props.setSubjects)}
