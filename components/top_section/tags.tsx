@@ -9,7 +9,7 @@ import {
     DropdownMenu,
     DropdownTrigger,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { ChromePicker } from "react-color";
 
 interface Tag {
@@ -20,50 +20,28 @@ interface Tag {
 
 export default function Tags(props: any) {
     const [selectedTopics, setSelectedTopics] = useState(new Set<string>());
+
     const [selectedSubtopics, setSelectedSubtopics] = useState(
         new Set<string>()
     );
     const [selectedSubjects, setSelectedSubjects] = useState(new Set<string>());
 
+
     const displayTagHolder = (
         title: string,
-        tagArray: any[],
-        setTagArray: any,
+        tagArray: never[] | Tag[],
+        setTagArray: Dispatch<SetStateAction<never[]>> | any,
         selectedArray: Set<string>,
-        setSelectedArray: any
+        setSelectedArray: Dispatch<SetStateAction<Set<string>>> | any
     ) => {
         return (
-            <div className="relative mb-[20px]">
+            <div className="mb-[15px]">
                 <div
                     className="grid w-[150px]"
                     style={{ gridTemplateColumns: "125px 1fr" }}
                 >
                     <h3 className="inline-block">{title}</h3>
-                    <Dropdown
-                        onClose={() => {
-                            const selArr: any[] = [];
-                            selectedArray.forEach((t: any) => {
-                                selArr.push(t);
-                            });
-
-                            setTagArray(
-                                tagArray.map((tag: any) => {
-                                    if (selArr.includes(tag.name))
-                                        return {
-                                            name: tag.name,
-                                            color: tag.color,
-                                            checked: true,
-                                        };
-                                    else
-                                        return {
-                                            name: tag.name,
-                                            color: tag.color,
-                                            checked: false,
-                                        };
-                                })
-                            );
-                        }}
-                    >
+                    <Dropdown>
                         <DropdownTrigger>
                             <Button variant="solid" color="primary">
                                 +
@@ -82,9 +60,18 @@ export default function Tags(props: any) {
                             {(item: any) => (
                                 <DropdownItem
                                     key={item.name}
-                                    className={
-                                        "px-[5px] hover:bg-blue hover:text-white"
-                                    }
+                                    onClick={() => {
+                                        setTagArray(
+                                            tagArray.map((tag: Tag) => {
+                                                if (tag.name === item.name) {
+                                                    if (tag.checked)
+                                                        tag.checked = false;
+                                                    else tag.checked = true;
+                                                }
+                                                return tag;
+                                            })
+                                        );
+                                    }}
                                 >
                                     {item.name}
                                 </DropdownItem>
@@ -93,22 +80,11 @@ export default function Tags(props: any) {
                     </Dropdown>
                 </div>
                 <div
-                    className={`drp ${title}-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden`}
-                >
-                    {displayTagDrp(title, tagArray, setTagArray)}
-                </div>
-                <div
                     className="my-[5px] w-[450px]"
                     style={{ maxHeight: "65px", overflowY: "auto" }}
                 >
-                    {displayTags(
-                        tagArray,
-                        setTagArray,
-                        selectedArray,
-                        setSelectedArray
-                    )}
+                    {displayTags(tagArray, setTagArray, selectedArray)}
                 </div>
-                {addTag(title, tagArray, setTagArray)}
             </div>
         );
     };
@@ -297,8 +273,7 @@ export default function Tags(props: any) {
     const displayTags = (
         tagArray: any[],
         setTagArray: any,
-        selectedArray: Set<string>,
-        setSelectedArray: any
+        selectedArray: Set<string>
     ) => {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
