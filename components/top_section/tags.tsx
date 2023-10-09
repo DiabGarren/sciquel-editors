@@ -36,7 +36,7 @@ export default function Tags(props: any) {
             <div className="relative mb-[20px]">
                 <div
                     className="grid w-[150px]"
-                    style={{ gridTemplateColumns: "1fr 25px" }}
+                    style={{ gridTemplateColumns: "125px 1fr" }}
                 >
                     <h3 className="inline-block">{title}</h3>
                     <Dropdown
