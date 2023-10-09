@@ -136,8 +136,8 @@ export default function TopSection(props: any) {
     };
 
     return (
-        <div className="w-[750px] mx-[auto]">
-            <div className="w-[450px] my-[15px]">
+        <>
+            <div className="mb-[30px]">
                 <h3>
                     Key words{" "}
                     <span className="text-red text-[15px]">
@@ -149,18 +149,20 @@ export default function TopSection(props: any) {
                     placeholder="certain-key-words"
                     value={props.urlSlug}
                     onChange={(event) =>
-                        props.setUrlSlug(event.target.value.replace(" ", "-").replace(/[,./\\!@#$%^&*()_+=<>?`~;:'"|]/g, ""))
+                        props.setUrlSlug(
+                            event.target.value
+                                .replace(" ", "-")
+                                .replace(/[,./\\!@#$%^&*()_+=<>?`~;:'"|]/g, "")
+                        )
                     }
                 />
                 <p className="text-grey-light text-[12px]">
-                    sciquel.org/stories/yyyy/mm/dd/{props.urlSlug || "certain-key-words"}
+                    sciquel.org/stories/yyyy/mm/dd/
+                    {props.urlSlug || "certain-key-words"}
                 </p>
             </div>
-            <div
-                className="grid mb-[30px]"
-                style={{ gridTemplateColumns: "450px 1fr" }}
-            >
-                <div className="relative">
+            <div className="mb-[30px]">
+                <div className="relative mb-[15px]">
                     Media Type
                     <div>
                         <input
@@ -182,6 +184,6 @@ export default function TopSection(props: any) {
             </div>
             <Tags {...tagsProps} />
             <Contributors {...contributorsProps} />
-        </div>
+        </>
     );
 }
