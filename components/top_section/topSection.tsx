@@ -22,7 +22,7 @@ export default function TopSection(props: any) {
             props.subjects.length === 0 ||
             props.allContributors.length === 0
         ) {
-            var XMLHttpRequest = require('xhr2');
+            var XMLHttpRequest = require("xhr2");
             const xhr = new XMLHttpRequest();
             xhr.open("GET", `${process.env.NEXT_PUBLIC_API_URL}/top-section`);
             xhr.onload = () => {
@@ -51,61 +51,6 @@ export default function TopSection(props: any) {
         }
     }
 
-    const displayTypes = (typeArray: any[], setType: any, typeDrp: string) => {
-        let types = typeArray.map((type: string) => {
-            return (
-                <button
-                    className="text-left hover:bg-blue-light px-[5px] py-[2px]"
-                    onClick={() => {
-                        setType(type);
-                    }}
-                >
-                    {type}
-                </button>
-            );
-        });
-        return types;
-    };
-
-    const articleType = () => {
-        if (props.mediaType === "Article") {
-            return (
-                <>
-                    <span className="mr-[5px]">Article Type:</span>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button variant="solid" color="primary">
-                                {props.articleType}
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label="Dymanic Actions"
-                            items={props.articleTypes}
-                            variant="solid"
-                            color="primary"
-                        >
-                            {(item: any) => (
-                                <DropdownItem
-                                    key={item.key}
-                                    className={
-                                        "px-[5px] hover:bg-blue hover:text-white"
-                                    }
-                                    onClick={() =>
-                                        props.setArticleType(item.name)
-                                    }
-                                >
-                                    {item.name}
-                                </DropdownItem>
-                            )}
-                        </DropdownMenu>
-                    </Dropdown>
-                </>
-            );
-        } else {
-            return <></>;
-        }
-    };
-
     const tagsProps = {
         topics: props.topics,
         setTopics: props.setTopics,
@@ -125,6 +70,46 @@ export default function TopSection(props: any) {
         contributors: props.contributors,
         setContributors: props.setContributors,
     };
+
+    const displayTypes = (title:string, allTypesArray: any[], typeArray: any[], setTypeArray: any) => {
+        if (title === "Article Type" && props.mediaType !== "Article") {
+            return <></>;
+        }
+        return (
+            <div
+                className="grid w-[300px] mr-[20px]"
+                style={{ gridTemplateColumns: "125px 1fr" }}
+            >
+                <h3 className="inline">{title}:</h3>
+                <Dropdown>
+                    <DropdownTrigger>
+                        <Button variant="solid" color="primary">
+                            {typeArray}
+                        </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                        aria-label="Dymanic Actions"
+                        items={allTypesArray}
+                        variant="solid"
+                        color="primary"
+                    >
+                        {(item: any) => (
+                            <DropdownItem
+                                key={item.key}
+                                className={
+                                    "px-[5px] hover:bg-blue hover:text-white"
+                                }
+                                onClick={() => setTypeArray(item.name)}
+                            >
+                                {item.name}
+                            </DropdownItem>
+                        )}
+                    </DropdownMenu>
+                </Dropdown>
+            </div>
+        );
+    };
+
 
     return (
         <>
@@ -152,41 +137,12 @@ export default function TopSection(props: any) {
                     {props.urlSlug || "certain-key-words"}
                 </p>
             </div>
-            <div className="mb-[30px]">
-                <div className="inline-block mr-[10px]">
-                    <span className="mr-[5px]"> Media Type:</span>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button variant="solid" color="primary">
-                                {props.mediaType}
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label="Dymanic Actions"
-                            items={props.mediaTypes}
-                            variant="solid"
-                            color="primary"
-                        >
-                            {(item: any) => (
-                                <DropdownItem
-                                    key={item.key}
-                                    className={
-                                        "px-[5px] hover:bg-blue hover:text-white"
-                                    }
-                                    onClick={() =>
-                                        props.setMediaType(item.name)
-                                    }
-                                >
-                                    {item.name}
-                                </DropdownItem>
-                            )}
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
-                <div className="inline-block">{articleType()}</div>
+            <div className="mb-[30px] flex">
+                {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
+                {displayTypes("Article Type", props.articleTypes, props.articleType, props.setArticleType)}
             </div>
             <Tags {...tagsProps} />
-            {/* <Contributors {...contributorsProps} />  */}
+            <Contributors {...contributorsProps} /> 
         </>
     );
 }
