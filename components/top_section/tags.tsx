@@ -26,7 +26,6 @@ export default function Tags(props: any) {
     );
     const [selectedSubjects, setSelectedSubjects] = useState(new Set<string>());
 
-
     const displayTagHolder = (
         title: string,
         tagArray: never[] | Tag[],
@@ -37,7 +36,7 @@ export default function Tags(props: any) {
         return (
             <div className="mb-[15px]">
                 <div
-                    className="grid w-[150px]"
+                    className="grid w-[150px] items-center"
                     style={{ gridTemplateColumns: "125px 1fr" }}
                 >
                     <h3 className="inline-block">{title}</h3>
@@ -57,7 +56,7 @@ export default function Tags(props: any) {
                             onSelectionChange={setSelectedArray}
                             items={tagArray}
                         >
-                            {(item: any) => (
+                            {(item: Tag | any) => (
                                 <DropdownItem
                                     key={item.name}
                                     onClick={() => {
@@ -157,119 +156,6 @@ export default function Tags(props: any) {
         );
     };
 
-    const displayTagDrp = (
-        title: string,
-        tagArray: any[],
-        setTagArray: any
-    ) => {
-        let tags;
-        let input = (
-            <div
-                className="realative grid"
-                style={{ gridTemplateColumns: "1fr 30px" }}
-            >
-                <input
-                    className="Drp border w-[100%]"
-                    placeholder={`Search ${title}`}
-                    onChange={(event: any) => {
-                        props.setTagName(event.target.value);
-                    }}
-                />
-                <button
-                    className="Drp plus-icon"
-                    onClick={() => {
-                        props.handleDrp(`.${title}-color`);
-                    }}
-                >
-                    +
-                </button>
-            </div>
-        );
-        if (props.tagName) {
-            tags = tagArray.map((tag: any, index: number) => {
-                if (
-                    tag.name.toLowerCase().includes(props.tagName.toLowerCase())
-                ) {
-                    return (
-                        <div
-                            className="Drp flex cursor-pointer hover:bg-blue-light"
-                            onClick={() => {
-                                setTagArray(
-                                    tagArray.map((t: any, i: number) => {
-                                        if (i === index) {
-                                            if (t.checked) t.checked = false;
-                                            else t.checked = true;
-
-                                            return t;
-                                        } else return t;
-                                    })
-                                );
-                            }}
-                        >
-                            <input
-                                className="Drp switch"
-                                type="checkbox"
-                                checked={tag.checked}
-                            />
-                            <p
-                                className="Drp"
-                                style={{
-                                    display: "inline-block",
-                                    textAlign: "left",
-                                }}
-                            >
-                                {tag.name}
-                            </p>
-                        </div>
-                    );
-                } else {
-                    return <></>;
-                }
-            });
-        } else {
-            tags = tagArray.map((tag: any, index: number) => {
-                return (
-                    <div
-                        className="Drp flex cursor-pointer hover:bg-blue-light"
-                        onClick={() => {
-                            setTagArray(
-                                tagArray.map((t: any, i: number) => {
-                                    if (i === index) {
-                                        if (t.checked) t.checked = false;
-                                        else t.checked = true;
-
-                                        return t;
-                                    } else return t;
-                                })
-                            );
-                        }}
-                    >
-                        <input
-                            className="Drp switch"
-                            type="checkbox"
-                            checked={tag.checked}
-                        />
-                        <p
-                            className="Drp"
-                            style={{
-                                display: "inline-block",
-                                textAlign: "left",
-                            }}
-                        >
-                            {tag.name}
-                        </p>
-                    </div>
-                );
-            });
-        }
-        return (
-            <div>
-                {input}
-                {tags}
-            </div>
-        );
-    };
-
     const displayTags = (
         tagArray: any[],
         setTagArray: any,
@@ -285,21 +171,6 @@ export default function Tags(props: any) {
                         <p className="inline-block text-white mr-[5px]">
                             {tag.name}
                         </p>
-                        {/* <button
-                            className="text-black hover:text-white"
-                            onClick={() => {
-                                setTagArray(
-                                    tagArray.map((t: any, i: number) => {
-                                        if (i === index) {
-                                            t.checked = false;
-                                            return t;
-                                        } else return t;
-                                    })
-                                );
-                            }}
-                        >
-                            x
-                        </button> */}
                         <TrashIcon
                             className="trash-icon inline-block h-[21px]"
                             aria-hidden="true"
