@@ -1,9 +1,9 @@
 "use client";
-import CoverImagePreview from "@/components/cover_image/preview/coverImagePreivew";
-import GeneralByline from "@/components/general_byline/generalByline";
-import HeadingContainerEditor from "@/components/heading/editor/headingContainerEditor";
-import TableContainer from "@/components/table_graph/tableContainer";
-import TopSection from "@/components/top_section/topSection";
+import CoverImagePreview from "../../components/cover_image/preview/coverImagePreivew";
+import GeneralByline from "../../components/general_byline/generalByline";
+import HeadingContainerEditor from "../../components/heading/editor/headingContainerEditor";
+import TableContainer from "../../components/table_graph/tableContainer";
+import TopSection from "../../components/top_section/topSection";
 import { useState } from "react";
 import CoverImageEditor from "../../components/cover_image/editor/coverImageEditor";
 
