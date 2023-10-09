@@ -26,7 +26,7 @@ import mongoose from "mongoose";
 @ModelOptions({
     schemaOptions: {
         timestamps: true,
-        collection: "subtopics",
+        collection: "subjects",
     },
     options: {
         allowMixed: Severity.ALLOW,
