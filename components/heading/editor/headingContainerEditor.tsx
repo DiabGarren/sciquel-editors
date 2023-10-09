@@ -1,8 +1,9 @@
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
 export default function HeadingContainerEditor(props: any) {
-    var toolbarOptions = ["bold", "italic", "underline", "strike"];
+    const toolbarOptions = ["bold", "italic", "underline", "strike"];
     const modules = { toolbar: toolbarOptions };
 
     return (
@@ -13,7 +14,7 @@ export default function HeadingContainerEditor(props: any) {
                 theme="snow"
                 modules={modules}
                 value={props.heading}
-                onChange={(event) => props.setHeading(event)}
+                onChange={props.setHeading}
             />
             <h3>Subheading</h3>
             <ReactQuill
@@ -21,7 +22,7 @@ export default function HeadingContainerEditor(props: any) {
                 theme="snow"
                 modules={modules}
                 value={props.subheading}
-                onChange={(event) => props.setSubheading(event)}
+                onChange={props.setSubheading}
             />
         </>
     );
