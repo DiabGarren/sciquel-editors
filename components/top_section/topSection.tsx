@@ -1,3 +1,10 @@
+import {
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+} from "@nextui-org/react";
 import Contributors from "./contributors";
 import Tags from "./tags";
 
@@ -43,32 +50,6 @@ export default function TopSection(props: any) {
         }
     }
 
-    const handleDrp = (dropdown: string) => {
-        let drp = document.querySelector(dropdown);
-
-        if (dropdown.includes("drp")) {
-            document.querySelectorAll(".drp").forEach((el) => {
-                if (el == drp) {
-                    el?.classList.toggle("hidden");
-                    el?.classList.toggle("flex");
-                } else {
-                    el?.classList.add("hidden");
-                    el?.classList.remove("flex");
-                }
-            });
-        } else if (dropdown.includes("color")) {
-            document.querySelectorAll(".color").forEach((el) => {
-                if (el == drp) {
-                    el?.classList.toggle("hidden");
-                    el?.classList.toggle("block");
-                } else {
-                    el?.classList.add("hidden");
-                    el?.classList.remove("block");
-                }
-            });
-        }
-    };
-
     const displayTypes = (typeArray: any[], setType: any, typeDrp: string) => {
         let types = typeArray.map((type: string) => {
             return (
@@ -76,7 +57,6 @@ export default function TopSection(props: any) {
                     className="text-left hover:bg-blue-light px-[5px] py-[2px]"
                     onClick={() => {
                         setType(type);
-                        handleDrp(typeDrp);
                     }}
                 >
                     {type}
@@ -89,24 +69,36 @@ export default function TopSection(props: any) {
     const articleType = () => {
         if (props.mediaType === "Article") {
             return (
-                <div className="relative">
-                    Article Type
-                    <div>
-                        <input
-                            className="ArticleType inline w-[250px] rounded border-[1px] cursor-pointer px-[5px]"
-                            value={props.articleType}
-                            onClick={() => handleDrp(".ArticleType-drp")}
-                            readOnly
-                        />
-                    </div>
-                    <div className="drp ArticleType-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden">
-                        {displayTypes(
-                            props.articleTypes,
-                            props.setArticleType,
-                            ".ArticleType-drp"
-                        )}
-                    </div>
-                </div>
+                <>
+                    <span className="mr-[5px]">Article Type:</span>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button variant="solid" color="primary">
+                                {props.articleType}
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label="Dymanic Actions"
+                            items={props.articleTypes}
+                            variant="solid"
+                            color="primary"
+                        >
+                            {(item: any) => (
+                                <DropdownItem
+                                    key={item.key}
+                                    className={
+                                        "px-[5px] hover:bg-blue hover:text-white"
+                                    }
+                                    onClick={() =>
+                                        props.setArticleType(item.name)
+                                    }
+                                >
+                                    {item.name}
+                                </DropdownItem>
+                            )}
+                        </DropdownMenu>
+                    </Dropdown>
+                </>
             );
         } else {
             return <></>;
@@ -114,7 +106,6 @@ export default function TopSection(props: any) {
     };
 
     const tagsProps = {
-        handleDrp: handleDrp,
         topics: props.topics,
         setTopics: props.setTopics,
         subtopics: props.subtopics,
@@ -128,7 +119,6 @@ export default function TopSection(props: any) {
     };
 
     const contributorsProps = {
-        handleDrp: handleDrp,
         allContributors: props.allContributors,
         setAllContributors: props.setAllContributors,
         contributors: props.contributors,
@@ -162,28 +152,40 @@ export default function TopSection(props: any) {
                 </p>
             </div>
             <div className="mb-[30px]">
-                <div className="relative mb-[15px]">
-                    Media Type
-                    <div>
-                        <input
-                            className="MediaType inline w-[250px] rounded border cursor-pointer px-[5px]"
-                            value={props.mediaType}
-                            onClick={() => handleDrp(".MediaType-drp")}
-                            readOnly
-                        />
-                    </div>
-                    <div className="drp MediaType-drp flex-col absolute w-[250px] rounded border bg-white z-10 hidden">
-                        {displayTypes(
-                            props.mediaTypes,
-                            props.setMediaType,
-                            ".MediaType-drp"
-                        )}
-                    </div>
+                <div className="inline-block mr-[10px]">
+                    <span className="mr-[5px]"> Media Type:</span>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button variant="solid" color="primary">
+                                {props.mediaType}
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label="Dymanic Actions"
+                            items={props.mediaTypes}
+                            variant="solid"
+                            color="primary"
+                        >
+                            {(item: any) => (
+                                <DropdownItem
+                                    key={item.key}
+                                    className={
+                                        "px-[5px] hover:bg-blue hover:text-white"
+                                    }
+                                    onClick={() =>
+                                        props.setMediaType(item.name)
+                                    }
+                                >
+                                    {item.name}
+                                </DropdownItem>
+                            )}
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
-                {articleType()}
+                <div className="inline-block">{articleType()}</div>
             </div>
             <Tags {...tagsProps} />
-            <Contributors {...contributorsProps} />
+            {/* <Contributors {...contributorsProps} />  */}
         </>
     );
 }

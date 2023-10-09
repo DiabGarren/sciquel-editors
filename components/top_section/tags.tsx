@@ -1,12 +1,28 @@
+"use client";
+
 import { TrashIcon } from "@heroicons/react/20/solid";
+import {
+    Button,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownTrigger,
+} from "@nextui-org/react";
+import { useState } from "react";
 import { ChromePicker } from "react-color";
 
 /* eslint-disable react/jsx-key */
 export default function Tags(props: any) {
+    const [selectedTopics, setSelectedTopics] = useState(new Set([]));
+    const [selectedSubtopics, setSelectedSubtopics] = useState(new Set([]));
+    const [selectedSubjects, setSelectedSubjects] = useState(new Set([]));
+
     const displayTagHolder = (
         title: string,
         tagArray: any[],
-        setTagArray: any
+        setTagArray: any,
+        selectedArray: Set<never>,
+        setSelectedArray: any
     ) => {
         return (
             <div className="relative mb-[20px]">
@@ -15,12 +31,58 @@ export default function Tags(props: any) {
                     style={{ gridTemplateColumns: "1fr 25px" }}
                 >
                     <h3 className="inline-block">{title}</h3>
-                    <button
-                        className="plus-icon inline-block justify-right"
-                        onClick={() => props.handleDrp(`.${title}-drp`)}
+                    <Dropdown
+                        onClose={() => {
+                            const selArr: any[] = [];
+                            selectedArray.forEach((t: any) => {
+                                selArr.push(t);
+                            });
+
+                            setTagArray(
+                                tagArray.map((tag: any) => {
+                                    if (selArr.includes(tag.name))
+                                        return {
+                                            name: tag.name,
+                                            color: tag.color,
+                                            checked: true,
+                                        };
+                                    else
+                                        return {
+                                            name: tag.name,
+                                            color: tag.color,
+                                            checked: false,
+                                        };
+                                })
+                            );
+                        }}
                     >
-                        +
-                    </button>
+                        <DropdownTrigger>
+                            <Button variant="solid" color="primary">
+                                +
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            aria-label="Dymanic Actions"
+                            variant="solid"
+                            color="primary"
+                            closeOnSelect={false}
+                            selectionMode="multiple"
+                            selectedKeys={selectedArray}
+                            onSelectionChange={setSelectedArray}
+                            items={tagArray}
+                        >
+                            {(item: any) => (
+                                <DropdownItem
+                                    key={item.name}
+                                    className={
+                                        "px-[5px] hover:bg-blue hover:text-white"
+                                    }
+                                >
+                                    {item.name}
+                                </DropdownItem>
+                            )}
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
                 <div
                     className={`drp ${title}-drp flex-col absolute w-[250px] rounded border-[1px] bg-white z-10 hidden`}
@@ -31,7 +93,12 @@ export default function Tags(props: any) {
                     className="my-[5px] w-[450px]"
                     style={{ maxHeight: "65px", overflowY: "auto" }}
                 >
-                    {displayTags(tagArray, setTagArray)}
+                    {displayTags(
+                        tagArray,
+                        setTagArray,
+                        selectedArray,
+                        setSelectedArray
+                    )}
                 </div>
                 {addTag(title, tagArray, setTagArray)}
             </div>
@@ -219,7 +286,12 @@ export default function Tags(props: any) {
         );
     };
 
-    const displayTags = (tagArray: any[], setTagArray: any) => {
+    const displayTags = (
+        tagArray: any[],
+        setTagArray: any,
+        selectedArray: Set<never>,
+        setSelectedArray: any
+    ) => {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
@@ -253,6 +325,7 @@ export default function Tags(props: any) {
                                     tagArray.map((t: any, i: number) => {
                                         if (i === index) {
                                             t.checked = false;
+                                            selectedArray.delete(t.name);
                                             return t;
                                         } else return t;
                                     })
@@ -267,9 +340,27 @@ export default function Tags(props: any) {
     };
     return (
         <div className="mb-[30px]">
-            {displayTagHolder("Topics", props.topics, props.setTopics)}
-            {displayTagHolder("Subtopics", props.subtopics, props.setSubtopics)}
-            {displayTagHolder("Subjects", props.subjects, props.setSubjects)}
+            {displayTagHolder(
+                "Topics",
+                props.topics,
+                props.setTopics,
+                selectedTopics,
+                setSelectedTopics
+            )}
+            {displayTagHolder(
+                "Subtopics",
+                props.subtopics,
+                props.setSubtopics,
+                selectedSubtopics,
+                setSelectedSubtopics
+            )}
+            {displayTagHolder(
+                "Subjects",
+                props.subjects,
+                props.setSubjects,
+                selectedSubjects,
+                setSelectedSubjects
+            )}
         </div>
     );
 }

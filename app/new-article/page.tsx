@@ -15,10 +15,18 @@ export default function NewPage(props: any) {
 
     const [urlSlug, setUrlSlug] = useState("");
     const [mediaType, setMediaType] = useState("Article");
-    const mediaTypes = ["Article", "Podcast", "Video", "Infographic"];
+    const mediaTypes = [
+        { key: "article", name: "Article" },
+        { key: "podcast", name: "Podcast" },
+        { key: "video", name: "Video" },
+        { key: "infographic", name: "Infographic" },
+    ];
 
     const [articleType, setArticleType] = useState("Essay");
-    const articleTypes = ["Essay", "Digest"];
+    const articleTypes = [
+        { key: "essay", name: "Essay" },
+        { key: "digest", name: "Digest" },
+    ];
 
     const [topics, setTopics] = useState([]);
 
@@ -107,23 +115,16 @@ export default function NewPage(props: any) {
     };
 
     return (
-        <main
-            className="grid"
-            style={{ gridTemplateColumns: "650px 1200px" }}
-            onClick={(event: any) => {
-                document.querySelectorAll(".drp").forEach((el) => {
-                    if (
-                        event.target.parentNode.parentNode.children[1] != el &&
-                        !event.target.classList.contains("Drp")
-                    ) {
-                        el?.classList.add("hidden");
-                        el?.classList.remove("flex");
-                    }
-                });
-            }}
-        >
+        <main className="grid" style={{ gridTemplateColumns: "650px 1200px" }}>
             {/* <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div> */}
-            <div className="p-[15px]" style={{height: "955px", maxHeight: "955px", overflowY: "auto"}}>
+            <div
+                className="p-[15px]"
+                style={{
+                    height: "955px",
+                    maxHeight: "955px",
+                    overflowY: "auto",
+                }}
+            >
                 <div>
                     <CoverImageEditor {...imageProps} />
                 </div>
@@ -134,7 +135,15 @@ export default function NewPage(props: any) {
                     <TopSection {...topSectionProps} />
                 </div>
             </div>
-            <div className="relative" style={{height: "955px", maxHeight: "955px", overflowY: "auto", overflowX: "visible"}}>
+            <div
+                className="relative"
+                style={{
+                    height: "955px",
+                    maxHeight: "955px",
+                    overflowY: "auto",
+                    overflowX: "visible",
+                }}
+            >
                 <CoverImagePreview {...imageProps} />
                 <div className="w-[900px] mx-[auto]">
                     <GeneralByline {...generalProps} />
