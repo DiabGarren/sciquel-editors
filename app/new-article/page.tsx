@@ -124,13 +124,13 @@ export default function NewPage(props: any) {
                     overflowY: "auto",
                 }}
             >
-                <div>
+                <div className="mb-[30px]">
                     <CoverImageEditor {...imageProps} />
                 </div>
-                <div>
+                <div className="mb-[30px]">
                     <HeadingContainerEditor {...headingProps} />
                 </div>
-                <div>
+                <div className="mb-[30px]">
                     <TopSection {...topSectionProps} />
                 </div>
             </div>

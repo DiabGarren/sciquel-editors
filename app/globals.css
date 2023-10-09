@@ -25,7 +25,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #5c9ead;
+    background: linear-gradient(to top, #37a7ab, #118ca3);
     border-radius: 5px;
 }
 
