@@ -3,7 +3,6 @@ import CoverImageEditor from "@/components/cover_image/editor/coverImageEditor";
 import CoverImagePreview from "@/components/cover_image/preview/coverImagePreivew";
 import GeneralByline from "@/components/general_byline/generalByline";
 import HeadingContainerEditor from "@/components/heading/editor/headingContainerEditor";
-import HeadingContainerPreview from "@/components/heading/preview/headingContainerPreview";
 import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
@@ -104,33 +103,13 @@ export default function NewPage(props: any) {
         setImage,
         finalImage,
         setFinalImage,
-        headingProps
-    };
-
-    const previewButton = () => {
-        let text;
-        let clickFunc;
-        if (preview) {
-            text = "End preview";
-            clickFunc = () => setPreview(false);
-        } else {
-            text = "Preview page";
-            clickFunc = () => setPreview(true);
-        }
-        return (
-            <button
-                className="button absolute right-[0px] py-[10px] px-[10px] text-[1.1rem]"
-                style={{ boxShadow: "0 0 10px black" }}
-                onClick={clickFunc}
-            >
-                {text}
-            </button>
-        );
+        headingProps,
     };
 
     return (
-        <main className="grid"
-        style={{gridTemplateColumns: "650px 1200px"}}
+        <main
+            className="grid"
+            style={{ gridTemplateColumns: "650px 1200px" }}
             onClick={(event: any) => {
                 document.querySelectorAll(".drp").forEach((el) => {
                     if (
@@ -144,22 +123,26 @@ export default function NewPage(props: any) {
             }}
         >
             {/* <div className="sticky w-[850px] mx-[auto] top-[20px]">{previewButton()}</div> */}
-            <div className="p-[15px]">
+            <div className="p-[15px]" style={{height: "955px", maxHeight: "955px", overflowY: "auto"}}>
                 <div>
                     <CoverImageEditor {...imageProps} />
                 </div>
                 <div>
                     <HeadingContainerEditor {...headingProps} />
                 </div>
+                <div>
+                    <TopSection {...topSectionProps} />
+                </div>
             </div>
-            <div className="relative">
+            <div className="relative" style={{height: "955px", maxHeight: "955px", overflowY: "auto", overflowX: "visible"}}>
                 <CoverImagePreview {...imageProps} />
-
+                <div className="w-[900px] mx-[auto]">
+                    <GeneralByline {...generalProps} />
+                </div>
             </div>
             {/* 
-            <TopSection {...topSectionProps} />
             <TableContainer {...graphProps} />
-            <GeneralByline {...generalProps} /> */}
+             */}
         </main>
     );
 }
