@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { useRef } from "react";
 
 export default function RenderTable(props: any) {
     if (props.manual === false) {
