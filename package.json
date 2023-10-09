@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
+    "@nextui-org/react": "^2.1.13",
     "@typegoose/typegoose": "^11.5.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "20.6.0",

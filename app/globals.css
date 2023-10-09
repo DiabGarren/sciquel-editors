@@ -25,12 +25,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #57adde;
+    background: #5c9ead;
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #8ecaec;
+    background: #83bcc9;
 }
 
 h1 {
@@ -47,7 +47,7 @@ h3 {
 
 @layer components {
     .button {
-        @apply bg-blue text-white rounded px-[5px] hover:underline hover:bg-blue-light;
+        @apply bg-cyan text-white rounded px-[5px] hover:underline hover:bg-cyan-light;
     }
 
     .plus-icon {
