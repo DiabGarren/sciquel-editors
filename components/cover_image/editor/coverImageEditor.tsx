@@ -1,3 +1,4 @@
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
 
 export default function CoverImageEditor(props: any) {
@@ -23,6 +24,7 @@ export default function CoverImageEditor(props: any) {
                 alt={""}
                 width={250}
                 height={250}
+                className="rounded"
             />
         );
     };
@@ -31,7 +33,8 @@ export default function CoverImageEditor(props: any) {
         <>
             <h3>Cover Image</h3>
             <input
-                className="block"
+                className="block rounded
+                "
                 type="file"
                 onChange={(event) => {
                     props.setFinalImage(null);
@@ -39,9 +42,9 @@ export default function CoverImageEditor(props: any) {
                 }}
                 accept="image/png, image/gif, image/jpeg"
             />
-            <button className="button" onClick={upload}>
+            <Button variant="solid" color="primary" radius="md" className="my-[2px]" onClick={upload}>
                 Upload
-            </button>
+            </Button>
             {displayImage()}
         </>
     );
