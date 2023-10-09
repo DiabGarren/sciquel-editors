@@ -1,3 +1,4 @@
+import { TrashIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 
 /* eslint-disable react/jsx-key */
@@ -79,14 +80,13 @@ export default function Contributors(props: any) {
                                     (Type: any, Index: number) => {
                                         if (Index === index) {
                                             let newCon = Type.contributors.map(
-                                                (T: any, I: number) => {
+                                                (con: any, I: number) => {
                                                     if (I === i) {
-                                                        if (T.checked)
-                                                            T.checked = false;
-                                                        else T.checked = true;
-
-                                                        return T;
-                                                    } else return T;
+                                                        if (con.checked)
+                                                            con.checked = false;
+                                                        else con.checked = true;
+                                                    }
+                                                    return con;
                                                 }
                                             );
 
@@ -112,26 +112,60 @@ export default function Contributors(props: any) {
             });
             let tags = type.contributors.map((t: any, i: number) => {
                 if (t.checked) {
+                    let imageSrc = "default_profile.svg";
+                    if (t.image !== "") {
+                        imageSrc = `/images/${t.image}`;
+                    }
                     return (
-                        <div>
+                        <div className="grid items-center my-[2px]" style={{gridTemplateColumns: "50px 1fr 25px"}}>
                             <Image
-                                className="inline-block"
-                                src={"default_profile.svg"}
-                                alt={"default_profile"}
-                                width={68}
-                                height={68}
+                                className="rounded-[50%]"
+                                src={imageSrc}
+                                alt={`${t.name} profile`}
+                                width={50}
+                                height={50}
                             />
-                            <p className="inline-block">{t.name}</p>
+                            <p className="mx-[5px]">{t.name}</p>
+                            <TrashIcon
+                                className="trash-icon"
+                                aria-hidden="true"
+                                onClick={() => {
+                                    props.setContributors(
+                                        props.contributors.map((Type: any) => {
+                                            if (Type.name === type.name) {
+                                                let newCon =
+                                                    Type.contributors.map(
+                                                        (
+                                                            con: any,
+                                                            index: any
+                                                        ) => {
+                                                            if (index === i) {
+                                                                con.checked =
+                                                                    false;
+                                                            }
+                                                            return con;
+                                                        }
+                                                    );
+                                                return {
+                                                    name: Type.name,
+                                                    contributors: newCon,
+                                                    checked: Type.checked,
+                                                };
+                                            } else return Type;
+                                        })
+                                    );
+                                }}
+                            />
                         </div>
                     );
-                }
+                } else return <></>;
             });
             if (type.contributors.length > 0) {
                 return (
-                    <div className="relative my-[10px]">
+                    <div className="relative mt-[20px] ml-[10px]">
                         <div
-                            className="grid w-[130px]"
-                            style={{ gridTemplateColumns: "1fr 25px" }}
+                            className="grid w-[165px]"
+                            style={{ gridTemplateColumns: "1fr 25px 25px" }}
                         >
                             <h3 className="inline-block">{type.name}s</h3>
                             <button
@@ -142,6 +176,21 @@ export default function Contributors(props: any) {
                             >
                                 +
                             </button>
+                            <TrashIcon
+                                className="trash-icon"
+                                aria-hidden="true"
+                                onClick={() => {
+                                    props.setContributors(
+                                        props.contributors.map((Type: any) => {
+                                            if (Type.name === type.name) {
+                                                Type.checked = false;
+                                                Type.contributors = [];
+                                                return Type;
+                                            } else return Type;
+                                        })
+                                    );
+                                }}
+                            />
                         </div>
                         <div
                             className={`drp ${type.name}-drp flex-col absolute w-[250px] rounded border bg-white z-10 hidden`}
@@ -158,7 +207,7 @@ export default function Contributors(props: any) {
                             </div>
                             {cons}
                         </div>
-                        <div>{tags}</div>
+                        <div className="w-[200px]">{tags}</div>
                     </div>
                 );
             } else {
@@ -170,9 +219,9 @@ export default function Contributors(props: any) {
     };
 
     return (
-        <div className="relative my-[10px] w-[250px]">
+        <div className="relative w-[250px]">
             <div
-                className="grid w-[130px]"
+                className="grid w-[150px]"
                 style={{ gridTemplateColumns: "1fr 25px" }}
             >
                 <h3 className="inline-block">Contributors</h3>
