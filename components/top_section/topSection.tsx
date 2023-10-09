@@ -24,7 +24,7 @@ export default function TopSection(props: any) {
         ) {
             var XMLHttpRequest = require('xhr2');
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", "http://localhost:3000/api/top-section");
+            xhr.open("GET", `${process.env.NEXT_PUBLIC_API_URL}/top-section`);
             xhr.onload = () => {
                 if (xhr.status === 200) {
                     if (props.topics.length === 0) {

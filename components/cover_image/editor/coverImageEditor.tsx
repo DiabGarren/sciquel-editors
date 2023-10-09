@@ -5,7 +5,7 @@ export default function CoverImageEditor(props: any) {
     const upload = async () => {
         const data = new FormData();
         data.set("file", props.image);
-        const res = await fetch("/api/upload", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
             method: "POST",
             body: data,
         });
