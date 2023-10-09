@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 "use client";
 
 import { TrashIcon } from "@heroicons/react/20/solid";
@@ -11,17 +12,24 @@ import {
 import { useState } from "react";
 import { ChromePicker } from "react-color";
 
-/* eslint-disable react/jsx-key */
+interface Tag {
+    name: string;
+    color: string;
+    checked: boolean;
+}
+
 export default function Tags(props: any) {
-    const [selectedTopics, setSelectedTopics] = useState(new Set([]));
-    const [selectedSubtopics, setSelectedSubtopics] = useState(new Set([]));
-    const [selectedSubjects, setSelectedSubjects] = useState(new Set([]));
+    const [selectedTopics, setSelectedTopics] = useState(new Set<string>());
+    const [selectedSubtopics, setSelectedSubtopics] = useState(
+        new Set<string>()
+    );
+    const [selectedSubjects, setSelectedSubjects] = useState(new Set<string>());
 
     const displayTagHolder = (
         title: string,
         tagArray: any[],
         setTagArray: any,
-        selectedArray: Set<never>,
+        selectedArray: Set<string>,
         setSelectedArray: any
     ) => {
         return (
@@ -289,7 +297,7 @@ export default function Tags(props: any) {
     const displayTags = (
         tagArray: any[],
         setTagArray: any,
-        selectedArray: Set<never>,
+        selectedArray: Set<string>,
         setSelectedArray: any
     ) => {
         let tags = tagArray.map((tag: any, index: number) => {
@@ -322,7 +330,7 @@ export default function Tags(props: any) {
                             aria-hidden="true"
                             onClick={() => {
                                 setTagArray(
-                                    tagArray.map((t: any, i: number) => {
+                                    tagArray.map((t: Tag, i: number) => {
                                         if (i === index) {
                                             t.checked = false;
                                             selectedArray.delete(t.name);
