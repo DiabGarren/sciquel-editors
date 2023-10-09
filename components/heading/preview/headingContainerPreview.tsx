@@ -10,12 +10,12 @@ export default function HeadingContainerPreview(props: any) {
     let heading;
     let subheading;
 
-    if (props.heading === "") {
+    if (props.heading === "" || props.heading === "<p><br></p>") {
         heading = "Heading";
     } else {
         heading = parse(props.heading);
     }
-    if (props.subheading === "") {
+    if (props.subheading === ""  || props.subheading === "<p><br></p>") {
         subheading = "Subheading";
     } else {
         subheading = parse(props.subheading);
