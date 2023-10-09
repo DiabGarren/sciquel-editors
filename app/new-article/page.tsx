@@ -129,7 +129,7 @@ export default function NewPage(props: any) {
                     <CoverImageEditor {...imageProps} />
                 </div>
                 <div>
-                    <HeadingContainerEditor {...headingProps} />
+                    {/* <HeadingContainerEditor {...headingProps} /> */}
                 </div>
                 <div>
                     <TopSection {...topSectionProps} />

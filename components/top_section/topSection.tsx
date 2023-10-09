@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import {
     Button,
     Dropdown,
@@ -8,7 +9,6 @@ import {
 import Contributors from "./contributors";
 import Tags from "./tags";
 
-/* eslint-disable react/jsx-key */
 export default function TopSection(props: any) {
     if (
         props.topics &&
@@ -22,6 +22,7 @@ export default function TopSection(props: any) {
             props.subjects.length === 0 ||
             props.allContributors.length === 0
         ) {
+            var XMLHttpRequest = require('xhr2');
             const xhr = new XMLHttpRequest();
             xhr.open("GET", "http://localhost:3000/api/top-section");
             xhr.onload = () => {
