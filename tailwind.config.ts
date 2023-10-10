@@ -1,5 +1,6 @@
-import type { Config } from 'tailwindcss'
-import { nextui } from '@nextui-org/react'
+import type { Config } from 'tailwindcss';
+import { nextui } from '@nextui-org/react';
+
 
 const config: Config = {
 	content: [
@@ -14,6 +15,9 @@ const config: Config = {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic':
 					'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+			},
+			spacing: {
+				article: '750px'
 			},
 		},
 		colors: {
@@ -36,7 +40,8 @@ const config: Config = {
 			},
 			cyan: {
 				DEFAULT: '#5c9ead',
-				light: '#83bcc9',
+				dark: '#335860',
+				light: '#70c0d3',
 			}
 		},
 		borderRadius: {
@@ -49,7 +54,7 @@ const config: Config = {
 			radius: {
 				small: "5px",
 				medium: "10px",
-                large: "15px",
+				large: "15px",
 			},
 			spacingUnit: 3,
 		},
@@ -65,5 +70,5 @@ const config: Config = {
 			}
 		}
 	})],
-}
-export default config
+};
+export default config;

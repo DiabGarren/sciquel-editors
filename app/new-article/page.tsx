@@ -6,6 +6,7 @@ import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImageEditor";
+import AcknowledgementsPreview from "@/components/acknowledgements/preview/AcknowledgementsPreview";
 
 export default function NewPage(props: any) {
     const [preview, setPreview] = useState(false);
@@ -91,6 +92,10 @@ export default function NewPage(props: any) {
         topSection: topSectionProps,
     };
 
+    const acknowldgeProps = {
+        contributors,
+    };
+
     const graphProps = {
         preview,
         manual,
@@ -140,12 +145,15 @@ export default function NewPage(props: any) {
                     height: "955px",
                     maxHeight: "955px",
                     overflowY: "auto",
-                    overflowX: "visible",
+                    overflowX: "hidden",
                 }}
             >
                 <CoverImagePreview {...imageProps} />
-                <div className="w-[900px] mx-[auto]">
+                <div className="w-article mx-[auto]">
                     <GeneralByline {...generalProps} />
+                </div>
+                <div>
+                    <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
             </div>
             {/* 
