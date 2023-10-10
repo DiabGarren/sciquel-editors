@@ -120,7 +120,7 @@ export default function NewPage(props: any) {
     };
 
     return (
-        <main className="grid" style={{ gridTemplateColumns: "650px 1200px" }}>
+        <main className="grid" style={{ gridTemplateColumns: "650px 1210px" }}>
             <div
                 className="p-[15px]"
                 style={{
@@ -145,15 +145,14 @@ export default function NewPage(props: any) {
                     height: "955px",
                     maxHeight: "955px",
                     overflowY: "auto",
-                    overflowX: "hidden",
                 }}
             >
                 <CoverImagePreview {...imageProps} />
                 <div className="w-article mx-[auto]">
                     <GeneralByline {...generalProps} />
                 </div>
-                <div>
-                    <hr className="w-article m-[auto] my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
+                <div className="w-article m-[auto]">
+                    <hr className="my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
             </div>

@@ -19,7 +19,7 @@ export default function AcknowledgementsPreview(props: any) {
 
                             return (
                                 <div
-                                    className="grid w-article mx-[auto] border border-grey-light rounded-[15px] p-[20px] mb-[15px]"
+                                    className="grid border border-grey-light rounded-[15px] p-[20px] mb-[15px]"
                                     style={{ gridTemplateColumns: "200px 1fr" }}
                                 >
                                     <Image
