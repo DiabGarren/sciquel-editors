@@ -153,6 +153,7 @@ export default function NewPage(props: any) {
                     <GeneralByline {...generalProps} />
                 </div>
                 <div>
+                    <hr className="w-article m-[auto] my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
             </div>
