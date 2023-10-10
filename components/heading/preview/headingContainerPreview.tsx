@@ -1,7 +1,8 @@
 import parse from "html-react-parser";
 import { alegreya_sans_sc } from "@/utils/fonts";
+import { HeadingProps } from "@/utils/types";
 
-export default function HeadingContainerPreview(props: any) {
+export default function HeadingContainerPreview(props: HeadingProps) {
     const style = {
         textShadow: "0 0 5px black, 0 0 15px black",
         fontFamily: alegreya_sans_sc.style.fontFamily,

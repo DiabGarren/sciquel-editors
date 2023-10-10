@@ -1,7 +1,8 @@
+import { ImageProps } from "@/utils/types";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 
-export default function CoverImageEditor(props: any) {
+export default function CoverImageEditor(props: ImageProps) {
     const upload = async () => {
         const data = new FormData();
         data.set("file", props.image);
@@ -42,7 +43,13 @@ export default function CoverImageEditor(props: any) {
                 }}
                 accept="image/png, image/gif, image/jpeg"
             />
-            <Button variant="solid" color="primary" radius="md" className="my-[2px]" onClick={upload}>
+            <Button
+                variant="solid"
+                color="primary"
+                radius="md"
+                className="my-[2px]"
+                onClick={upload}
+            >
                 Upload
             </Button>
             {displayImage()}

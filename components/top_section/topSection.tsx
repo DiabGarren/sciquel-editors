@@ -8,8 +8,10 @@ import {
 } from "@nextui-org/react";
 import Contributors from "./contributors";
 import Tags from "./tags";
+import { MediaType, TopSectionProps } from "@/utils/types";
+import { Dispatch, SetStateAction } from "react";
 
-export default function TopSection(props: any) {
+export default function TopSection(props: TopSectionProps) {
     if (
         props.topics &&
         props.subtopics &&
@@ -71,7 +73,12 @@ export default function TopSection(props: any) {
         setContributors: props.setContributors,
     };
 
-    const displayTypes = (title:string, allTypesArray: any[], typeArray: any[], setTypeArray: any) => {
+    const displayTypes = (
+        title: string,
+        allTypesArray: MediaType[],
+        typeProp: string,
+        setTypeProp: Dispatch<SetStateAction<string>>
+    ) => {
         if (title === "Article Type" && props.mediaType !== "Article") {
             return <></>;
         }
@@ -84,7 +91,7 @@ export default function TopSection(props: any) {
                 <Dropdown>
                     <DropdownTrigger>
                         <Button variant="solid" color="primary">
-                            {typeArray}
+                            {typeProp}
                         </Button>
                     </DropdownTrigger>
                     <DropdownMenu
@@ -99,7 +106,7 @@ export default function TopSection(props: any) {
                                 className={
                                     "px-[5px] hover:bg-blue hover:text-white"
                                 }
-                                onClick={() => setTypeArray(item.name)}
+                                onClick={() => setTypeProp(item.name)}
                             >
                                 {item.name}
                             </DropdownItem>
@@ -109,7 +116,6 @@ export default function TopSection(props: any) {
             </div>
         );
     };
-
 
     return (
         <>
@@ -138,11 +144,21 @@ export default function TopSection(props: any) {
                 </p>
             </div>
             <div className="mb-[30px] flex">
-                {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
-                {displayTypes("Article Type", props.articleTypes, props.articleType, props.setArticleType)}
+                {displayTypes(
+                    "Media Type",
+                    props.mediaTypes,
+                    props.mediaType,
+                    props.setMediaType
+                )}
+                {displayTypes(
+                    "Article Type",
+                    props.articleTypes,
+                    props.articleType,
+                    props.setArticleType
+                )}
             </div>
             <Tags {...tagsProps} />
-            <Contributors {...contributorsProps} /> 
+            <Contributors {...contributorsProps} />
         </>
     );
 }

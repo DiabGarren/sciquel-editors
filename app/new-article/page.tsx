@@ -7,10 +7,9 @@ import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImageEditor";
 import AcknowledgementsPreview from "@/components/acknowledgements/preview/AcknowledgementsPreview";
+import AcknowledgementsEditor from "@/components/acknowledgements/edit/AcknowledgementsEditor";
 
 export default function NewPage(props: any) {
-    const [preview, setPreview] = useState(false);
-
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
 
@@ -55,15 +54,21 @@ export default function NewPage(props: any) {
     const [finalImage, setFinalImage] = useState(null);
 
     const headingProps = {
-        preview,
         heading,
         setHeading,
         subheading,
         setSubheading,
     };
 
+    const imageProps = {
+        image,
+        setImage,
+        finalImage,
+        setFinalImage,
+        headingProps,
+    };
+
     const topSectionProps = {
-        preview,
         urlSlug,
         setUrlSlug,
         mediaType,
@@ -94,10 +99,10 @@ export default function NewPage(props: any) {
 
     const acknowldgeProps = {
         contributors,
+        setContributors,
     };
 
     const graphProps = {
-        preview,
         manual,
         setManual,
         rows,
@@ -108,15 +113,6 @@ export default function NewPage(props: any) {
         setCell,
         type: graphType,
         setType: setGraphType,
-    };
-
-    const imageProps = {
-        preview,
-        image,
-        setImage,
-        finalImage,
-        setFinalImage,
-        headingProps,
     };
 
     return (
@@ -137,6 +133,9 @@ export default function NewPage(props: any) {
                 </div>
                 <div className="mb-[30px]">
                     <TopSection {...topSectionProps} />
+                </div>
+                <div>
+                    <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
             </div>
             <div

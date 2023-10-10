@@ -61,7 +61,7 @@ export default function Tags(props: any) {
                                     key={item.name}
                                     onClick={() => {
                                         setTagArray(
-                                            tagArray.map((tag: Tag) => {
+                                            tagArray.map((tag: any) => {
                                                 if (tag.name === item.name) {
                                                     if (tag.checked)
                                                         tag.checked = false;

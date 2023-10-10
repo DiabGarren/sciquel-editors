@@ -1,6 +1,7 @@
 import HeadingContainerPreview from "@/components/heading/preview/headingContainerPreview";
+import { ImageProps } from "@/utils/types";
 
-export default function CoverImagePreview(props: any) {
+export default function CoverImagePreview(props: ImageProps) {
     let imageUrl = "url('/images/bobtail.png')";
     if (props.finalImage) {
         imageUrl = `url('/images/${props.finalImage.name}')`;
