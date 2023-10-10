@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 "use client";
 
+import { Contributor, Type, User } from "@/utils/types";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import {
     Button,
@@ -11,23 +12,6 @@ import {
 } from "@nextui-org/react";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
-
-interface Contributor {
-    name: string;
-    image: string;
-    checked: boolean;
-}
-
-interface Type {
-    name: string;
-    contributors: Contributor[];
-    checked: boolean;
-}
-interface User {
-    firstName: string;
-    lastName: string;
-    image: string;
-}
 
 export default function Contributors(props: any) {
     const [selectedTypes, setSelectedTypes] = useState(new Set<string>());
@@ -107,10 +91,12 @@ export default function Contributors(props: any) {
                                                                 props.allContributors.map(
                                                                     (
                                                                         user: User
-                                                                    ) => {
+                                                                    ): Contributor => {
                                                                         return {
                                                                             name: `${user.firstName} ${user.lastName}`,
                                                                             image: user.image,
+                                                                            message:
+                                                                                "",
                                                                             checked:
                                                                                 false,
                                                                         };
