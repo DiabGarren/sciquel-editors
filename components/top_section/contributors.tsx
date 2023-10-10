@@ -39,7 +39,7 @@ export default function Contributors(props: any) {
                     className="grid w-[150px] mb-[10px] items-center"
                     style={{ gridTemplateColumns: "125px 1fr" }}
                 >
-                    <h3>Contributors:</h3>
+                    <h3>Contributors</h3>
                     <Dropdown>
                         <DropdownTrigger>
                             <Button variant="solid" color="primary">
@@ -159,7 +159,7 @@ export default function Contributors(props: any) {
                             className="grid w-[210px] ml-[10px] items-center"
                             style={{ gridTemplateColumns: "125px 60px 25px" }}
                         >
-                            <h3>{title}s:</h3>
+                            <h3>{title}s</h3>
                             <Dropdown>
                                 <DropdownTrigger>
                                     <Button variant="solid" color="primary">

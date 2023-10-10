@@ -118,7 +118,7 @@ export default function NewPage(props: any) {
     return (
         <main className="grid" style={{ gridTemplateColumns: "650px 1210px" }}>
             <div
-                className="p-[15px]"
+                className="p-[15px] pb-[50px]"
                 style={{
                     height: "955px",
                     maxHeight: "955px",
@@ -134,7 +134,7 @@ export default function NewPage(props: any) {
                 <div className="mb-[30px]">
                     <TopSection {...topSectionProps} />
                 </div>
-                <div>
+                <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
             </div>

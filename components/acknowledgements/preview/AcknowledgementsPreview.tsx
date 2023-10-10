@@ -3,6 +3,7 @@ import { alegreya_sans_sc } from "@/utils/fonts";
 import { Contributor, Type } from "@/utils/types";
 import Image from "next/image";
 import { ReactElement } from "react";
+import parse from "html-react-parser";
 
 export default function AcknowledgementsPreview(props: any) {
     const displayContributors = () => {
@@ -14,8 +15,13 @@ export default function AcknowledgementsPreview(props: any) {
                             let imageSrc = "default_profile.svg";
                             if (con.image !== "") imageSrc = con.image;
 
-                            let message = `Acknowledgement for ${con.name}`;
-                            if (con.message !== "") message = con.message;
+                            let message;
+                            if (
+                                con.message === "" ||
+                                con.message === "<p><br></p>"
+                            ) {
+                                message = `Acknowledgement for ${con.name}`;
+                            } else message = parse(con.message);
 
                             return (
                                 <div
