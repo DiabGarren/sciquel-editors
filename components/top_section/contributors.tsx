@@ -119,18 +119,18 @@ export default function Contributors(props: any) {
                 </div>
                 <div className="mb-[15px]">
                     {displayType(
-                        "Animator",
-                        selectedTypes,
-                        selectedAnimators,
-                        setSelectedAnimators
-                    )}
-                </div>
-                <div className="mb-[15px]">
-                    {displayType(
                         "Author",
                         selectedTypes,
                         selectedAuthors,
                         setSelectedAuthors
+                    )}
+                </div>
+                <div className="mb-[15px]">
+                    {displayType(
+                        "Animator",
+                        selectedTypes,
+                        selectedAnimators,
+                        setSelectedAnimators
                     )}
                 </div>
                 <div className="mb-[15px]">
@@ -212,6 +212,7 @@ export default function Contributors(props: any) {
                                                                     );
                                                                 return {
                                                                     name: type.name,
+                                                                    verb: type.verb,
                                                                     contributors:
                                                                         contributors,
                                                                     checked:
@@ -320,6 +321,7 @@ export default function Contributors(props: any) {
                                                                 );
                                                             return {
                                                                 name: type.name,
+                                                                verb: type.verb,
                                                                 contributors:
                                                                     contributors,
                                                                 checked: true,
