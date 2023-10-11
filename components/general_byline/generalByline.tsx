@@ -41,21 +41,39 @@ export default function GeneralByline(props: any) {
 
     const contributors = () => {
         return props.topSection.contributors.map((type: any) => {
-            if (type.name === "Author") {
-                const noAuthors = [];
-                type.contributors.forEach((con: any) => {
-                    if (con.checked) noAuthors.push(true);
-                });
+            const cons: any[] = [];
+            type.contributors.forEach((con: any) => {
+                if (con.checked) {
+                    cons.push(con.name);
+                }
+            });
 
-                const authors = type.contributors.map((con: any) => {
-                    if (con.checked) {
-                        return <p>by {con.name}</p>;
-                    } else return <></>;
-                });
-
-                if (authors.length === 0 || noAuthors.length === 0)
-                    return <p>No Author</p>;
-                else return authors;
+            if (cons.length > 0) {
+                if (cons.length === 1) {
+                    if (type.name === "Author") return <p>by: {cons[0]}</p>;
+                    else
+                        return (
+                            <p>
+                                {type.verb} by: {cons[0]}
+                            </p>
+                        );
+                } else {
+                    let contributors: string = "";
+                    for (let i = 1; i < cons.length - 1; i++) {
+                        contributors += `, ${cons[i]}`;
+                    }
+                    contributors = `${cons[0]}${contributors} and ${
+                        cons[cons.length - 1]
+                    }`;
+                    if (type.name === "Author")
+                        return <p>by: {contributors}</p>;
+                    else
+                        return (
+                            <p>
+                                {type.verb} by: {contributors}
+                            </p>
+                        );
+                }
             } else return <></>;
         });
     };
