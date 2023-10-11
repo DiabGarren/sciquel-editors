@@ -39,9 +39,19 @@ export default function NewPage(props: any) {
 
     const [allContributors, setAllContributors] = useState([]);
     const [contributors, setContributors] = useState([
-        { name: "Animator", contributors: [], checked: false },
-        { name: "Author", contributors: [], checked: false },
-        { name: "Illustrator", contributors: [], checked: false },
+        { name: "Author", verb: "authored", contributors: [], checked: false },
+        {
+            name: "Animator",
+            verb: "animated",
+            contributors: [],
+            checked: false,
+        },
+        {
+            name: "Illustrator",
+            verb: "illustrated",
+            contributors: [],
+            checked: false,
+        },
     ]);
 
     const [manual, setManual] = useState(false);

@@ -9,6 +9,7 @@ export interface Contributor {
 
 export interface Type {
     name: string;
+    verb: string;
     contributors: never[];
     checked: boolean;
 }
@@ -62,12 +63,18 @@ export interface TopSectionProps {
     setAllContributors: Dispatch<SetStateAction<never[]>>;
     contributors: {
         name: string;
+        verb: string;
         contributors: never[];
         checked: boolean;
     }[];
     setContributors: Dispatch<
         SetStateAction<
-            { name: string; contributors: never[]; checked: boolean }[]
+            {
+                name: string;
+                verb: string;
+                contributors: never[];
+                checked: boolean;
+            }[]
         >
     >;
 }
