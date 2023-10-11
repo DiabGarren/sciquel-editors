@@ -2,65 +2,57 @@
 import { alegreya_sans_sc } from "@/utils/fonts";
 import { Contributor, Type } from "@/utils/types";
 import Image from "next/image";
-import { ReactElement } from "react";
 import parse from "html-react-parser";
 
 export default function AcknowledgementsPreview(props: any) {
     const displayContributors = () => {
-        const types = props.contributors.map((type: Type) => {
+        const types: any[] = [];
+        const contributors: any[] = [];
+        props.contributors.forEach((type: Type) => {
             if (type.checked) {
-                const contributors = type.contributors.map(
-                    (con: Contributor): ReactElement<any, any> => {
-                        if (con.checked) {
-                            let imageSrc = "default_profile.svg";
-                            if (con.image !== "") imageSrc = con.image;
+                type.contributors.forEach((con: Contributor) => {
+                    if (con.checked && !contributors.includes(con.name)) {
+                        contributors.push(con.name);
+                        let imageSrc = "default_profile.svg";
+                        if (con.image !== "") imageSrc = con.image;
 
-                            let message;
-                            if (
-                                con.message === "" ||
-                                con.message === "<p><br></p>"
-                            ) {
-                                message = `Acknowledgement for ${con.name}`;
-                            } else message = parse(con.message);
+                        let message;
+                        if (
+                            con.message === "" ||
+                            con.message === "<p><br></p>"
+                        ) {
+                            message = `Acknowledgement for ${con.name}`;
+                        } else message = parse(con.message);
 
-                            return (
+                        types.push(
+                            <div className="border border-grey-light rounded-[15px] p-[20px] mb-[15px]">
                                 <div
-                                    className="grid border border-grey-light rounded-[15px] p-[20px] mb-[15px]"
-                                    style={{ gridTemplateColumns: "200px 1fr" }}
+                                    className="flex mb-[15px] items-center"
+                                    style={{
+                                        fontFamily:
+                                            alegreya_sans_sc.style.fontFamily,
+                                        fontWeight: "700",
+                                    }}
                                 >
+                                    <h2 className="text-cyan-dark text-[35px] leading-[35px] mr-[10px]">
+                                        {con.name}
+                                    </h2>
                                     <Image
                                         src={`/images/${imageSrc}`}
                                         alt={`${con.name} profile picture`}
-                                        height={150}
-                                        width={150}
+                                        height={60}
+                                        width={60}
                                         className="rounded-[50%]"
                                     />
-                                    <div>
-                                        <div
-                                            className="mb-[15px]"
-                                            style={{
-                                                fontFamily:
-                                                    alegreya_sans_sc.style
-                                                        .fontFamily,
-                                                fontWeight: "700",
-                                            }}
-                                        >
-                                            <h2 className="text-cyan-dark text-[35px] leading-[35px]">
-                                                {con.name}
-                                            </h2>
-                                            <h3 className="text-[23px] leading-[20px]">
-                                                {type.name}
-                                            </h3>
-                                        </div>
-                                        <p>{message}</p>
-                                    </div>
                                 </div>
-                            );
-                        } else return <></>;
+                                <div>
+                                    <p>{message}</p>
+                                </div>
+                            </div>
+                        );
                     }
-                );
-                return <div className="mb-[30px]">{contributors}</div>;
-            } else return <></>;
+                });
+            }
         });
         return types;
     };

@@ -11,14 +11,15 @@ export default function AcknowledgementsEditor(props: any) {
 
     const displayContributors = () => {
         const types: any[] = [];
+        let contributors: any[] = [];
         props.contributors.forEach((type: Type) => {
             if (type.checked) {
-                let contributors: any[] = [];
                 type.contributors.forEach((con: Contributor) => {
-                    if (con.checked) {
+                    if (con.checked && !contributors.includes(con.name)) {
+                        contributors.push(con.name);
                         let imageSrc = "default_profile.svg";
                         if (con.image !== "") imageSrc = con.image;
-                        contributors.push(
+                        types.push(
                             <div className="mb-[10px]">
                                 <div className="flex items-center my-[2px]">
                                     <Image
@@ -38,30 +39,25 @@ export default function AcknowledgementsEditor(props: any) {
                                     onChange={(event) => {
                                         props.setContributors(
                                             props.contributors.map((t: any) => {
-                                                if (t.name === type.name) {
-                                                    const contributors =
-                                                        t.contributors.map(
-                                                            (
-                                                                c: Contributor
-                                                            ) => {
-                                                                if (
-                                                                    c.name ===
-                                                                    con.name
-                                                                ) {
-                                                                    c.message =
-                                                                        event;
-                                                                }
-                                                                return c;
+                                                const contributors =
+                                                    t.contributors.map(
+                                                        (c: Contributor) => {
+                                                            if (
+                                                                c.name ===
+                                                                con.name
+                                                            ) {
+                                                                c.message =
+                                                                    event;
                                                             }
-                                                        );
-                                                    return {
-                                                        name: t.name,
-                                                        contributors:
-                                                            contributors,
-                                                        checked: t.checked,
-                                                    };
-                                                }
-                                                return t;
+                                                            return c;
+                                                        }
+                                                    );
+                                                return {
+                                                    name: t.name,
+                                                    verb: t.verb,
+                                                    contributors: contributors,
+                                                    checked: t.checked,
+                                                };
                                             })
                                         );
                                     }}
@@ -70,14 +66,6 @@ export default function AcknowledgementsEditor(props: any) {
                         );
                     }
                 });
-                if (contributors.length > 0) {
-                    types.push(
-                        <div className="ml-[10px] mb-[15px]">
-                            <h3>{type.name}s</h3>
-                            {contributors}
-                        </div>
-                    );
-                }
             }
         });
         if (types.length > 0) {
