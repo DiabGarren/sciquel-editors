@@ -66,9 +66,16 @@ export default function TriviaContainerEditor(props: TriviaProps) {
             return (
                 <>
                     <div className="border border-grey-light rounded-[10px] p-[15px] mb-[10px]">
-                        <h3>Trivia</h3>
+                        <h3>
+                            {trivia.name[0].toUpperCase()}
+                            {trivia.name.substring(1)}-read Trivia
+                        </h3>
                         <p className="text-grey-light">
-                            {trivia.questions.length} questions
+                            {trivia.questions.length} question
+                            {trivia.questions.length > 1 ||
+                            trivia.questions.length < 1
+                                ? "s"
+                                : ""}
                         </p>
                     </div>
                     {questions}
@@ -98,7 +105,6 @@ export default function TriviaContainerEditor(props: TriviaProps) {
             );
         } else return <></>;
     });
-    console.log(props.trivia);
 
     return trivia;
 }

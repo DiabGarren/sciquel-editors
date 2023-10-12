@@ -9,6 +9,7 @@ import CoverImageEditor from "@/components/cover_image/editor/coverImage";
 import AcknowledgementsPreview from "@/components/acknowledgements/preview/acknowledgements";
 import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
 import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
+import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
 
 export default function NewPage(props: any) {
     const [image, setImage] = useState(null);
@@ -162,6 +163,12 @@ export default function NewPage(props: any) {
                     />
                 </div>
                 <div className="mb-[30px]">
+                    <TriviaContainerEditor
+                        {...triviaProps}
+                        triviaPosition="post"
+                    />
+                </div>
+                <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
             </div>
@@ -176,6 +183,18 @@ export default function NewPage(props: any) {
                 <CoverImagePreview {...imageProps} />
                 <div className="w-article mx-[auto]">
                     <GeneralByline {...generalProps} />
+                </div>
+                <div className="w-article mx-[auto]">
+                    <TriviaContainerPreview
+                        {...triviaProps}
+                        triviaPosition="pre"
+                    />
+                </div>
+                <div className="w-article mx-[auto]">
+                    <TriviaContainerPreview
+                        {...triviaProps}
+                        triviaPosition="post"
+                    />
                 </div>
                 <div className="w-article m-[auto]">
                     <hr className="my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
