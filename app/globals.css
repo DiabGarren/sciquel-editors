@@ -60,11 +60,6 @@ main>div:last-child {
     border-top: 3px solid #335860;
 }
 
-main>div:last-child>div:not(:first-child) {
-    width: 85%;
-    margin-inline: auto;
-}
-
 .cover-image {
     width: 100%;
     height: 250px;
@@ -72,7 +67,8 @@ main>div:last-child>div:not(:first-child) {
 }
 
 .preview {
-    max-width: 400px;
+    width: 85%;
+    max-width: 500px;
 }
 
 .tag-container {
@@ -93,13 +89,7 @@ main>div:last-child>div:not(:first-child) {
 }
 
 @media only screen and (min-width: 768px) {
-    main>div:first-child {
-        width: 85%;
-        margin-inline: auto;
-    }
-
     .cover-image {
-        width: 98%;
         max-width: 800px;
         height: 400px;
     }
@@ -114,6 +104,11 @@ main>div:last-child>div:not(:first-child) {
         grid-template-columns: 350px 1fr;
     }
 
+    main>div:first-child {
+        width: 100%;
+        margin-inline: 0;
+    }
+
     main>div {
         width: 100%;
         height: 100vh;
@@ -125,7 +120,6 @@ main>div:last-child>div:not(:first-child) {
     }
 
     .cover-image {
-        width: 98%;
         height: 350px;
     }
 
