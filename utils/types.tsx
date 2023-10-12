@@ -33,6 +33,7 @@ export interface Trivia {
 export interface Question {
     number: number;
     type: string;
+    content: any[];
 }
 
 export interface HeadingProps {
