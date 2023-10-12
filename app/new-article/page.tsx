@@ -44,7 +44,7 @@ export default function NewPage(props: any) {
 
     const [allContributors, setAllContributors] = useState([]);
     const [contributors, setContributors] = useState([
-        { name: "Author", verb: "authored", contributors: [], checked: false },
+        { name: "Author", verb: "", contributors: [], checked: false },
         {
             name: "Animator",
             verb: "animated",

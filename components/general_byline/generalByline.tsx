@@ -33,9 +33,11 @@ export default function GeneralByline(props: any) {
             });
             return <span>| {tags}</span>;
         } else {
-            if (tagArray === props.topSection.topics)
-                return <span>| No topic</span>;
-            else return <></>;
+            return tagArray === props.topSection.topics ? (
+                <span>| No topic</span>
+            ) : (
+                <></>
+            );
         }
     };
 
@@ -50,13 +52,11 @@ export default function GeneralByline(props: any) {
 
             if (cons.length > 0) {
                 if (cons.length === 1) {
-                    if (type.name === "Author") return <p>by: {cons[0]}</p>;
-                    else
-                        return (
-                            <p>
-                                {type.verb} by: {cons[0]}
-                            </p>
-                        );
+                    return (
+                        <p>
+                            {type.verb} by: {cons[0]}
+                        </p>
+                    );
                 } else {
                     let contributors: string = "";
                     for (let i = 1; i < cons.length - 1; i++) {
@@ -65,14 +65,12 @@ export default function GeneralByline(props: any) {
                     contributors = `${cons[0]}${contributors} and ${
                         cons[cons.length - 1]
                     }`;
-                    if (type.name === "Author")
-                        return <p>by: {contributors}</p>;
-                    else
-                        return (
-                            <p>
-                                {type.verb} by: {contributors}
-                            </p>
-                        );
+
+                    return (
+                        <p>
+                            {type.verb} by: {contributors}
+                        </p>
+                    );
                 }
             } else return <></>;
         });
