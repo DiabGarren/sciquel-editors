@@ -6,10 +6,14 @@ import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
 import { useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImage";
-import AcknowledgementsPreview from "@/components/acknowledgements/preview/AcknowledgementsPreview";
-import AcknowledgementsEditor from "@/components/acknowledgements/edit/AcknowledgementsEditor";
+import AcknowledgementsPreview from "@/components/acknowledgements/preview/acknowledgements";
+import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
+import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 
 export default function NewPage(props: any) {
+    const [image, setImage] = useState(null);
+    const [finalImage, setFinalImage] = useState(null);
+
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
 
@@ -60,8 +64,10 @@ export default function NewPage(props: any) {
     let [cell, setCell] = useState([]);
     const [graphType, setGraphType] = useState("bar");
 
-    const [image, setImage] = useState(null);
-    const [finalImage, setFinalImage] = useState(null);
+    const [trivia, setTrivia] = useState([
+        { name: "pre", questions: [] },
+        { name: "post", questions: [] },
+    ]);
 
     const headingProps = {
         heading,
@@ -107,6 +113,11 @@ export default function NewPage(props: any) {
         topSection: topSectionProps,
     };
 
+    const triviaProps = {
+        trivia,
+        setTrivia,
+    };
+
     const acknowldgeProps = {
         contributors,
         setContributors,
@@ -143,6 +154,12 @@ export default function NewPage(props: any) {
                 </div>
                 <div className="mb-[30px]">
                     <TopSection {...topSectionProps} />
+                </div>
+                <div className="mb-[30px]">
+                    <TriviaContainerEditor
+                        {...triviaProps}
+                        triviaPosition="pre"
+                    />
                 </div>
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />

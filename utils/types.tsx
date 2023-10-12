@@ -25,6 +25,11 @@ export interface MediaType {
     name: string;
 }
 
+export interface Trivia {
+    name: string;
+    questions: never[];
+}
+
 export interface HeadingProps {
     heading: string;
     setHeading: Dispatch<SetStateAction<string>>;
@@ -77,4 +82,13 @@ export interface TopSectionProps {
             }[]
         >
     >;
+}
+
+export interface TriviaProps {
+    trivia: {
+        name: string;
+        questions: never[];
+    }[];
+    setTrivia: Dispatch<SetStateAction<{ name: string; questions: never[] }[]>>;
+    triviaPosition: string;
 }
