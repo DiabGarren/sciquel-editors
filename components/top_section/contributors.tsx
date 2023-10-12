@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-key */
 "use client";
 
@@ -14,6 +15,7 @@ import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export default function Contributors(props: any) {
+    const [selected, setSelected] = useState([{}]);
     const [selectedTypes, setSelectedTypes] = useState(new Set<string>());
     const [selectedAnimators, setSelectedAnimators] = useState(
         new Set<string>()
@@ -71,21 +73,17 @@ export default function Contributors(props: any) {
                                                                 [];
                                                             type.checked =
                                                                 false;
-                                                            if (
-                                                                type.name ===
-                                                                "Animator"
-                                                            )
-                                                                selectedAnimators.clear();
-                                                            if (
-                                                                type.name ===
-                                                                "Author"
-                                                            )
-                                                                selectedAuthors.clear();
-                                                            if (
-                                                                type.name ===
-                                                                "Illustrator"
-                                                            )
-                                                                selectedIllustrators.clear();
+                                                            switch (type.name) {
+                                                                case "Author":
+                                                                    selectedAuthors.clear();
+                                                                    break;
+                                                                case "Animator":
+                                                                    selectedAnimators.clear();
+                                                                    break;
+                                                                case "Illustrator":
+                                                                    selectedIllustrators.clear();
+                                                                    break;
+                                                            }
                                                         } else {
                                                             type.contributors =
                                                                 props.allContributors.map(
@@ -268,12 +266,6 @@ export default function Contributors(props: any) {
                 const contributors = type.contributors.map(
                     (con: Contributor, index: number) => {
                         if (con.checked) {
-                            let imageSrc = "default_profile.svg";
-
-                            if (con.image !== "") {
-                                imageSrc = con.image;
-                            }
-
                             return (
                                 <div
                                     className="grid w-[210px] my-[2px] items-center"
@@ -282,7 +274,11 @@ export default function Contributors(props: any) {
                                     }}
                                 >
                                     <Image
-                                        src={`/images/${imageSrc}`}
+                                        src={
+                                            con.image === ""
+                                                ? "/images/default_profile.svg"
+                                                : `/images/${con.image}`
+                                        }
                                         alt={`${con.name} profile picture`}
                                         height={50}
                                         width={50}
