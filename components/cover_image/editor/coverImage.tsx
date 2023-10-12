@@ -34,8 +34,7 @@ export default function CoverImageEditor(props: ImageProps) {
         <>
             <h3>Cover Image</h3>
             <input
-                className="block rounded
-                "
+                className="block rounded w-[300px]                "
                 type="file"
                 onChange={(event) => {
                     props.setFinalImage(null);

@@ -52,7 +52,143 @@ h3 {
     font-size: 1.17em;
 }
 
+main {
+    grid-template-columns: none;
+}
+
+main>div:last-child {
+    border-top: 3px solid #335860;
+}
+
+main>div:last-child>div:not(:first-child) {
+    width: 85%;
+    margin-inline: auto;
+}
+
+.cover-image {
+    width: 100%;
+    height: 250px;
+    border-radius: 0 0 5px 5px;
+}
+
+.preview {
+    max-width: 400px;
+}
+
+.tag-container {
+    max-height: 90px;
+    overflow-y: auto;
+}
+
+@media only screen and (min-width: 576px) {
+    main>div:first-child {
+        width: 85%;
+        margin-inline: auto;
+    }
+
+    .cover-image {
+        width: 98%;
+        height: 375px;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    main>div:first-child {
+        width: 85%;
+        margin-inline: auto;
+    }
+
+    .cover-image {
+        width: 98%;
+        max-width: 800px;
+        height: 400px;
+    }
+
+    .tag-container {
+        width: 450px;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    main {
+        grid-template-columns: 350px 1fr;
+    }
+
+    main>div {
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto
+    }
+
+    main>div:last-child {
+        border-top: none;
+    }
+
+    .cover-image {
+        width: 98%;
+        height: 350px;
+    }
+
+    .tag-container {
+        width: 310px;
+        max-height: 75px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    main {
+        grid-template-columns: 500px 1fr;
+    }
+
+    .cover-image {
+        height: 400px;
+    }
+
+    .tag-container {
+        width: 450px;
+    }
+
+    .trivia-question {
+        grid-template-columns: 150px 1fr 150px;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    main {
+        grid-template-columns: 600px 1fr;
+    }
+
+    .cover-image {
+        height: 450px;
+    }
+
+    .trivia-question {
+        grid-template-columns: 175px 1fr 175px;
+    }
+}
+
+@media only screen and (min-width: 1800px) {
+
+    main>div {
+        height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto
+    }
+
+    .cover-image {
+        width: 98%;
+        max-width: 1200px;
+        height: 500px;
+    }
+
+    .media-type {
+        display: flex
+    }
+
+}
+
 @layer components {
+
     .button {
         @apply bg-cyan text-white rounded px-[5px] hover:underline hover:bg-cyan-light;
     }

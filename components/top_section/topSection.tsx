@@ -84,8 +84,8 @@ export default function TopSection(props: TopSectionProps) {
         }
         return (
             <div
-                className="grid w-[300px] mr-[20px]"
-                style={{ gridTemplateColumns: "125px 1fr" }}
+                className="grid w-[250px] mr-[20px] mb-[10px]"
+                style={{ gridTemplateColumns: "125px 125px" }}
             >
                 <h3 className="inline">{title}:</h3>
                 <Dropdown>
@@ -143,7 +143,7 @@ export default function TopSection(props: TopSectionProps) {
                     {props.urlSlug || "certain-key-words"}
                 </p>
             </div>
-            <div className="mb-[30px] flex">
+            <div className="media-type mb-[30px]">
                 {displayTypes(
                     "Media Type",
                     props.mediaTypes,

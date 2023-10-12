@@ -138,15 +138,8 @@ export default function NewPage(props: any) {
     };
 
     return (
-        <main className="grid" style={{ gridTemplateColumns: "650px 1210px" }}>
-            <div
-                className="p-[15px] pb-[50px]"
-                style={{
-                    height: "955px",
-                    maxHeight: "955px",
-                    overflowY: "auto",
-                }}
-            >
+        <main className="grid">
+            <div className="p-[15px] pb-[50px]">
                 <div className="mb-[30px]">
                     <CoverImageEditor {...imageProps} />
                 </div>
@@ -172,31 +165,24 @@ export default function NewPage(props: any) {
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
             </div>
-            <div
-                className="relative"
-                style={{
-                    height: "955px",
-                    maxHeight: "955px",
-                    overflowY: "auto",
-                }}
-            >
+            <div className="relative">
                 <CoverImagePreview {...imageProps} />
-                <div className="w-article mx-[auto]">
+                <div className="preview mx-[auto]">
                     <GeneralByline {...generalProps} />
                 </div>
-                <div className="w-article mx-[auto]">
+                <div className="preview mx-[auto]">
                     <TriviaContainerPreview
                         {...triviaProps}
                         triviaPosition="pre"
                     />
                 </div>
-                <div className="w-article mx-[auto]">
+                <div className="preview mx-[auto]">
                     <TriviaContainerPreview
                         {...triviaProps}
                         triviaPosition="post"
                     />
                 </div>
-                <div className="w-article m-[auto]">
+                <div className="preview m-[auto]">
                     <hr className="my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>

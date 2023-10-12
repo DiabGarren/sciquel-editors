@@ -52,10 +52,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
         if (trivia.name === props.triviaPosition) {
             const questions = trivia.questions.map((question: Question) => {
                 return (
-                    <div
-                        className="grid border border-grey-light rounded-[10px] p-[7px] mb-[10px] items-center"
-                        style={{ gridTemplateColumns: "175px 1fr 175px" }}
-                    >
+                    <div className="trivia-question grid border border-grey-light rounded-[10px] p-[7px] mb-[10px] items-center">
                         {questionContainer(trivia.name, question)}
                         <h3 className="text-center">
                             Question {question.number}

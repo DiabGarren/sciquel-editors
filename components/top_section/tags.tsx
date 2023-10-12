@@ -78,10 +78,7 @@ export default function Tags(props: any) {
                         </DropdownMenu>
                     </Dropdown>
                 </div>
-                <div
-                    className="my-[5px] w-[450px]"
-                    style={{ maxHeight: "65px", overflowY: "auto" }}
-                >
+                <div className="tag-container my-[5px]">
                     {displayTags(tagArray, setTagArray, selectedArray)}
                 </div>
             </div>
