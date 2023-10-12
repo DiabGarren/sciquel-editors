@@ -30,6 +30,11 @@ export interface Trivia {
     questions: never[];
 }
 
+export interface Question {
+    number: number;
+    type: string;
+}
+
 export interface HeadingProps {
     heading: string;
     setHeading: Dispatch<SetStateAction<string>>;
