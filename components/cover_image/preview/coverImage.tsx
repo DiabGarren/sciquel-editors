@@ -1,4 +1,4 @@
-import HeadingContainerPreview from "@/components/heading/preview/headingContainerPreview";
+import HeadingContainerPreview from "@/components/heading/preview/headingContainer";
 import { ImageProps } from "@/utils/types";
 
 export default function CoverImagePreview(props: ImageProps) {
