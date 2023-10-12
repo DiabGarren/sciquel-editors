@@ -36,12 +36,17 @@ const config: Config = {
 			},
 			grey: {
 				DEFAULT: '#51726b',
-				light: '#dbdbdb',
+				light: {
+					DEFAULT: '#898c8a',
+					1: '#dbdbdb',
+				}
 			},
 			cyan: {
 				DEFAULT: '#5c9ead',
 				dark: '#335860',
-				light: '#70c0d3',
+				light: {
+					DEFAULT: '#70c0d3',
+				},
 			}
 		},
 		borderRadius: {
