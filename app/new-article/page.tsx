@@ -149,13 +149,13 @@ export default function NewPage(props: any) {
                 <div className="mb-[30px]">
                     <TopSection {...topSectionProps} />
                 </div>
-                <div className="mb-[30px]">
+                <div className="mb-[30px] border border-grey-light p-[7px] rounded-[15px]">
                     <TriviaContainerEditor
                         {...triviaProps}
                         triviaPosition="pre"
                     />
                 </div>
-                <div className="mb-[30px]">
+                <div className="mb-[30px] border border-grey-light p-[7px] rounded-[15px]">
                     <TriviaContainerEditor
                         {...triviaProps}
                         triviaPosition="post"

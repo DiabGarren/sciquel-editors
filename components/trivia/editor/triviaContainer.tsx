@@ -29,20 +29,18 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                     onChange={(event) => {
                         props.setTrivia(
                             props.trivia.map((trivia: any) => {
-                                if (trivia.name === name) {
-                                    const questions = trivia.questions.map(
-                                        (q: Question) => {
-                                            if (q.number === question.number) {
-                                                q.type = event.target.value;
-                                            }
-                                            return q;
+                                const questions = trivia.questions.map(
+                                    (q: Question) => {
+                                        if (q.number === question.number) {
+                                            q.type = event.target.value;
                                         }
-                                    );
-                                    return {
-                                        name: trivia.name,
-                                        questions: questions,
-                                    };
-                                } else return trivia;
+                                        return q;
+                                    }
+                                );
+                                return {
+                                    name: trivia.name,
+                                    questions: questions,
+                                };
                             })
                         );
                     }}
@@ -94,51 +92,32 @@ export default function TriviaContainerEditor(props: TriviaProps) {
         }
     };
 
-    const trivia = props.trivia.map((trivia: Trivia, index: number) => {
+    const trivia = props.trivia.map((trivia: Trivia) => {
         if (trivia.name === props.triviaPosition) {
-            const questions = trivia.questions.map((question: Question) => {
-                return (
-                    <div className="trivia-question grid border border-grey-light rounded-[10px] p-[7px] mb-[10px] items-center">
-                        {questionContainer(trivia.name, question)}
-                        <h3 className="text-center">
-                            Question {question.number}
-                        </h3>
-                        <TrashIcon
-                            className="trash-icon ml-[auto] w-[30px] h-[27px]"
-                            onClick={() =>
-                                props.setTrivia(
-                                    props.trivia.map(
-                                        (trivia: any, i: number) => {
-                                            if (i === index) {
-                                                const questions: any[] = [];
-                                                let number = 1;
-                                                trivia.questions.forEach(
-                                                    (q: Question) => {
-                                                        if (
-                                                            q.number !==
-                                                            question.number
-                                                        ) {
-                                                            q.number = number;
-                                                            number++;
-
-                                                            questions.push(q);
-                                                        }
-                                                    }
-                                                );
-                                                return {
-                                                    name: trivia.name,
-                                                    questions: questions,
-                                                };
-                                            } else return trivia;
-                                        }
+            const questions = trivia.questions.map(
+                (question: Question, index: number) => {
+                    return (
+                        <div className="trivia-question grid border border-grey-light rounded-[10px] p-[7px] mb-[10px] items-center">
+                            {questionContainer(trivia.name, question)}
+                            <h3 className="text-center">
+                                Question {index + 1}
+                            </h3>
+                            <TrashIcon
+                                className="trash-icon ml-[auto] w-[30px] h-[27px]"
+                                onClick={() =>
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: Trivia) => {
+                                            trivia.questions.splice(index, 1);
+                                            return trivia;
+                                        })
                                     )
-                                )
-                            }
-                        />
-                        {content(question)}
-                    </div>
-                );
-            });
+                                }
+                            />
+                            {content(question)}
+                        </div>
+                    );
+                }
+            );
             return (
                 <>
                     <div className="border border-grey-light rounded-[10px] p-[15px] mb-[10px]">
@@ -162,17 +141,15 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                             onClick={() => {
                                 props.setTrivia(
                                     props.trivia.map((t: any) => {
-                                        if (t.name === trivia.name) {
-                                            t.questions.push({
-                                                number: t.questions.length + 1,
-                                                type: "True/False",
-                                                content: [trueFalse],
-                                            });
-                                            return {
-                                                name: t.name,
-                                                questions: t.questions,
-                                            };
-                                        } else return t;
+                                        t.questions.push({
+                                            number: t.questions.length + 1,
+                                            type: "True/False",
+                                            content: [trueFalse],
+                                        });
+                                        return {
+                                            name: t.name,
+                                            questions: t.questions,
+                                        };
                                     })
                                 );
                             }}
