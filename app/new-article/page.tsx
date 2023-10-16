@@ -155,12 +155,6 @@ export default function NewPage(props: any) {
                         triviaPosition="pre"
                     />
                 </div>
-                <div className="mb-[30px] border border-grey-light-1 p-[7px] rounded-[15px]">
-                    <TriviaContainerEditor
-                        {...triviaProps}
-                        triviaPosition="post"
-                    />
-                </div>
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>

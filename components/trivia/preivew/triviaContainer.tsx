@@ -15,7 +15,6 @@ export default function TriviaContainerPreview(props: TriviaProps) {
             });
             if (questions.length > 0) {
                 const quests = trivia.questions.map((question: any, questionIndex: number) => {
-                    let questContent;
                     switch (question.type) {
                         case "True/False":
                             const content = question.content.map((content: any, index: number) => {

@@ -154,8 +154,8 @@ export default function TriviaContainerEditor(props: TriviaProps) {
         }
     };
 
-    const trivia = props.trivia.map((trivia: Trivia) => {
-        if (trivia.name === props.triviaPosition) {
+    const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
+        if (triviaIndex === 0) {
             const questions = trivia.questions.map((question: Question, index: number) => {
                 return (
                     <div className="trivia-question grid border border-grey-light-1 rounded-[10px] p-[7px] mb-[10px] items-center">
@@ -214,10 +214,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
             return (
                 <>
                     <div className="border border-grey-light-1 rounded-[10px] p-[15px] mb-[10px]">
-                        <h3>
-                            {trivia.name[0].toUpperCase()}
-                            {trivia.name.substring(1)}-read Trivia
-                        </h3>
+                        <h3>Trivia</h3>
                         <p className="text-grey-light">
                             {trivia.questions.length} question
                             {trivia.questions.length > 1 || trivia.questions.length < 1 ? "s" : ""}
@@ -256,7 +253,6 @@ export default function TriviaContainerEditor(props: TriviaProps) {
             );
         } else return <></>;
     });
-    console.log(props.trivia);
 
     return trivia;
 }
