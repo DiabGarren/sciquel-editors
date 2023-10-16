@@ -241,8 +241,31 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                             <RadioGroup
                                 color="primary"
                                 value={content.value}
-                                // onValueChange={}
-                            >
+                                onValueChange={(event) => {
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: any) => {
+                                            const questions = trivia.questions.map(
+                                                (question: any, questIndex: number) => {
+                                                    if (questIndex === questionIndex) {
+                                                        const content = question.content.map(
+                                                            (content: any, cIndex: number) => {
+                                                                if (cIndex === contentIndex) {
+                                                                    content.value = event;
+                                                                }
+                                                                return content;
+                                                            }
+                                                        );
+                                                        return {
+                                                            type: question.type,
+                                                            content: content,
+                                                        };
+                                                    } else return question;
+                                                }
+                                            );
+                                            return { name: trivia.name, questions: questions };
+                                        })
+                                    );
+                                }}>
                                 {radios}
                             </RadioGroup>
                         </div>
