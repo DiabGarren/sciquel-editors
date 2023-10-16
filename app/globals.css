@@ -6,6 +6,7 @@
     --foreground-rgb: 0, 0, 0;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
+    --header-height: 65px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,12 +26,12 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to top, #37a7ab, #118ca3);
-    border-radius: 5px;
+    background: #109191;
+    border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #83bcc9;
+    background: #16c4c4;
 }
 
 h1,
@@ -50,6 +51,10 @@ h2 {
 
 h3 {
     font-size: 1.17em;
+}
+
+header {
+    height: var(--header-height);
 }
 
 main {
@@ -163,9 +168,13 @@ main>div:last-child {
 
 @media only screen and (min-width: 1800px) {
 
+    main {
+        max-height: calc(100vh - var(--header-height));
+    }
+
     main>div {
-        height: 100vh;
-        max-height: 100vh;
+        height: calc(100vh - var(--header-height));
+        max-height: calc(100vh - var(--header-height));
         overflow-y: auto
     }
 
@@ -182,26 +191,21 @@ main>div:last-child {
 }
 
 @layer components {
-
-    .button {
-        @apply bg-cyan text-white rounded px-[5px] hover:underline hover:bg-cyan-light;
-    }
-
-    .plus-icon {
-        @apply w-[25px] block rounded-[50%] text-center bg-blue text-white cursor-pointer hover:bg-blue-light;
-    }
-
     .trash-icon {
-        @apply h-[25px] block rounded-[50%] text-center p-[4px] cursor-pointer hover:text-red;
+        display: block;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+        padding: 4px;
+        cursor: pointer;
     }
 
-    .drp {
-        max-height: 150px;
-        overflow-y: auto;
+    .trash-icon:hover {
+        color: red;
     }
 
-    .tag {
-        @apply inline-block rounded-tag px-[8px] mx-[2px] text-white;
+    Button:hover {
+        background: #16c4c4;
     }
 
     input[type="checkbox"].switch {

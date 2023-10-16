@@ -47,6 +47,11 @@ const config: Config = {
 				light: {
 					DEFAULT: '#70c0d3',
 				},
+			},
+			teal: {
+				DEFAULT: '#109191',
+				dark: '#0a5757',
+				light: '#16c4c4'
 			}
 		},
 		borderRadius: {
@@ -69,11 +74,11 @@ const config: Config = {
 					foreground: 'black',
 					primary: {
 						foreground: 'white',
-						DEFAULT: '#5c9ead',
+						DEFAULT: '#109191',
 					},
 					success: {
 						foreground: 'white',
-						DEFAULT: '#5c9ead',
+						DEFAULT: '#109191',
 					},
 					warning: {
 						foreground: 'white',

@@ -17,10 +17,7 @@ export default function AcknowledgementsPreview(props: any) {
                         if (con.image !== "") imageSrc = con.image;
 
                         let message;
-                        if (
-                            con.message === "" ||
-                            con.message === "<p><br></p>"
-                        ) {
+                        if (con.message === "" || con.message === "<p><br></p>") {
                             message = `Acknowledgement for ${con.name}`;
                         } else message = parse(con.message);
 
@@ -29,12 +26,10 @@ export default function AcknowledgementsPreview(props: any) {
                                 <div
                                     className="flex mb-[15px] items-center"
                                     style={{
-                                        fontFamily:
-                                            alegreya_sans_sc.style.fontFamily,
+                                        fontFamily: alegreya_sans_sc.style.fontFamily,
                                         fontWeight: "700",
-                                    }}
-                                >
-                                    <h2 className="text-cyan-dark text-[35px] leading-[35px] mr-[10px]">
+                                    }}>
+                                    <h2 className="text-teal-dark text-[35px] font-[600] leading-[35px] mr-[10px]">
                                         {con.name}
                                     </h2>
                                     <Image

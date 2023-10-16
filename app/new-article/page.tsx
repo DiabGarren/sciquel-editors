@@ -177,7 +177,7 @@ export default function NewPage(props: any) {
                     />
                 </div>
                 <div className="preview m-[auto]">
-                    <hr className="my-[15px] h-[3px] bg-cyan-dark border-none rounded-[2px]" />
+                    <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
             </div>
