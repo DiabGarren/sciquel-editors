@@ -70,6 +70,14 @@ const config: Config = {
 					primary: {
 						foreground: 'white',
 						DEFAULT: '#5c9ead',
+					},
+					success: {
+						foreground: 'white',
+						DEFAULT: '#5c9ead',
+					},
+					warning: {
+						foreground: 'white',
+						DEFAULT: '#ff0000',
 					}
 				}
 			}
