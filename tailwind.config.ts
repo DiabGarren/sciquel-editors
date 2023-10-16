@@ -56,8 +56,10 @@ const config: Config = {
 		},
 		borderRadius: {
 			DEFAULT: '5px',
-			tag: '12px'
-		}
+			tag: '12px',
+			lr: '15px',
+			md: '10px'
+		},
 	},
 	plugins: [nextui({
 		layout: {

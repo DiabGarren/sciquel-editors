@@ -5,30 +5,15 @@ import { Radio, RadioGroup } from "@nextui-org/react";
 export default function TriviaContainerPreview(props: TriviaProps) {
     const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
         if (trivia.name === props.triviaPosition) {
-            let questions: any[] = [];
-            trivia.questions.forEach((question: Question) => {
-                questions.push(
-                    <div>
-                        <h3>Question {question.number}</h3>
-                    </div>
-                );
-            });
-            if (questions.length > 0) {
+            if (trivia.questions.length > 0) {
                 const quests = trivia.questions.map((question: any, questionIndex: number) => {
                     switch (question.type) {
                         case "True/False":
                             const content = question.content.map((content: any, index: number) => {
                                 return (
-                                    <div
-                                        className="grid mt-[10px]"
-                                        style={{
-                                            gridTemplateColumns: "2fr 1fr",
-                                        }}>
+                                    <div className="grid grid-cols-[2fr_1fr] mt-[10px]">
                                         <input
-                                            className="border-grey-light pl-[3px] w-[90%]"
-                                            style={{
-                                                borderBottomWidth: "2px",
-                                            }}
+                                            className="border-grey-light border-b-2 pl-[3px] w-[90%]"
                                             placeholder="True or false statement"
                                             value={content.statement}
                                             readOnly
@@ -45,9 +30,9 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                                                     props.trivia.map((trivia: any, ti: number) => {
                                                         if (ti === triviaIndex) {
                                                             const questions = trivia.questions.map(
-                                                                (q: any) => {
+                                                                (q: any, questIndex: number) => {
                                                                     if (
-                                                                        q.number === question.number
+                                                                        questIndex === questionIndex
                                                                     ) {
                                                                         const content =
                                                                             q.content.map(
@@ -65,7 +50,6 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                                                                                 }
                                                                             );
                                                                         return {
-                                                                            number: q.number,
                                                                             type: q.type,
                                                                             content: content,
                                                                         };
@@ -88,14 +72,14 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                                 );
                             });
                             return (
-                                <div className="border border-grey-light-1 rounded-[10px] p-[12px]">
+                                <div className="border border-grey-light-1 rounded-md p-[12px]">
                                     <h3 className="text-center">Question {questionIndex + 1}</h3>
                                     {content}
                                 </div>
                             );
                         default:
                             return (
-                                <div className="border border-grey-light-1 rounded-[10px] p-[12px]">
+                                <div className="border border-grey-light-1 rounded-md p-[12px]">
                                     <h3 className="text-center">Question {questionIndex + 1}</h3>
                                 </div>
                             );
@@ -103,8 +87,8 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                 });
 
                 return (
-                    <div className="border border-grey-light-1 rounded-[15px] p-[7px]">
-                        <div className="border border-grey-light-1 rounded-[10px] p-[12px] mb-[5px]">
+                    <div className="border border-grey-light-1 rounded-lr p-[7px]">
+                        <div className="border border-grey-light-1 rounded-md p-[12px] mb-[5px]">
                             <h3>
                                 {trivia.name[0].toUpperCase()}
                                 {trivia.name.substring(1)}-read Trivia
