@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { Question, Trivia, TriviaProps } from "@/utils/types";
-import { Radio, RadioGroup } from "@nextui-org/react";
+import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
 
 export default function TriviaContainerPreview(props: TriviaProps) {
     const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
@@ -150,8 +150,104 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                                 );
                             });
                             break;
+                        case "Single Matching":
+                            content = question.content.map((content: any, contentIndex: number) => {
+                                const randomAnswers = question.content
+                                    .map((a: any) => ({ sort: Math.random(), value: a }))
+                                    .sort((a: any, b: any) => a.sort - b.sort)
+                                    .map((a: any) => a.value);
+                                return (
+                                    <div className="grid grid-cols-[1fr_1fr] items-center">
+                                        <div>
+                                            <p className="inline-block mr-[5px]">
+                                                {contentIndex + 1}.
+                                            </p>
+                                            <input
+                                                className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
+                                                value={content.question}
+                                                disabled
+                                                readOnly
+                                            />
+                                        </div>
+                                        <div>
+                                            <Select
+                                                color={
+                                                    content.guess === content.answer
+                                                        ? "default"
+                                                        : "warning"
+                                                }
+                                                size="sm"
+                                                radius="lg"
+                                                onChange={(event) => {
+                                                    props.setTrivia(
+                                                        props.trivia.map(
+                                                            (trivia: any, tIndex: number) => {
+                                                                if (tIndex === triviaIndex) {
+                                                                    const questions =
+                                                                        trivia.questions.map(
+                                                                            (
+                                                                                question: any,
+                                                                                questIndex: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    questIndex ===
+                                                                                    questionIndex
+                                                                                ) {
+                                                                                    const content =
+                                                                                        question.content.map(
+                                                                                            (
+                                                                                                c: any,
+                                                                                                cIndex: number
+                                                                                            ) => {
+                                                                                                if (
+                                                                                                    cIndex ===
+                                                                                                    contentIndex
+                                                                                                ) {
+                                                                                                    c.guess =
+                                                                                                        event.target.value;
+                                                                                                }
+                                                                                                return c;
+                                                                                            }
+                                                                                        );
+
+                                                                                    return {
+                                                                                        type: question.type,
+                                                                                        content:
+                                                                                            content,
+                                                                                    };
+                                                                                }
+                                                                                return question;
+                                                                            }
+                                                                        );
+                                                                    return {
+                                                                        name: trivia.name,
+                                                                        questions: questions,
+                                                                    };
+                                                                } else return trivia;
+                                                            }
+                                                        )
+                                                    );
+                                                }}>
+                                                {randomAnswers.map((content: any) => (
+                                                    <SelectItem
+                                                        key={content.answer}
+                                                        value={content.answer}>
+                                                        {content.answer}
+                                                    </SelectItem>
+                                                ))}
+                                            </Select>
+                                        </div>
+                                    </div>
+                                );
+                            });
+                            content = (
+                                <div className="border border-grey-light-1 rounded-md p-[7px]">
+                                    {content}
+                                </div>
+                            );
+                            break;
                         default:
-                            content = "Hello";
+                            content = "";
                     }
                     return (
                         <div className="border border-grey-light-1 rounded-md p-[12px]">
