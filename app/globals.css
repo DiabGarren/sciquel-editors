@@ -7,6 +7,7 @@
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
     --header-height: 65px;
+    --sciquel-primary: #109191;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +27,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #109191;
+    background: var(--sciquel-primary);
     border-radius: 2px;
 }
 
@@ -206,7 +207,9 @@ main>div:last-child {
     }
 
     Button:hover {
-        background: #16c4c4;
+        border: 2px solid var(--sciquel-primary);
+        color: var(--sciquel-primary);
+        background: #fff;
     }
 
     input[type="checkbox"].switch {

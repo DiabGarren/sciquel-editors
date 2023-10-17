@@ -7,7 +7,7 @@ const questionTypes = [
     { name: "True/False" },
     { name: "Multiple Choice" },
     { name: "Single Matching" },
-    { name: "Multiple Matching" },
+    // { name: "Multiple Matching" },
 ];
 
 export default function TriviaContainerEditor(props: TriviaProps) {
@@ -37,6 +37,15 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                                                             question: "",
                                                             answers: ["", "", "", ""],
                                                             value: "",
+                                                            guess: "",
+                                                        },
+                                                    ];
+                                                    break;
+                                                case "Single Matching":
+                                                    q.content = [
+                                                        {
+                                                            question: "",
+                                                            answer: "",
                                                             guess: "",
                                                         },
                                                     ];
@@ -169,7 +178,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                         </div>
                     );
                 });
-                return <div className="col-[1/4] max-h-[250px] overflow-y-auto">{content}</div>;
+                break;
             case "Multiple Choice":
                 content = question.content.map((content: any, contentIndex: number) => {
                     const radios = content.answers.map((answer: any, answerIndex: number) => {
@@ -328,17 +337,123 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                         </div>
                     );
                 });
-                return <div className="col-[1/4] max-h-[320px] overflow-y-auto">{content}</div>;
+                break;
+            case "Single Matching":
+                content = question.content.map((content: any, contentIndex: number) => {
+                    return (
+                        <div className="grid grid-cols-[1fr_1fr_25px] my-[8px] items-center">
+                            <div>
+                                <p className="inline-block mr-[5px]">{contentIndex + 1}.</p>
+                                <input
+                                    className="border-b-2 border-grey-light"
+                                    placeholder="Question/Statement"
+                                    value={content.question}
+                                    onChange={(event) => {
+                                        props.setTrivia(
+                                            props.trivia.map((trivia: any) => {
+                                                const questions = trivia.questions.map(
+                                                    (question: any, questIndex: number) => {
+                                                        if (questIndex === questionIndex) {
+                                                            const content = question.content.map(
+                                                                (content: any, cIndex: number) => {
+                                                                    if (cIndex === contentIndex) {
+                                                                        content.question =
+                                                                            event.target.value;
+                                                                    }
+                                                                    return content;
+                                                                }
+                                                            );
+                                                            return {
+                                                                type: question.type,
+                                                                content: content,
+                                                            };
+                                                        } else return question;
+                                                    }
+                                                );
+                                                return { name: trivia.name, questions: questions };
+                                            })
+                                        );
+                                    }}
+                                />
+                            </div>
+                            <input
+                                className="border-b-2 border-grey-light ml-[10px]"
+                                placeholder="Matching answer/statement"
+                                value={content.answer}
+                                onChange={(event) => {
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: any) => {
+                                            const questions = trivia.questions.map(
+                                                (question: any, questIndex: number) => {
+                                                    if (questIndex === questionIndex) {
+                                                        const content = question.content.map(
+                                                            (content: any, cIndex: number) => {
+                                                                if (cIndex === contentIndex) {
+                                                                    content.answer =
+                                                                        event.target.value;
+                                                                }
+                                                                return content;
+                                                            }
+                                                        );
+                                                        return {
+                                                            type: question.type,
+                                                            content: content,
+                                                        };
+                                                    } else return question;
+                                                }
+                                            );
+                                            return { name: trivia.name, questions: questions };
+                                        })
+                                    );
+                                }}
+                            />
+                            <TrashIcon
+                                className="trash-icon"
+                                onClick={() => {
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: any) => {
+                                            const questions = trivia.questions.map(
+                                                (question: any, questIndex: number) => {
+                                                    if (questIndex === questionIndex) {
+                                                        const content: any[] = [];
+                                                        question.content.forEach(
+                                                            (c: any, cIndex: number) => {
+                                                                if (cIndex !== contentIndex)
+                                                                    content.push(c);
+                                                            }
+                                                        );
+                                                        question.content = content;
+                                                    }
+                                                    return question;
+                                                }
+                                            );
+                                            return {
+                                                name: trivia.name,
+                                                questions: questions,
+                                            };
+                                        })
+                                    );
+                                }}
+                            />
+                        </div>
+                    );
+                });
+                content = (
+                    <div className="border border-grey-light-1 p-[10px] rounded-md">{content}</div>
+                );
+                break;
             default:
                 return <></>;
         }
+
+        return <div className="col-[1/4] max-h-[250px] overflow-y-auto">{content}</div>;
     };
 
     const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
         if (triviaIndex === 0) {
             const questions = trivia.questions.map((question: Question, index: number) => {
                 return (
-                    <div className="trivia-question grid border border-grey-light-1 rounded-md p-[7px] mb-[10px] items-center">
+                    <div className="trivia-question grid border border-grey-light-1 rounded-md p-[7px] my-[7px] items-center">
                         {questionContainer(question, index)}
                         <h3 className="text-center">Question {index + 1}</h3>{" "}
                         <TrashIcon
@@ -379,7 +494,13 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                                                                 guess: "",
                                                             });
                                                             break;
-
+                                                        case "Single Matching":
+                                                            q.content.push({
+                                                                question: "",
+                                                                answer: "",
+                                                                guess: "",
+                                                            });
+                                                            break;
                                                         default:
                                                             break;
                                                     }
@@ -440,7 +561,6 @@ export default function TriviaContainerEditor(props: TriviaProps) {
             );
         } else return <></>;
     });
-    console.log(props.trivia);
 
     return trivia;
 }
