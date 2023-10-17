@@ -7,15 +7,17 @@ export default function TriviaContainerPreview(props: TriviaProps) {
         if (trivia.name === props.triviaPosition) {
             if (trivia.questions.length > 0) {
                 const quests = trivia.questions.map((question: any, questionIndex: number) => {
+                    let content;
                     switch (question.type) {
                         case "True/False":
-                            const content = question.content.map((content: any, index: number) => {
+                            content = question.content.map((content: any, index: number) => {
                                 return (
                                     <div className="grid grid-cols-[2fr_1fr] mt-[10px]">
                                         <input
-                                            className="border-grey-light border-b-2 pl-[3px] w-[90%]"
+                                            className="border-grey-light border-b-2 pl-[3px] w-[90%] bg-[transparent]"
                                             placeholder="True or false statement"
                                             value={content.statement}
+                                            disabled
                                             readOnly
                                         />
                                         <RadioGroup
@@ -71,19 +73,92 @@ export default function TriviaContainerPreview(props: TriviaProps) {
                                     </div>
                                 );
                             });
-                            return (
-                                <div className="border border-grey-light-1 rounded-md p-[12px]">
-                                    <h3 className="text-center">Question {questionIndex + 1}</h3>
-                                    {content}
-                                </div>
-                            );
+                            break;
+                        case "Multiple Choice":
+                            content = question.content.map((content: any, index: number) => {
+                                const radios = content.answers.map((answer: any, index: number) => {
+                                    return (
+                                        <Radio value={answer}>
+                                            <input
+                                                className="border-b-2 border-grey-light bg-[transparent]"
+                                                value={answer}
+                                                placeholder={`Answer ${index + 1}`}
+                                                disabled
+                                                readOnly
+                                            />
+                                        </Radio>
+                                    );
+                                });
+                                return (
+                                    <div className="mt-[10px]">
+                                        <input
+                                            className="border-grey-light border-b-2 pl-[3px] w-[90%] mb-[10px] bg-[transparent] "
+                                            placeholder="Multiple choice question"
+                                            value={content.question}
+                                            disabled
+                                            readOnly
+                                        />
+                                        <RadioGroup
+                                            color={
+                                                content.guess === content.value
+                                                    ? "primary"
+                                                    : "warning"
+                                            }
+                                            onValueChange={(event) => {
+                                                props.setTrivia(
+                                                    props.trivia.map((trivia: any, ti: number) => {
+                                                        if (ti === triviaIndex) {
+                                                            const questions = trivia.questions.map(
+                                                                (q: any, questIndex: number) => {
+                                                                    if (
+                                                                        questIndex === questionIndex
+                                                                    ) {
+                                                                        const content =
+                                                                            q.content.map(
+                                                                                (
+                                                                                    c: any,
+                                                                                    i: number
+                                                                                ) => {
+                                                                                    if (
+                                                                                        i === index
+                                                                                    ) {
+                                                                                        c.guess =
+                                                                                            event;
+                                                                                    }
+                                                                                    return c;
+                                                                                }
+                                                                            );
+                                                                        return {
+                                                                            type: q.type,
+                                                                            content: content,
+                                                                        };
+                                                                    }
+                                                                    return q;
+                                                                }
+                                                            );
+                                                            return {
+                                                                name: trivia.name,
+                                                                questions: questions,
+                                                            };
+                                                        } else return trivia;
+                                                    })
+                                                );
+                                            }}>
+                                            {radios}
+                                        </RadioGroup>
+                                    </div>
+                                );
+                            });
+                            break;
                         default:
-                            return (
-                                <div className="border border-grey-light-1 rounded-md p-[12px]">
-                                    <h3 className="text-center">Question {questionIndex + 1}</h3>
-                                </div>
-                            );
+                            content = "Hello";
                     }
+                    return (
+                        <div className="border border-grey-light-1 rounded-md p-[12px]">
+                            <h3 className="text-center">Question {questionIndex + 1}</h3>
+                            {content}
+                        </div>
+                    );
                 });
 
                 return (

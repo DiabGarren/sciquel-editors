@@ -177,6 +177,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                             <div>
                                 <Radio value={answer}></Radio>
                                 <input
+                                    className="border-b-2 border-grey-light bg-[transparent]"
                                     placeholder={`Answer ${answerIndex + 1}`}
                                     value={answer}
                                     onChange={(event) => {
@@ -227,17 +228,73 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                                             })
                                         );
                                     }}
-                                    className="border-b-2 border-grey-light"
                                 />
                             </div>
                         );
                     });
                     return (
                         <div className="border border-grey-light-1 p-[10px] rounded-md">
-                            <input
-                                className="inline-block border-b-2 border-grey-light w-[80%] mx-auto"
-                                placeholder="Multiple choice question"
-                            />
+                            <div className="grid grid-cols-[1fr_25px] w-[100%] mb-[10px]">
+                                <input
+                                    className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
+                                    placeholder="Multiple choice question"
+                                    value={content.question}
+                                    onChange={(event) => {
+                                        props.setTrivia(
+                                            props.trivia.map((trivia: any) => {
+                                                const questions = trivia.questions.map(
+                                                    (question: any, questIndex: number) => {
+                                                        if (questIndex === questionIndex) {
+                                                            const content = question.content.map(
+                                                                (content: any, cIndex: number) => {
+                                                                    if (cIndex === contentIndex) {
+                                                                        content.question =
+                                                                            event.target.value;
+                                                                    }
+                                                                    return content;
+                                                                }
+                                                            );
+                                                            return {
+                                                                type: question.type,
+                                                                content: content,
+                                                            };
+                                                        } else return question;
+                                                    }
+                                                );
+                                                return { name: trivia.name, questions: questions };
+                                            })
+                                        );
+                                    }}
+                                />
+                                <TrashIcon
+                                    className="trash-icon"
+                                    onClick={() => {
+                                        props.setTrivia(
+                                            props.trivia.map((trivia: any) => {
+                                                const questions = trivia.questions.map(
+                                                    (question: any, questIndex: number) => {
+                                                        if (questIndex === questionIndex) {
+                                                            const content: any[] = [];
+                                                            question.content.forEach(
+                                                                (c: any, cIndex: number) => {
+                                                                    if (cIndex !== contentIndex)
+                                                                        content.push(c);
+                                                                }
+                                                            );
+                                                            question.content = content;
+                                                        }
+                                                        return question;
+                                                    }
+                                                );
+                                                return {
+                                                    name: trivia.name,
+                                                    questions: questions,
+                                                };
+                                            })
+                                        );
+                                    }}
+                                />
+                            </div>
                             <RadioGroup
                                 color="primary"
                                 value={content.value}
@@ -271,7 +328,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                         </div>
                     );
                 });
-                return <div className="col-[1/4] max-h-[250px] overflow-y-auto">{content}</div>;
+                return <div className="col-[1/4] max-h-[320px] overflow-y-auto">{content}</div>;
             default:
                 return <></>;
         }
@@ -283,63 +340,62 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                 return (
                     <div className="trivia-question grid border border-grey-light-1 rounded-md p-[7px] mb-[10px] items-center">
                         {questionContainer(question, index)}
-                        <h3 className="text-center">Question {index + 1}</h3>
-                        <div className="ml-auto">
-                            <TrashIcon
-                                className="trash-icon w-[30px] h-[27px] ml-auto"
-                                onClick={() =>
-                                    props.setTrivia(
-                                        props.trivia.map((trivia: Trivia) => {
-                                            trivia.questions.splice(index, 1);
-                                            return trivia;
-                                        })
-                                    )
-                                }
-                            />
-                            <Button
-                                variant="solid"
-                                color="primary"
-                                onClick={() => {
-                                    props.setTrivia(
-                                        props.trivia.map((trivia: any) => {
-                                            const questions = trivia.questions.map(
-                                                (q: any, i: number) => {
-                                                    if (i === index) {
-                                                        switch (q.type) {
-                                                            case "True/False":
-                                                                q.content.push({
-                                                                    statement: "",
-                                                                    value: "true",
-                                                                    guess: "",
-                                                                });
-                                                                break;
-                                                            case "Multiple Choice":
-                                                                q.content.push({
-                                                                    question: "",
-                                                                    answers: ["", "", "", ""],
-                                                                    value: "",
-                                                                    guess: "",
-                                                                });
-                                                                break;
-
-                                                            default:
-                                                                break;
-                                                        }
-                                                    }
-                                                    return q;
-                                                }
-                                            );
-                                            return {
-                                                name: trivia.name,
-                                                questions: questions,
-                                            };
-                                        })
-                                    );
-                                }}>
-                                +
-                            </Button>
-                        </div>
+                        <h3 className="text-center">Question {index + 1}</h3>{" "}
+                        <TrashIcon
+                            className="trash-icon w-[30px] h-[27px] ml-auto"
+                            onClick={() =>
+                                props.setTrivia(
+                                    props.trivia.map((trivia: Trivia) => {
+                                        trivia.questions.splice(index, 1);
+                                        return trivia;
+                                    })
+                                )
+                            }
+                        />
                         {content(question, index)}
+                        <Button
+                            className="col-[1/4] mx-auto mt-[7px]"
+                            variant="solid"
+                            color="primary"
+                            onClick={() => {
+                                props.setTrivia(
+                                    props.trivia.map((trivia: any) => {
+                                        const questions = trivia.questions.map(
+                                            (q: any, i: number) => {
+                                                if (i === index) {
+                                                    switch (q.type) {
+                                                        case "True/False":
+                                                            q.content.push({
+                                                                statement: "",
+                                                                value: "true",
+                                                                guess: "",
+                                                            });
+                                                            break;
+                                                        case "Multiple Choice":
+                                                            q.content.push({
+                                                                question: "",
+                                                                answers: ["", "", "", ""],
+                                                                value: "",
+                                                                guess: "",
+                                                            });
+                                                            break;
+
+                                                        default:
+                                                            break;
+                                                    }
+                                                }
+                                                return q;
+                                            }
+                                        );
+                                        return {
+                                            name: trivia.name,
+                                            questions: questions,
+                                        };
+                                    })
+                                );
+                            }}>
+                            +
+                        </Button>
                     </div>
                 );
             });

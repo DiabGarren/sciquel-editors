@@ -196,12 +196,13 @@ main>div:last-child {
         height: 25px;
         border-radius: 50%;
         text-align: center;
-        padding: 4px;
+        padding: 2px;
         cursor: pointer;
+
     }
 
     .trash-icon:hover {
-        color: red;
+        color: red
     }
 
     Button:hover {
