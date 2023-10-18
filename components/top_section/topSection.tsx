@@ -1,23 +1,12 @@
 /* eslint-disable react/jsx-key */
-import {
-    Button,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownTrigger,
-} from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import Contributors from "./contributors";
 import Tags from "./tags";
 import { MediaType, TopSectionProps } from "@/utils/types";
 import { Dispatch, SetStateAction } from "react";
 
 export default function TopSection(props: TopSectionProps) {
-    if (
-        props.topics &&
-        props.subtopics &&
-        props.subjects &&
-        props.allContributors
-    ) {
+    if (props.topics && props.subtopics && props.subjects && props.allContributors) {
         if (
             props.topics.length === 0 ||
             props.subtopics.length === 0 ||
@@ -33,19 +22,13 @@ export default function TopSection(props: TopSectionProps) {
                         props.setTopics(JSON.parse(xhr.responseText).topics);
                     }
                     if (props.subtopics.length === 0) {
-                        props.setSubtopics(
-                            JSON.parse(xhr.responseText).subtopics
-                        );
+                        props.setSubtopics(JSON.parse(xhr.responseText).subtopics);
                     }
                     if (props.subjects.length === 0) {
-                        props.setSubjects(
-                            JSON.parse(xhr.responseText).subjects
-                        );
+                        props.setSubjects(JSON.parse(xhr.responseText).subjects);
                     }
                     if (props.allContributors.length === 0) {
-                        props.setAllContributors(
-                            JSON.parse(xhr.responseText).contributors
-                        );
+                        props.setAllContributors(JSON.parse(xhr.responseText).contributors);
                     }
                 }
             };
@@ -85,12 +68,13 @@ export default function TopSection(props: TopSectionProps) {
         return (
             <div
                 className="grid w-[250px] mr-[20px] mb-[10px]"
-                style={{ gridTemplateColumns: "125px 125px" }}
-            >
-                <h3 className="inline">{title}:</h3>
+                style={{ gridTemplateColumns: "125px 125px" }}>
+                <h3 className="inline">{title}</h3>
                 <Dropdown>
                     <DropdownTrigger>
-                        <Button variant="solid" color="primary">
+                        <Button
+                            variant="solid"
+                            color="primary">
                             {typeProp}
                         </Button>
                     </DropdownTrigger>
@@ -98,16 +82,12 @@ export default function TopSection(props: TopSectionProps) {
                         aria-label="Dymanic Actions"
                         items={allTypesArray}
                         variant="solid"
-                        color="primary"
-                    >
+                        color="primary">
                         {(item: any) => (
                             <DropdownItem
                                 key={item.key}
-                                className={
-                                    "px-[5px] hover:bg-blue hover:text-white"
-                                }
-                                onClick={() => setTypeProp(item.name)}
-                            >
+                                className={"px-[5px] hover:bg-blue hover:text-white"}
+                                onClick={() => setTypeProp(item.name)}>
                                 {item.name}
                             </DropdownItem>
                         )}
@@ -122,9 +102,7 @@ export default function TopSection(props: TopSectionProps) {
             <div className="mb-[30px]">
                 <h3>
                     Key words{" "}
-                    <span className="text-red text-[15px]">
-                        *only letters and numbers
-                    </span>
+                    <span className="text-red text-[15px]">*only letters and numbers</span>
                 </h3>
                 <input
                     className="border rounded px-[5px] w-[250px]"
@@ -144,12 +122,7 @@ export default function TopSection(props: TopSectionProps) {
                 </p>
             </div>
             <div className="media-type mb-[30px]">
-                {displayTypes(
-                    "Media Type",
-                    props.mediaTypes,
-                    props.mediaType,
-                    props.setMediaType
-                )}
+                {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
                 {displayTypes(
                     "Article Type",
                     props.articleTypes,
