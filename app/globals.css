@@ -212,8 +212,11 @@ main>div:last-child {
         padding: 0 5px 0 5px;
     }
 
-    Button:hover {
+    Button {
         border: 2px solid var(--sciquel-primary);
+    }
+
+    Button:hover {
         color: var(--sciquel-primary);
         background: #fff;
     }
