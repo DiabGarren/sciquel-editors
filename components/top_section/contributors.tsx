@@ -53,7 +53,7 @@ export default function Contributors(props: any) {
             const cons = (selected: any, setSelected: any) => {
                 return (
                     <>
-                        <div className="grid grid-cols-[125px_1fr] w-[150px]">
+                        <div className="grid grid-cols-[150px_1fr] my-[15px]">
                             <h3 className="inline-block">{type.name}</h3>
                             <Dropdown>
                                 <DropdownTrigger>
