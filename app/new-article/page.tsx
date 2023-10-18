@@ -4,12 +4,14 @@ import GeneralByline from "@/components/general_byline/generalByline";
 import HeadingContainerEditor from "@/components/heading/editor/headingContainer";
 import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImage";
 import AcknowledgementsPreview from "@/components/acknowledgements/preview/acknowledgements";
 import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
 import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
+import { useDroppable, useDraggable, DndContext } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
 export default function NewPage(props: any) {
     const [image, setImage] = useState(null);
@@ -138,6 +140,50 @@ export default function NewPage(props: any) {
         setType: setGraphType,
     };
 
+    const Droppable = (props: any) => {
+        const { isOver, setNodeRef } = useDroppable({
+            id: props.id,
+        });
+        const style = {
+            opacity: isOver ? 1 : 0.5,
+        };
+
+        return (
+            <div
+                className="border-2 border-teal rounded-lr p-[10px] w-[fit-content]"
+                ref={setNodeRef}
+                style={style}>
+                {props.children}
+            </div>
+        );
+    };
+    const Draggable = (props: any) => {
+        const { attributes, listeners, setNodeRef, transform } = useDraggable({
+            id: props.id,
+        });
+        const style = {
+            // Outputs `translate3d(x, y, 0)`
+            transform: CSS.Translate.toString(transform),
+        };
+
+        return (
+            <button
+                className="bg-teal rounded-md text-white p-[5px]"
+                ref={setNodeRef}
+                style={style}
+                {...listeners}
+                {...attributes}>
+                {props.children}
+            </button>
+        );
+    };
+
+    const [parent, setParent] = useState(null);
+    const drag = <Draggable id="draggable">drag me</Draggable>;
+    const handleDragEnd = ({ over }: { over: any }) => {
+        setParent(over ? over.id : null);
+    };
+
     return (
         <main className="grid">
             <div className="p-[15px] pb-[50px]">
@@ -181,10 +227,19 @@ export default function NewPage(props: any) {
                     <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
+                <div className="bg-grey-light-1 w-[250px] h-[300px] p-[15px]">
+                    <p>Test Drag and drop</p>
+                    <DndContext onDragEnd={handleDragEnd}>
+                        {!parent ? drag : null}
+                        <Droppable id="droppable">
+                            {parent === "droppable" ? drag : "Drop here"}
+                        </Droppable>
+                    </DndContext>
+                </div>
             </div>
             {/* 
             <TableContainer {...graphProps} />
-             */}
+        */}
         </main>
     );
 }

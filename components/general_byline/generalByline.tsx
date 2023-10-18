@@ -42,7 +42,7 @@ export default function GeneralByline(props: any) {
                 if (type.contributors.length === 1) {
                     return (
                         <p>
-                            {type.verb} by: {type.contributors[0].name}
+                            {type.verb} by {type.contributors[0].name}
                         </p>
                     );
                 } else {
@@ -56,7 +56,7 @@ export default function GeneralByline(props: any) {
 
                     return (
                         <p>
-                            {type.verb} by: {contributors}
+                            {type.verb} by {contributors}
                         </p>
                     );
                 }
