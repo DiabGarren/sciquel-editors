@@ -14,12 +14,12 @@ export default function AcknowledgementsEditor(props: any) {
         props.contributors.forEach((type: any) => {
             if (type.checked) {
                 type.contributors.forEach((con: any) => {
-                    if (con.checked && !contributors.includes(con.name)) {
-                        contributors.push(con.name);
+                    if (!contributors.some((e: any) => e.id === con.id)) {
+                        contributors.push(con);
                         let imageSrc = "default_profile.svg";
                         if (con.image !== "") imageSrc = con.image;
                         types.push(
-                            <div className="mb-[10px]">
+                            <div className="mb-[10px] ml-[10px]">
                                 <div className="flex items-center my-[2px]">
                                     <Image
                                         src={`/images/${imageSrc}`}
@@ -28,7 +28,7 @@ export default function AcknowledgementsEditor(props: any) {
                                         width={40}
                                         className="rounded-[50%] mr-[5px]"
                                     />
-                                    {con.name}:
+                                    {con.name}
                                 </div>
                                 <ReactQuill
                                     className="textEditor"

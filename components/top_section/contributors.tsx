@@ -8,128 +8,53 @@ import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export default function Contributors(props: any) {
-    const [selected, setSelected] = useState([{}]);
-    const [selectedTypes, setSelectedTypes] = useState(new Set<string>());
-    const [selectedAnimators, setSelectedAnimators] = useState(new Set<string>());
-    const [selectedAuthors, setSelectedAuthors] = useState(new Set<string>());
-    const [selectedIllustrators, setSelectedIllustrators] = useState(new Set<string>());
+    const [selectedTypes, setSelectedTypes] = useState(new Set(["text"]));
+    const selections = props.contributors.map(() => {
+        const [selectedCons, setSelectedCons] = useState(new Set(["text"]));
+        return { selected: selectedCons, setSelected: setSelectedCons };
+    });
 
-    const displayTypes = (
-        selectedTypes: Set<string>,
-        setSelectedTypes: Dispatch<SetStateAction<Set<string>>> | any,
-        selectedAnimators: Set<string>,
-        setSelectedAnimators: Dispatch<SetStateAction<Set<string>>> | any,
-        selectedAuthors: Set<string>,
-        setSelectedAuthors: Dispatch<SetStateAction<Set<string>>> | any,
-        selectedIllustrators: Set<string>,
-        setSelectedIllustrators: Dispatch<SetStateAction<Set<string>>> | any
-    ) => {
-        return (
-            <div className="mb-[30px]">
-                <div
-                    className="grid w-[150px] mb-[10px] items-center"
-                    style={{ gridTemplateColumns: "125px 1fr" }}>
-                    <h3>Contributors</h3>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button
-                                variant="solid"
-                                color="primary">
-                                +
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label="Dynamic Actions"
-                            variant="solid"
-                            color="primary"
-                            closeOnSelect={false}
-                            selectionMode="multiple"
-                            selectedKeys={selectedTypes}
-                            onSelectionChange={setSelectedTypes}
-                            items={props.contributors}>
-                            {(item: any) => (
-                                <DropdownItem
-                                    key={item.name}
-                                    onClick={() => {
-                                        props.setContributors(
-                                            props.contributors.map((type: any) => {
-                                                if (type.name === item.name) {
-                                                    if (type.checked) {
-                                                        type.contributors = [];
-                                                        type.checked = false;
-                                                        switch (type.name) {
-                                                            case "Author":
-                                                                selectedAuthors.clear();
-                                                                break;
-                                                            case "Animator":
-                                                                selectedAnimators.clear();
-                                                                break;
-                                                            case "Illustrator":
-                                                                selectedIllustrators.clear();
-                                                                break;
-                                                        }
-                                                    } else {
-                                                        type.contributors =
-                                                            props.allContributors.map(
-                                                                (user: any): any => {
-                                                                    return {
-                                                                        name: `${user.firstName} ${user.lastName}`,
-                                                                        image: user.image,
-                                                                        message: "",
-                                                                        checked: false,
-                                                                    };
-                                                                }
-                                                            );
-                                                        type.checked = true;
-                                                    }
-                                                }
-                                                return type;
-                                            })
-                                        );
-                                    }}>
-                                    {item.name}
-                                </DropdownItem>
-                            )}
-                        </DropdownMenu>
-                    </Dropdown>
-                </div>
-                <div className="mb-[15px]">
-                    {displayType("Author", selectedTypes, selectedAuthors, setSelectedAuthors)}
-                </div>
-                <div className="mb-[15px]">
-                    {displayType(
-                        "Animator",
-                        selectedTypes,
-                        selectedAnimators,
-                        setSelectedAnimators
-                    )}
-                </div>
-                <div className="mb-[15px]">
-                    {displayType(
-                        "Illustrator",
-                        selectedTypes,
-                        selectedIllustrators,
-                        setSelectedIllustrators
-                    )}
-                </div>
-            </div>
-        );
-    };
-
-    const displayType = (
-        title: string,
-        selectedTypes: Set<string>,
-        selectedContributors: Set<string>,
-        setSelectedContributors: Dispatch<SetStateAction<Set<string>>> | any
-    ) => {
-        const type = props.contributors.map((type: any) => {
-            if (type.name === title && type.checked) {
+    const contributors = props.contributors.map((type: any, index: number) => {
+        if (type.checked) {
+            const displayCons = (selected: any) => {
+                return type.contributors.map((con: any, conIndex: number) => {
+                    return (
+                        <div className="grid grid-cols-[45px_1fr_25px] items-center my-[5px]">
+                            <Image
+                                className="rounded-[50%]"
+                                src={
+                                    con.image === ""
+                                        ? "/images/default_profile.svg"
+                                        : `/images/${con.image}`
+                                }
+                                alt={`${con.name} profile picture`}
+                                width={40}
+                                height={40}
+                            />
+                            <p>{con.name}</p>
+                            <TrashIcon
+                                className="trash-icon"
+                                onClick={() => {
+                                    props.setContributors(
+                                        props.contributors.map((type: any, typeIndex: number) => {
+                                            if (typeIndex === index) {
+                                                type.contributors.splice(conIndex, 1);
+                                                selected.delete(con.id);
+                                            }
+                                            return type;
+                                        })
+                                    );
+                                }}
+                            />
+                        </div>
+                    );
+                });
+            };
+            const cons = (selected: any, setSelected: any) => {
                 return (
                     <>
-                        <div
-                            className="grid w-[210px] ml-[10px] items-center"
-                            style={{ gridTemplateColumns: "125px 60px 25px" }}>
-                            <h3>{title}s</h3>
+                        <div className="grid grid-cols-[125px_1fr] w-[150px]">
+                            <h3 className="inline-block">{type.name}</h3>
                             <Dropdown>
                                 <DropdownTrigger>
                                     <Button
@@ -139,145 +64,122 @@ export default function Contributors(props: any) {
                                     </Button>
                                 </DropdownTrigger>
                                 <DropdownMenu
-                                    aria-label="Dynamic Actions"
-                                    variant="solid"
-                                    color="primary"
                                     closeOnSelect={false}
                                     selectionMode="multiple"
-                                    selectedKeys={selectedContributors}
-                                    onSelectionChange={setSelectedContributors}
-                                    items={type.contributors}>
+                                    selectedKeys={selected}
+                                    onSelectionChange={setSelected}
+                                    onAction={(event) => {
+                                        props.setContributors(
+                                            props.contributors.map(
+                                                (type: any, typeIndex: number) => {
+                                                    if (typeIndex === index) {
+                                                        props.allContributors.forEach(
+                                                            (con: any) => {
+                                                                if (con._id === event) {
+                                                                    const selected = {
+                                                                        id: con._id,
+                                                                        name: `${con.firstName} ${con.lastName}`,
+                                                                        image: con.image,
+                                                                        message: "",
+                                                                    };
+                                                                    if (
+                                                                        type.contributors.some(
+                                                                            (e: any) =>
+                                                                                e.id === event
+                                                                        )
+                                                                    ) {
+                                                                        type.contributors.splice(
+                                                                            type.contributors.indexOf(
+                                                                                selected
+                                                                            ),
+                                                                            1
+                                                                        );
+                                                                    } else
+                                                                        type.contributors.push(
+                                                                            selected
+                                                                        );
+                                                                }
+                                                            }
+                                                        );
+                                                    }
+                                                    return type;
+                                                }
+                                            )
+                                        );
+                                    }}
+                                    items={props.allContributors}>
                                     {(item: any) => (
-                                        <DropdownItem
-                                            key={item.name}
-                                            onClick={() => {
-                                                props.setContributors(
-                                                    props.contributors.map((type: any) => {
-                                                        if (type.name === title) {
-                                                            const contributors: any =
-                                                                type.contributors.map(
-                                                                    (con: any) => {
-                                                                        if (
-                                                                            con.name === item.name
-                                                                        ) {
-                                                                            if (con.checked)
-                                                                                con.checked = false;
-                                                                            else con.checked = true;
-                                                                        }
-                                                                        return con;
-                                                                    }
-                                                                );
-                                                            return {
-                                                                name: type.name,
-                                                                verb: type.verb,
-                                                                contributors: contributors,
-                                                                checked: true,
-                                                            };
-                                                        } else return type;
-                                                    })
-                                                );
-                                            }}>
-                                            {item.name}
+                                        <DropdownItem key={item._id}>
+                                            <div className="flex items-center">
+                                                <Image
+                                                    className="rounded-[50%] mr-[5px]"
+                                                    src={
+                                                        item.image === ""
+                                                            ? "/images/default_profile.svg"
+                                                            : `/images/${item.image}`
+                                                    }
+                                                    alt={`${item.firstName} ${item.lastName}`}
+                                                    width={25}
+                                                    height={25}
+                                                />
+                                                {`${item.firstName} ${item.lastName}`}
+                                            </div>
                                         </DropdownItem>
                                     )}
                                 </DropdownMenu>
                             </Dropdown>
-                            <TrashIcon
-                                className="trash-icon"
-                                onClick={() => {
-                                    props.setContributors(
-                                        props.contributors.map((type: any) => {
-                                            if (type.name === title && type.checked) {
-                                                selectedContributors.clear();
-                                                type.contributors = [];
-                                                type.checked = false;
-                                                selectedTypes.delete(type.name);
-                                            }
-                                            return type;
-                                        })
-                                    );
-                                }}
-                            />
                         </div>
-                        <div className="my-[2px] ml-[10px]">
-                            {displayContributors(title, selectedContributors)}
-                        </div>
+                        <div>{displayCons(selected)}</div>
                     </>
                 );
-            } else return <></>;
-        });
-        return type;
-    };
+            };
+            return cons(selections[index].selected, selections[index].setSelected);
+        }
+    });
 
-    const displayContributors = (title: string, selectedContributors: Set<string>) => {
-        const type = props.contributors.map((type: any) => {
-            if (type.name === title && type.checked) {
-                const contributors = type.contributors.map((con: any, index: number) => {
-                    if (con.checked) {
-                        return (
-                            <div
-                                className="grid w-[210px] my-[2px] items-center"
-                                style={{
-                                    gridTemplateColumns: "55px 1fr 25px",
-                                }}>
-                                <Image
-                                    src={
-                                        con.image === ""
-                                            ? "/images/default_profile.svg"
-                                            : `/images/${con.image}`
-                                    }
-                                    alt={`${con.name} profile picture`}
-                                    height={50}
-                                    width={50}
-                                    className="rounded-[50%]"
-                                />
-                                <p>{con.name}</p>
-                                <TrashIcon
-                                    className="trash-icon"
-                                    onClick={() => {
-                                        props.setContributors(
-                                            props.contributors.map((type: any) => {
-                                                if (type.name === title && type.checked) {
-                                                    const contributors = type.contributors.map(
-                                                        (con: any, i: number) => {
-                                                            if (i === index) {
-                                                                con.checked = false;
-                                                                selectedContributors.delete(
-                                                                    con.name
-                                                                );
-                                                            }
-                                                            return con;
-                                                        }
-                                                    );
-                                                    return {
-                                                        name: type.name,
-                                                        verb: type.verb,
-                                                        contributors: contributors,
-                                                        checked: true,
-                                                    };
-                                                } else return type;
-                                            })
-                                        );
-                                    }}
-                                />
-                            </div>
-                        );
-                    } else return <></>;
-                });
-                return contributors;
-            } else return <></>;
-        });
-        return type;
+    const displayDrp = (selectedTypes: any, setSelectedTypes: any) => {
+        return (
+            <>
+                <div className="grid grid-cols-[125px_1fr] w-[150px]">
+                    <h3 className="inline-block">Contributors</h3>
+                    <Dropdown>
+                        <DropdownTrigger>
+                            <Button
+                                variant="solid"
+                                color="primary">
+                                +
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu
+                            closeOnSelect={false}
+                            selectionMode="multiple"
+                            selectedKeys={selectedTypes}
+                            onSelectionChange={setSelectedTypes}
+                            onAction={(event) => {
+                                props.setContributors(
+                                    props.contributors.map((type: any, index: number) => {
+                                        if (type.name === event) {
+                                            if (!type.checked) type.checked = true;
+                                            else {
+                                                type.checked = false;
+                                                type.contributors = [];
+                                                selections[index].selected.clear();
+                                            }
+                                        }
+                                        return type;
+                                    })
+                                );
+                            }}
+                            items={props.contributors}>
+                            {(item: any) => (
+                                <DropdownItem key={item.name}>{item.name}</DropdownItem>
+                            )}
+                        </DropdownMenu>
+                    </Dropdown>
+                </div>
+                <div className="w-[185px] ml-[10px]">{contributors}</div>
+            </>
+        );
     };
-
-    return displayTypes(
-        selectedTypes,
-        setSelectedTypes,
-        selectedAnimators,
-        setSelectedAnimators,
-        selectedAuthors,
-        setSelectedAuthors,
-        selectedIllustrators,
-        setSelectedIllustrators
-    );
+    return displayDrp(selectedTypes, setSelectedTypes);
 }

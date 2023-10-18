@@ -10,8 +10,8 @@ export default function AcknowledgementsPreview(props: any) {
         props.contributors.forEach((type: any) => {
             if (type.checked) {
                 type.contributors.forEach((con: any) => {
-                    if (con.checked && !contributors.includes(con.name)) {
-                        contributors.push(con.name);
+                    if (!contributors.some((e: any) => e.id === con.id)) {
+                        contributors.push(con);
                         let imageSrc = "default_profile.svg";
                         if (con.image !== "") imageSrc = con.image;
 

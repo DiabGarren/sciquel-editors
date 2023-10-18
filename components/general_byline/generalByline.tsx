@@ -25,45 +25,33 @@ export default function GeneralByline(props: any) {
                             rounded-[10px] 
                             mx-[2px]
                             "
-                            style={{ backgroundColor: tag.color }}
-                        >
+                            style={{ backgroundColor: tag.color }}>
                             {tag.name}
                         </p>
                     );
             });
             return <span>| {tags}</span>;
         } else {
-            return tagArray === props.topSection.topics ? (
-                <span>| No topic</span>
-            ) : (
-                <></>
-            );
+            return tagArray === props.topSection.topics ? <span>| No topic</span> : <></>;
         }
     };
 
     const contributors = () => {
         return props.topSection.contributors.map((type: any) => {
-            const cons: any[] = [];
-            type.contributors.forEach((con: any) => {
-                if (con.checked) {
-                    cons.push(con.name);
-                }
-            });
-
-            if (cons.length > 0) {
-                if (cons.length === 1) {
+            if (type.contributors.length > 0) {
+                if (type.contributors.length === 1) {
                     return (
                         <p>
-                            {type.verb} by: {cons[0]}
+                            {type.verb} by: {type.contributors[0].name}
                         </p>
                     );
                 } else {
                     let contributors: string = "";
-                    for (let i = 1; i < cons.length - 1; i++) {
-                        contributors += `, ${cons[i]}`;
+                    for (let i = 1; i < type.contributors.length - 1; i++) {
+                        contributors += `, ${type.contributors[i].name}`;
                     }
-                    contributors = `${cons[0]}${contributors} and ${
-                        cons[cons.length - 1]
+                    contributors = `${type.contributors[0].name}${contributors} and ${
+                        type.contributors[type.contributors.length - 1].name
                     }`;
 
                     return (
@@ -79,8 +67,7 @@ export default function GeneralByline(props: any) {
     return (
         <>
             <p>
-                {type} {tags(props.topSection.topics)}{" "}
-                {tags(props.topSection.subtopics)}{" "}
+                {type} {tags(props.topSection.topics)} {tags(props.topSection.subtopics)}{" "}
                 {tags(props.topSection.subjects)}
             </p>
             <div>{contributors()}</div>

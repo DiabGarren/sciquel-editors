@@ -206,6 +206,12 @@ main>div:last-child {
         color: red
     }
 
+    .tag {
+        width: fit-content;
+        border-radius: 10px;
+        padding: 0 5px 0 5px;
+    }
+
     Button:hover {
         border: 2px solid var(--sciquel-primary);
         color: var(--sciquel-primary);
