@@ -1,9 +1,8 @@
-import { HeadingProps } from "@/utils/types";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
-export default function HeadingContainerEditor(props: HeadingProps) {
+export default function HeadingContainerEditor(props: any) {
     const toolbarOptions = ["bold", "italic", "underline", "strike"];
     const modules = { toolbar: toolbarOptions };
 

@@ -2,28 +2,17 @@
 /* eslint-disable react/jsx-key */
 "use client";
 
-import { Contributor, Type, User } from "@/utils/types";
 import { TrashIcon } from "@heroicons/react/20/solid";
-import {
-    Button,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownTrigger,
-} from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export default function Contributors(props: any) {
     const [selected, setSelected] = useState([{}]);
     const [selectedTypes, setSelectedTypes] = useState(new Set<string>());
-    const [selectedAnimators, setSelectedAnimators] = useState(
-        new Set<string>()
-    );
+    const [selectedAnimators, setSelectedAnimators] = useState(new Set<string>());
     const [selectedAuthors, setSelectedAuthors] = useState(new Set<string>());
-    const [selectedIllustrators, setSelectedIllustrators] = useState(
-        new Set<string>()
-    );
+    const [selectedIllustrators, setSelectedIllustrators] = useState(new Set<string>());
 
     const displayTypes = (
         selectedTypes: Set<string>,
@@ -39,12 +28,13 @@ export default function Contributors(props: any) {
             <div className="mb-[30px]">
                 <div
                     className="grid w-[150px] mb-[10px] items-center"
-                    style={{ gridTemplateColumns: "125px 1fr" }}
-                >
+                    style={{ gridTemplateColumns: "125px 1fr" }}>
                     <h3>Contributors</h3>
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant="solid" color="primary">
+                            <Button
+                                variant="solid"
+                                color="primary">
                                 +
                             </Button>
                         </DropdownTrigger>
@@ -56,59 +46,47 @@ export default function Contributors(props: any) {
                             selectionMode="multiple"
                             selectedKeys={selectedTypes}
                             onSelectionChange={setSelectedTypes}
-                            items={props.contributors}
-                        >
+                            items={props.contributors}>
                             {(item: any) => (
                                 <DropdownItem
                                     key={item.name}
                                     onClick={() => {
                                         props.setContributors(
-                                            props.contributors.map(
-                                                (type: Type) => {
-                                                    if (
-                                                        type.name === item.name
-                                                    ) {
-                                                        if (type.checked) {
-                                                            type.contributors =
-                                                                [];
-                                                            type.checked =
-                                                                false;
-                                                            switch (type.name) {
-                                                                case "Author":
-                                                                    selectedAuthors.clear();
-                                                                    break;
-                                                                case "Animator":
-                                                                    selectedAnimators.clear();
-                                                                    break;
-                                                                case "Illustrator":
-                                                                    selectedIllustrators.clear();
-                                                                    break;
-                                                            }
-                                                        } else {
-                                                            type.contributors =
-                                                                props.allContributors.map(
-                                                                    (
-                                                                        user: User
-                                                                    ): Contributor => {
-                                                                        return {
-                                                                            name: `${user.firstName} ${user.lastName}`,
-                                                                            image: user.image,
-                                                                            message:
-                                                                                "",
-                                                                            checked:
-                                                                                false,
-                                                                        };
-                                                                    }
-                                                                );
-                                                            type.checked = true;
+                                            props.contributors.map((type: any) => {
+                                                if (type.name === item.name) {
+                                                    if (type.checked) {
+                                                        type.contributors = [];
+                                                        type.checked = false;
+                                                        switch (type.name) {
+                                                            case "Author":
+                                                                selectedAuthors.clear();
+                                                                break;
+                                                            case "Animator":
+                                                                selectedAnimators.clear();
+                                                                break;
+                                                            case "Illustrator":
+                                                                selectedIllustrators.clear();
+                                                                break;
                                                         }
+                                                    } else {
+                                                        type.contributors =
+                                                            props.allContributors.map(
+                                                                (user: any): any => {
+                                                                    return {
+                                                                        name: `${user.firstName} ${user.lastName}`,
+                                                                        image: user.image,
+                                                                        message: "",
+                                                                        checked: false,
+                                                                    };
+                                                                }
+                                                            );
+                                                        type.checked = true;
                                                     }
-                                                    return type;
                                                 }
-                                            )
+                                                return type;
+                                            })
                                         );
-                                    }}
-                                >
+                                    }}>
                                     {item.name}
                                 </DropdownItem>
                             )}
@@ -116,12 +94,7 @@ export default function Contributors(props: any) {
                     </Dropdown>
                 </div>
                 <div className="mb-[15px]">
-                    {displayType(
-                        "Author",
-                        selectedTypes,
-                        selectedAuthors,
-                        setSelectedAuthors
-                    )}
+                    {displayType("Author", selectedTypes, selectedAuthors, setSelectedAuthors)}
                 </div>
                 <div className="mb-[15px]">
                     {displayType(
@@ -149,18 +122,19 @@ export default function Contributors(props: any) {
         selectedContributors: Set<string>,
         setSelectedContributors: Dispatch<SetStateAction<Set<string>>> | any
     ) => {
-        const type = props.contributors.map((type: Type) => {
+        const type = props.contributors.map((type: any) => {
             if (type.name === title && type.checked) {
                 return (
                     <>
                         <div
                             className="grid w-[210px] ml-[10px] items-center"
-                            style={{ gridTemplateColumns: "125px 60px 25px" }}
-                        >
+                            style={{ gridTemplateColumns: "125px 60px 25px" }}>
                             <h3>{title}s</h3>
                             <Dropdown>
                                 <DropdownTrigger>
-                                    <Button variant="solid" color="primary">
+                                    <Button
+                                        variant="solid"
+                                        color="primary">
                                         +
                                     </Button>
                                 </DropdownTrigger>
@@ -172,56 +146,37 @@ export default function Contributors(props: any) {
                                     selectionMode="multiple"
                                     selectedKeys={selectedContributors}
                                     onSelectionChange={setSelectedContributors}
-                                    items={type.contributors}
-                                >
-                                    {(item: Contributor | any) => (
+                                    items={type.contributors}>
+                                    {(item: any) => (
                                         <DropdownItem
                                             key={item.name}
                                             onClick={() => {
                                                 props.setContributors(
-                                                    props.contributors.map(
-                                                        (type: Type) => {
-                                                            if (
-                                                                type.name ===
-                                                                title
-                                                            ) {
-                                                                const contributors:
-                                                                    | Type
-                                                                    | any =
-                                                                    type.contributors.map(
-                                                                        (
-                                                                            con: Contributor
-                                                                        ) => {
-                                                                            if (
-                                                                                con.name ===
-                                                                                item.name
-                                                                            ) {
-                                                                                if (
-                                                                                    con.checked
-                                                                                )
-                                                                                    con.checked =
-                                                                                        false;
-                                                                                else
-                                                                                    con.checked =
-                                                                                        true;
-                                                                            }
-                                                                            return con;
+                                                    props.contributors.map((type: any) => {
+                                                        if (type.name === title) {
+                                                            const contributors: any =
+                                                                type.contributors.map(
+                                                                    (con: any) => {
+                                                                        if (
+                                                                            con.name === item.name
+                                                                        ) {
+                                                                            if (con.checked)
+                                                                                con.checked = false;
+                                                                            else con.checked = true;
                                                                         }
-                                                                    );
-                                                                return {
-                                                                    name: type.name,
-                                                                    verb: type.verb,
-                                                                    contributors:
-                                                                        contributors,
-                                                                    checked:
-                                                                        true,
-                                                                };
-                                                            } else return type;
-                                                        }
-                                                    )
+                                                                        return con;
+                                                                    }
+                                                                );
+                                                            return {
+                                                                name: type.name,
+                                                                verb: type.verb,
+                                                                contributors: contributors,
+                                                                checked: true,
+                                                            };
+                                                        } else return type;
+                                                    })
                                                 );
-                                            }}
-                                        >
+                                            }}>
                                             {item.name}
                                         </DropdownItem>
                                     )}
@@ -231,11 +186,8 @@ export default function Contributors(props: any) {
                                 className="trash-icon"
                                 onClick={() => {
                                     props.setContributors(
-                                        props.contributors.map((type: Type) => {
-                                            if (
-                                                type.name === title &&
-                                                type.checked
-                                            ) {
+                                        props.contributors.map((type: any) => {
+                                            if (type.name === title && type.checked) {
                                                 selectedContributors.clear();
                                                 type.contributors = [];
                                                 type.checked = false;
@@ -257,82 +209,61 @@ export default function Contributors(props: any) {
         return type;
     };
 
-    const displayContributors = (
-        title: string,
-        selectedContributors: Set<string>
-    ) => {
-        const type = props.contributors.map((type: Type) => {
+    const displayContributors = (title: string, selectedContributors: Set<string>) => {
+        const type = props.contributors.map((type: any) => {
             if (type.name === title && type.checked) {
-                const contributors = type.contributors.map(
-                    (con: Contributor, index: number) => {
-                        if (con.checked) {
-                            return (
-                                <div
-                                    className="grid w-[210px] my-[2px] items-center"
-                                    style={{
-                                        gridTemplateColumns: "55px 1fr 25px",
-                                    }}
-                                >
-                                    <Image
-                                        src={
-                                            con.image === ""
-                                                ? "/images/default_profile.svg"
-                                                : `/images/${con.image}`
-                                        }
-                                        alt={`${con.name} profile picture`}
-                                        height={50}
-                                        width={50}
-                                        className="rounded-[50%]"
-                                    />
-                                    <p>{con.name}</p>
-                                    <TrashIcon
-                                        className="trash-icon"
-                                        onClick={() => {
-                                            props.setContributors(
-                                                props.contributors.map(
-                                                    (type: Type) => {
-                                                        if (
-                                                            type.name ===
-                                                                title &&
-                                                            type.checked
-                                                        ) {
-                                                            const contributors =
-                                                                type.contributors.map(
-                                                                    (
-                                                                        con: Contributor,
-                                                                        i: number
-                                                                    ) => {
-                                                                        if (
-                                                                            i ===
-                                                                            index
-                                                                        ) {
-                                                                            con.checked =
-                                                                                false;
-                                                                            selectedContributors.delete(
-                                                                                con.name
-                                                                            );
-                                                                        }
-                                                                        return con;
-                                                                    }
+                const contributors = type.contributors.map((con: any, index: number) => {
+                    if (con.checked) {
+                        return (
+                            <div
+                                className="grid w-[210px] my-[2px] items-center"
+                                style={{
+                                    gridTemplateColumns: "55px 1fr 25px",
+                                }}>
+                                <Image
+                                    src={
+                                        con.image === ""
+                                            ? "/images/default_profile.svg"
+                                            : `/images/${con.image}`
+                                    }
+                                    alt={`${con.name} profile picture`}
+                                    height={50}
+                                    width={50}
+                                    className="rounded-[50%]"
+                                />
+                                <p>{con.name}</p>
+                                <TrashIcon
+                                    className="trash-icon"
+                                    onClick={() => {
+                                        props.setContributors(
+                                            props.contributors.map((type: any) => {
+                                                if (type.name === title && type.checked) {
+                                                    const contributors = type.contributors.map(
+                                                        (con: any, i: number) => {
+                                                            if (i === index) {
+                                                                con.checked = false;
+                                                                selectedContributors.delete(
+                                                                    con.name
                                                                 );
-                                                            return {
-                                                                name: type.name,
-                                                                verb: type.verb,
-                                                                contributors:
-                                                                    contributors,
-                                                                checked: true,
-                                                            };
-                                                        } else return type;
-                                                    }
-                                                )
-                                            );
-                                        }}
-                                    />
-                                </div>
-                            );
-                        } else return <></>;
-                    }
-                );
+                                                            }
+                                                            return con;
+                                                        }
+                                                    );
+                                                    return {
+                                                        name: type.name,
+                                                        verb: type.verb,
+                                                        contributors: contributors,
+                                                        checked: true,
+                                                    };
+                                                } else return type;
+                                            })
+                                        );
+                                    }}
+                                />
+                            </div>
+                        );
+                    } else return <></>;
+                });
                 return contributors;
             } else return <></>;
         });

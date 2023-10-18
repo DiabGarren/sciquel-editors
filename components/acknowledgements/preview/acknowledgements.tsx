@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-key */
 import { alegreya_sans_sc } from "@/utils/fonts";
-import { Contributor, Type } from "@/utils/types";
 import Image from "next/image";
 import parse from "html-react-parser";
 
@@ -8,9 +7,9 @@ export default function AcknowledgementsPreview(props: any) {
     const displayContributors = () => {
         const types: any[] = [];
         const contributors: any[] = [];
-        props.contributors.forEach((type: Type) => {
+        props.contributors.forEach((type: any) => {
             if (type.checked) {
-                type.contributors.forEach((con: Contributor) => {
+                type.contributors.forEach((con: any) => {
                     if (con.checked && !contributors.includes(con.name)) {
                         contributors.push(con.name);
                         let imageSrc = "default_profile.svg";

@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import { Contributor, Type } from "@/utils/types";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -12,9 +11,9 @@ export default function AcknowledgementsEditor(props: any) {
     const displayContributors = () => {
         const types: any[] = [];
         let contributors: any[] = [];
-        props.contributors.forEach((type: Type) => {
+        props.contributors.forEach((type: any) => {
             if (type.checked) {
-                type.contributors.forEach((con: Contributor) => {
+                type.contributors.forEach((con: any) => {
                     if (con.checked && !contributors.includes(con.name)) {
                         contributors.push(con.name);
                         let imageSrc = "default_profile.svg";
@@ -39,19 +38,14 @@ export default function AcknowledgementsEditor(props: any) {
                                     onChange={(event) => {
                                         props.setContributors(
                                             props.contributors.map((t: any) => {
-                                                const contributors =
-                                                    t.contributors.map(
-                                                        (c: Contributor) => {
-                                                            if (
-                                                                c.name ===
-                                                                con.name
-                                                            ) {
-                                                                c.message =
-                                                                    event;
-                                                            }
-                                                            return c;
+                                                const contributors = t.contributors.map(
+                                                    (c: any) => {
+                                                        if (c.name === con.name) {
+                                                            c.message = event;
                                                         }
-                                                    );
+                                                        return c;
+                                                    }
+                                                );
                                                 return {
                                                     name: t.name,
                                                     verb: t.verb,

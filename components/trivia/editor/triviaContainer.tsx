@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import { Trivia, TriviaProps, Question } from "@/utils/types";
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
 
@@ -10,7 +9,7 @@ const questionTypes = [
     // { name: "Multiple Matching" },
 ];
 
-export default function TriviaContainerEditor(props: TriviaProps) {
+export default function TriviaContainerEditor(props: any) {
     const questionContainer = (question: any, index: number) => {
         return (
             <div>
@@ -449,9 +448,9 @@ export default function TriviaContainerEditor(props: TriviaProps) {
         return <div className="col-[1/4] max-h-[250px] overflow-y-auto">{content}</div>;
     };
 
-    const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
+    const trivia = props.trivia.map((trivia: any, triviaIndex: number) => {
         if (triviaIndex === 0) {
-            const questions = trivia.questions.map((question: Question, index: number) => {
+            const questions = trivia.questions.map((question: any, index: number) => {
                 return (
                     <div className="trivia-question grid border border-grey-light-1 rounded-md p-[7px] my-[7px] items-center">
                         {questionContainer(question, index)}
@@ -460,7 +459,7 @@ export default function TriviaContainerEditor(props: TriviaProps) {
                             className="trash-icon w-[30px] h-[27px] ml-auto"
                             onClick={() =>
                                 props.setTrivia(
-                                    props.trivia.map((trivia: Trivia) => {
+                                    props.trivia.map((trivia: any) => {
                                         trivia.questions.splice(index, 1);
                                         return trivia;
                                     })

@@ -2,10 +2,9 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import Contributors from "./contributors";
 import Tags from "./tags";
-import { MediaType, TopSectionProps } from "@/utils/types";
 import { Dispatch, SetStateAction } from "react";
 
-export default function TopSection(props: TopSectionProps) {
+export default function TopSection(props: any) {
     if (props.topics && props.subtopics && props.subjects && props.allContributors) {
         if (
             props.topics.length === 0 ||
@@ -58,7 +57,7 @@ export default function TopSection(props: TopSectionProps) {
 
     const displayTypes = (
         title: string,
-        allTypesArray: MediaType[],
+        allTypesArray: any[],
         typeProp: string,
         setTypeProp: Dispatch<SetStateAction<string>>
     ) => {

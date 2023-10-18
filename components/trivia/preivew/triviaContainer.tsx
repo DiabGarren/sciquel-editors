@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-key */
-import { Question, Trivia, TriviaProps } from "@/utils/types";
 import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
 
-export default function TriviaContainerPreview(props: TriviaProps) {
-    const trivia = props.trivia.map((trivia: Trivia, triviaIndex: number) => {
+export default function TriviaContainerPreview(props: any) {
+    const trivia = props.trivia.map((trivia: any, triviaIndex: number) => {
         if (trivia.name === props.triviaPosition) {
             if (trivia.questions.length > 0) {
                 const quests = trivia.questions.map((question: any, questionIndex: number) => {

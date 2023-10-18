@@ -1,7 +1,6 @@
 import HeadingContainerPreview from "@/components/heading/preview/headingContainer";
-import { ImageProps } from "@/utils/types";
 
-export default function CoverImagePreview(props: ImageProps) {
+export default function CoverImagePreview(props: any) {
     return (
         <div
             className="cover-image mx-[auto] h-[500px] bg-center bg-cover bg-no-repeat flex flex-row items-end"
@@ -9,8 +8,7 @@ export default function CoverImagePreview(props: ImageProps) {
                 backgroundImage: props.finalImage
                     ? `url('/images/${props.finalImage.name}')`
                     : "url('/images/bobtail.png')",
-            }}
-        >
+            }}>
             <div className="ml-[25px] mb-[15px] text-white">
                 <HeadingContainerPreview {...props.headingProps} />
             </div>

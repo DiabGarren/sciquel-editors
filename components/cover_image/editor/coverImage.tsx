@@ -1,8 +1,8 @@
-import { ImageProps } from "@/utils/types";
 import { Button } from "@nextui-org/react";
+import { AnyObject } from "mongoose";
 import Image from "next/image";
 
-export default function CoverImageEditor(props: ImageProps) {
+export default function CoverImageEditor(props: AnyObject) {
     const upload = async () => {
         const data = new FormData();
         data.set("file", props.image);
@@ -47,8 +47,7 @@ export default function CoverImageEditor(props: ImageProps) {
                 color="primary"
                 radius="md"
                 className="my-[2px]"
-                onClick={upload}
-            >
+                onClick={upload}>
                 Upload
             </Button>
             {displayImage()}
