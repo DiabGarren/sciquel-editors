@@ -138,44 +138,6 @@ export default function NewPage(props: any) {
         setType: setGraphType,
     };
 
-    const Droppable = (props: any) => {
-        const { isOver, setNodeRef } = useDroppable({
-            id: props.id,
-        });
-        const style = {
-            opacity: isOver ? 1 : 0.5,
-        };
-
-        return (
-            <div
-                className="border-2 border-teal rounded-lr p-[10px] w-[fit-content]"
-                ref={setNodeRef}
-                style={style}>
-                {props.children}
-            </div>
-        );
-    };
-    const Draggable = (props: any) => {
-        const { attributes, listeners, setNodeRef, transform } = useDraggable({
-            id: props.id,
-        });
-        const style = {
-            // Outputs `translate3d(x, y, 0)`
-            transform: CSS.Translate.toString(transform),
-        };
-
-        return (
-            <button
-                className="bg-teal rounded-md text-white p-[5px]"
-                ref={setNodeRef}
-                style={style}
-                {...listeners}
-                {...attributes}>
-                {props.children}
-            </button>
-        );
-    };
-
     return (
         <main className="grid">
             <div className="p-[15px] pb-[50px]">
