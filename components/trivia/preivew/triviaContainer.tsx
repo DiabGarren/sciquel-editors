@@ -257,42 +257,41 @@ export default function TriviaContainerPreview(props: any) {
                                     <DragDropContext
                                         onDragEnd={(event) => {
                                             reorderList(randomAnswers, event);
-                                            console.log(randomAnswers);
-                                            props.setTrivia(
-                                                props.trivia.map((trivia: any, tIndex: number) => {
-                                                    if (tIndex === triviaIndex) {
-                                                        const questions = trivia.questions.map(
-                                                            (question: any, qIndex: number) => {
-                                                                if (qIndex === questionIndex) {
-                                                                    const content =
-                                                                        question.content.map(
-                                                                            (
-                                                                                content: any,
-                                                                                cIndex: number
-                                                                            ) => {
-                                                                                content.guess =
-                                                                                    randomAnswers[
-                                                                                        cIndex
-                                                                                    ].answer;
-                                                                                return content;
-                                                                            }
-                                                                        );
-                                                                    return {
-                                                                        type: question.type,
-                                                                        content: content,
-                                                                    };
-                                                                }
-                                                                return question;
-                                                            }
-                                                        );
-                                                        return {
-                                                            name: trivia.name,
-                                                            questions: questions,
-                                                        };
-                                                    }
-                                                    return trivia;
-                                                })
-                                            );
+                                            // props.setTrivia(
+                                            //     props.trivia.map((trivia: any, tIndex: number) => {
+                                            //         if (tIndex === triviaIndex) {
+                                            //             const questions = trivia.questions.map(
+                                            //                 (question: any, qIndex: number) => {
+                                            //                     if (qIndex === questionIndex) {
+                                            //                         const content =
+                                            //                             question.content.map(
+                                            //                                 (
+                                            //                                     content: any,
+                                            //                                     cIndex: number
+                                            //                                 ) => {
+                                            //                                     content.guess =
+                                            //                                         randomAnswers[
+                                            //                                             cIndex
+                                            //                                         ].answer;
+                                            //                                     return content;
+                                            //                                 }
+                                            //                             );
+                                            //                         return {
+                                            //                             type: question.type,
+                                            //                             content: content,
+                                            //                         };
+                                            //                     }
+                                            //                     return question;
+                                            //                 }
+                                            //             );
+                                            //             return {
+                                            //                 name: trivia.name,
+                                            //                 questions: questions,
+                                            //             };
+                                            //         }
+                                            //         return trivia;
+                                            //     })
+                                            // );
                                             console.log(props.trivia);
                                         }}>
                                         <Droppable droppableId="droppable">
