@@ -10,8 +10,6 @@ import AcknowledgementsPreview from "@/components/acknowledgements/preview/ackno
 import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
 import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
-import { useDroppable, useDraggable, DndContext } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 
 export default function NewPage(props: any) {
     const [image, setImage] = useState(null);
@@ -178,12 +176,6 @@ export default function NewPage(props: any) {
         );
     };
 
-    const [parent, setParent] = useState(null);
-    const drag = <Draggable id="draggable">drag me</Draggable>;
-    const handleDragEnd = ({ over }: { over: any }) => {
-        setParent(over ? over.id : null);
-    };
-
     return (
         <main className="grid">
             <div className="p-[15px] pb-[50px]">
@@ -226,15 +218,6 @@ export default function NewPage(props: any) {
                 <div className="preview m-[auto]">
                     <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
-                </div>
-                <div className="bg-grey-light-1 w-[250px] h-[300px] p-[15px]">
-                    <p>Test Drag and drop</p>
-                    <DndContext onDragEnd={handleDragEnd}>
-                        {!parent ? drag : null}
-                        <Droppable id="droppable">
-                            {parent === "droppable" ? drag : "Drop here"}
-                        </Droppable>
-                    </DndContext>
                 </div>
             </div>
             {/* 

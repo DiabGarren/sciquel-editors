@@ -1,4 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
+
 import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
 
 export default function TriviaContainerPreview(props: any) {
@@ -170,9 +173,13 @@ export default function TriviaContainerPreview(props: any) {
                                         </div>
                                         <div>
                                             <Select
+                                                aria-label="Answer"
                                                 color={
-                                                    content.guess === content.answer
+                                                    content.guess === "" &&
+                                                    content.guess !== content.answer
                                                         ? "default"
+                                                        : content.guess === content.answer
+                                                        ? "primary"
                                                         : "warning"
                                                 }
                                                 size="sm"
