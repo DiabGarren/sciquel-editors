@@ -8,6 +8,9 @@
     --background-end-rgb: 255, 255, 255;
     --header-height: 65px;
     --sciquel-primary: #109191;
+    --teal-light: #16c4c4;
+    --grey-light: #898c8a;
+    --grey-light-1: #dbdbdb;
 }
 
 @media (prefers-color-scheme: dark) {

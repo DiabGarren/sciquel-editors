@@ -46,12 +46,16 @@ const config: Config = {
 				dark: '#335860',
 				light: {
 					DEFAULT: '#70c0d3',
+					1: '#4eedcb'
 				},
 			},
 			teal: {
 				DEFAULT: '#109191',
 				dark: '#0a5757',
-				light: '#16c4c4'
+				light: {
+					DEFAULT: '#16c4c4',
+					1: '#4eeded',
+				},
 			}
 		},
 		borderRadius: {

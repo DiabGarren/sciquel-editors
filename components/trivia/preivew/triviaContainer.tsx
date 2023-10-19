@@ -2,7 +2,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
 
+import { getItemStyle, getListStyle, reorderList } from "@/components/drag_drop/dragDrop";
 import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function TriviaContainerPreview(props: any) {
     const trivia = props.trivia.map((trivia: any, triviaIndex: number) => {
@@ -153,14 +155,14 @@ export default function TriviaContainerPreview(props: any) {
                             });
                             break;
                         case "Single Matching":
+                            const randomAnswers = question.content
+                                .map((a: any) => ({ sort: Math.random(), value: a }))
+                                .sort((a: any, b: any) => a.sort - b.sort)
+                                .map((a: any) => a.value);
                             content = question.content.map((content: any, contentIndex: number) => {
-                                const randomAnswers = question.content
-                                    .map((a: any) => ({ sort: Math.random(), value: a }))
-                                    .sort((a: any, b: any) => a.sort - b.sort)
-                                    .map((a: any) => a.value);
                                 return (
-                                    <div className="grid grid-cols-[1fr_1fr] items-center">
-                                        <div>
+                                    <>
+                                        <div className="my-[5px] h-[30px]">
                                             <p className="inline-block mr-[5px]">
                                                 {contentIndex + 1}.
                                             </p>
@@ -171,6 +173,7 @@ export default function TriviaContainerPreview(props: any) {
                                                 readOnly
                                             />
                                         </div>
+                                        {/* 
                                         <div>
                                             <Select
                                                 aria-label="Answer"
@@ -241,14 +244,122 @@ export default function TriviaContainerPreview(props: any) {
                                                         {content.answer}
                                                     </SelectItem>
                                                 ))}
-                                            </Select>
+                                            </Select> 
                                         </div>
-                                    </div>
+                                            */}
+                                    </>
                                 );
                             });
+
                             content = (
-                                <div className="border border-grey-light-1 rounded-md p-[7px]">
-                                    {content}
+                                <div className="grid grid-cols-2 border border-grey-light-1 rounded-md p-[7px]">
+                                    <div>{content}</div>
+                                    <DragDropContext
+                                        onDragEnd={(event) => {
+                                            reorderList(randomAnswers, event);
+                                            console.log(randomAnswers);
+                                            props.setTrivia(
+                                                props.trivia.map((trivia: any, tIndex: number) => {
+                                                    if (tIndex === triviaIndex) {
+                                                        const questions = trivia.questions.map(
+                                                            (question: any, qIndex: number) => {
+                                                                if (qIndex === questionIndex) {
+                                                                    const content =
+                                                                        question.content.map(
+                                                                            (
+                                                                                content: any,
+                                                                                cIndex: number
+                                                                            ) => {
+                                                                                content.guess =
+                                                                                    randomAnswers[
+                                                                                        cIndex
+                                                                                    ].answer;
+                                                                                return content;
+                                                                            }
+                                                                        );
+                                                                    return {
+                                                                        type: question.type,
+                                                                        content: content,
+                                                                    };
+                                                                }
+                                                                return question;
+                                                            }
+                                                        );
+                                                        return {
+                                                            name: trivia.name,
+                                                            questions: questions,
+                                                        };
+                                                    }
+                                                    return trivia;
+                                                })
+                                            );
+                                            console.log(props.trivia);
+                                        }}>
+                                        <Droppable droppableId="droppable">
+                                            {(provided, snapshot) => (
+                                                <div
+                                                    {...provided.droppableProps}
+                                                    ref={provided.innerRef}
+                                                    style={getListStyle(snapshot.isDraggingOver)}>
+                                                    {randomAnswers.map(
+                                                        (item: any, index: number) => (
+                                                            <Draggable
+                                                                key={item.answer}
+                                                                draggableId={item.answer}
+                                                                index={index}>
+                                                                {(provided, snapshot) => (
+                                                                    <div
+                                                                        ref={provided.innerRef}
+                                                                        {...provided.draggableProps}
+                                                                        {...provided.dragHandleProps}
+                                                                        style={getItemStyle(
+                                                                            snapshot.isDragging,
+                                                                            provided.draggableProps
+                                                                                .style
+                                                                        )}>
+                                                                        <div className="flex items-center">
+                                                                            <svg
+                                                                                className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="29"
+                                                                                height="30"
+                                                                                viewBox="0 0 40 27"
+                                                                                fill="none">
+                                                                                <rect
+                                                                                    width="40"
+                                                                                    height="4"
+                                                                                    rx="1.5"
+                                                                                    fill="#7B6D6D"
+                                                                                />
+                                                                                <rect
+                                                                                    y="12"
+                                                                                    width="40"
+                                                                                    height="4"
+                                                                                    rx="1.5"
+                                                                                    fill="#7B6D6D"
+                                                                                />
+                                                                                <rect
+                                                                                    y="24"
+                                                                                    width="40"
+                                                                                    height="4"
+                                                                                    rx="1.5"
+                                                                                    fill="#7B6D6D"
+                                                                                />
+                                                                            </svg>
+                                                                            <p className="px-[5px]">
+                                                                                {item.answer}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                )}
+                                                            </Draggable>
+                                                        )
+                                                    )}
+                                                    {provided.placeholder}
+                                                </div>
+                                            )}
+                                        </Droppable>
+                                    </DragDropContext>
                                 </div>
                             );
                             break;
