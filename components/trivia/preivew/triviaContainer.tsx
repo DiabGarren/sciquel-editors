@@ -370,7 +370,9 @@ export default function TriviaContainerPreview(props: any) {
                                                                             </svg>
                                                                             <p className="px-[5px]">
                                                                                 {item.guess == ""
-                                                                                    ? item.answer
+                                                                                    ? randomAnswers[
+                                                                                          index
+                                                                                      ].answer
                                                                                     : item.guess}
                                                                             </p>
                                                                         </div>
