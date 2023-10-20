@@ -4,6 +4,7 @@
 
 import { getItemStyle, getListStyle, reorderList } from "@/components/drag_drop/dragDrop";
 import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
+import { Number } from "mongoose";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function TriviaContainerPreview(props: any) {
@@ -251,48 +252,70 @@ export default function TriviaContainerPreview(props: any) {
                                 );
                             });
 
+                            const reorderList = (event: any) => {
+                                props.setTrivia(
+                                    props.trivia.map((trivia: any, tIndex: number) => {
+                                        if (tIndex === triviaIndex) {
+                                            const questions = trivia.questions.map(
+                                                (question: any, qIndex: number) => {
+                                                    if (qIndex === questionIndex) {
+                                                        let new_index = event.destination.index;
+                                                        let old_index = event.source.index;
+                                                        const answers: string[] = [];
+                                                        question.content.forEach((content: any) => {
+                                                            answers.push(
+                                                                content.guess === ""
+                                                                    ? content.answer
+                                                                    : content.guess
+                                                            );
+                                                        });
+
+                                                        if (new_index >= question.content.length) {
+                                                            var k = new_index - answers.length + 1;
+                                                            while (k--) {
+                                                                answers.push("");
+                                                            }
+                                                        }
+                                                        answers.splice(
+                                                            new_index,
+                                                            0,
+                                                            answers.splice(old_index, 1)[0]
+                                                        );
+
+                                                        question.content.forEach(
+                                                            (content: any, index: number) => {
+                                                                content.guess = answers[index];
+                                                            }
+                                                        );
+
+                                                        return {
+                                                            type: question.type,
+                                                            content: question.content,
+                                                        };
+                                                    }
+                                                    return question;
+                                                }
+                                            );
+                                            return {
+                                                name: trivia.name,
+                                                questions: questions,
+                                            };
+                                        }
+                                        return trivia;
+                                    })
+                                );
+                            };
+
                             content = (
                                 <div className="grid grid-cols-2 border border-grey-light-1 rounded-md p-[7px]">
                                     <div>{content}</div>
                                     <DragDropContext
                                         onDragEnd={(event) => {
-                                            reorderList(randomAnswers, event);
-                                            // props.setTrivia(
-                                            //     props.trivia.map((trivia: any, tIndex: number) => {
-                                            //         if (tIndex === triviaIndex) {
-                                            //             const questions = trivia.questions.map(
-                                            //                 (question: any, qIndex: number) => {
-                                            //                     if (qIndex === questionIndex) {
-                                            //                         const content =
-                                            //                             question.content.map(
-                                            //                                 (
-                                            //                                     content: any,
-                                            //                                     cIndex: number
-                                            //                                 ) => {
-                                            //                                     content.guess =
-                                            //                                         randomAnswers[
-                                            //                                             cIndex
-                                            //                                         ].answer;
-                                            //                                     return content;
-                                            //                                 }
-                                            //                             );
-                                            //                         return {
-                                            //                             type: question.type,
-                                            //                             content: content,
-                                            //                         };
-                                            //                     }
-                                            //                     return question;
-                                            //                 }
-                                            //             );
-                                            //             return {
-                                            //                 name: trivia.name,
-                                            //                 questions: questions,
-                                            //             };
-                                            //         }
-                                            //         return trivia;
-                                            //     })
-                                            // );
-                                            console.log(props.trivia);
+                                            if (event.destination) {
+                                                reorderList(event);
+
+                                                console.log(props.trivia);
+                                            }
                                         }}>
                                         <Droppable droppableId="droppable">
                                             {(provided, snapshot) => (
@@ -300,7 +323,7 @@ export default function TriviaContainerPreview(props: any) {
                                                     {...provided.droppableProps}
                                                     ref={provided.innerRef}
                                                     style={getListStyle(snapshot.isDraggingOver)}>
-                                                    {randomAnswers.map(
+                                                    {question.content.map(
                                                         (item: any, index: number) => (
                                                             <Draggable
                                                                 key={item.answer}
@@ -346,7 +369,9 @@ export default function TriviaContainerPreview(props: any) {
                                                                                 />
                                                                             </svg>
                                                                             <p className="px-[5px]">
-                                                                                {item.answer}
+                                                                                {item.guess == ""
+                                                                                    ? item.answer
+                                                                                    : item.guess}
                                                                             </p>
                                                                         </div>
                                                                     </div>
