@@ -2,9 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
 
-import { getItemStyle, getListStyle, reorderList } from "@/components/drag_drop/dragDrop";
-import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
-import { Number } from "mongoose";
+import { getItemStyle, getListStyle } from "@/components/drag_drop/dragDrop";
+import { Radio, RadioGroup } from "@nextui-org/react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export default function TriviaContainerPreview(props: any) {
@@ -174,80 +173,6 @@ export default function TriviaContainerPreview(props: any) {
                                                 readOnly
                                             />
                                         </div>
-                                        {/* 
-                                        <div>
-                                            <Select
-                                                aria-label="Answer"
-                                                color={
-                                                    content.guess === "" &&
-                                                    content.guess !== content.answer
-                                                        ? "default"
-                                                        : content.guess === content.answer
-                                                        ? "primary"
-                                                        : "warning"
-                                                }
-                                                size="sm"
-                                                radius="lg"
-                                                onChange={(event) => {
-                                                    props.setTrivia(
-                                                        props.trivia.map(
-                                                            (trivia: any, tIndex: number) => {
-                                                                if (tIndex === triviaIndex) {
-                                                                    const questions =
-                                                                        trivia.questions.map(
-                                                                            (
-                                                                                question: any,
-                                                                                questIndex: number
-                                                                            ) => {
-                                                                                if (
-                                                                                    questIndex ===
-                                                                                    questionIndex
-                                                                                ) {
-                                                                                    const content =
-                                                                                        question.content.map(
-                                                                                            (
-                                                                                                c: any,
-                                                                                                cIndex: number
-                                                                                            ) => {
-                                                                                                if (
-                                                                                                    cIndex ===
-                                                                                                    contentIndex
-                                                                                                ) {
-                                                                                                    c.guess =
-                                                                                                        event.target.value;
-                                                                                                }
-                                                                                                return c;
-                                                                                            }
-                                                                                        );
-
-                                                                                    return {
-                                                                                        type: question.type,
-                                                                                        content:
-                                                                                            content,
-                                                                                    };
-                                                                                }
-                                                                                return question;
-                                                                            }
-                                                                        );
-                                                                    return {
-                                                                        name: trivia.name,
-                                                                        questions: questions,
-                                                                    };
-                                                                } else return trivia;
-                                                            }
-                                                        )
-                                                    );
-                                                }}>
-                                                {randomAnswers.map((content: any) => (
-                                                    <SelectItem
-                                                        key={content.answer}
-                                                        value={content.answer}>
-                                                        {content.answer}
-                                                    </SelectItem>
-                                                ))}
-                                            </Select> 
-                                        </div>
-                                            */}
                                     </>
                                 );
                             });
@@ -261,19 +186,27 @@ export default function TriviaContainerPreview(props: any) {
                                                     if (qIndex === questionIndex) {
                                                         let new_index = event.destination.index;
                                                         let old_index = event.source.index;
-                                                        const answers: string[] = [];
+                                                        const answers: {
+                                                            guess: string;
+                                                            key: string;
+                                                        }[] = [];
                                                         question.content.forEach((content: any) => {
-                                                            answers.push(
-                                                                content.guess === ""
-                                                                    ? content.answer
-                                                                    : content.guess
-                                                            );
+                                                            answers.push({
+                                                                guess:
+                                                                    content.guess === ""
+                                                                        ? content.answer
+                                                                        : content.guess,
+                                                                key: content.key,
+                                                            });
                                                         });
 
                                                         if (new_index >= question.content.length) {
                                                             var k = new_index - answers.length + 1;
                                                             while (k--) {
-                                                                answers.push("");
+                                                                answers.push({
+                                                                    guess: "",
+                                                                    key: "",
+                                                                });
                                                             }
                                                         }
                                                         answers.splice(
@@ -284,7 +217,9 @@ export default function TriviaContainerPreview(props: any) {
 
                                                         question.content.forEach(
                                                             (content: any, index: number) => {
-                                                                content.guess = answers[index];
+                                                                content.guess =
+                                                                    answers[index].guess;
+                                                                content.key = answers[index].key;
                                                             }
                                                         );
 
@@ -326,8 +261,8 @@ export default function TriviaContainerPreview(props: any) {
                                                     {question.content.map(
                                                         (item: any, index: number) => (
                                                             <Draggable
-                                                                key={item.answer}
-                                                                draggableId={item.answer}
+                                                                key={item.key}
+                                                                draggableId={item.key}
                                                                 index={index}>
                                                                 {(provided, snapshot) => (
                                                                     <div
@@ -337,7 +272,8 @@ export default function TriviaContainerPreview(props: any) {
                                                                         style={getItemStyle(
                                                                             snapshot.isDragging,
                                                                             provided.draggableProps
-                                                                                .style
+                                                                                .style,
+                                                                                item.guess === item.answer
                                                                         )}>
                                                                         <div className="flex items-center">
                                                                             <svg
@@ -369,7 +305,7 @@ export default function TriviaContainerPreview(props: any) {
                                                                                 />
                                                                             </svg>
                                                                             <p className="px-[5px]">
-                                                                                {item.guess == ""
+                                                                                {item.guess === ""
                                                                                     ? randomAnswers[
                                                                                           index
                                                                                       ].answer

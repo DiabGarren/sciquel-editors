@@ -1,4 +1,4 @@
-export const getItemStyle = (isDragging: any, draggableStyle: any) => ({
+export const getItemStyle = (isDragging: any, draggableStyle: any, isCorrect: boolean) => ({
     // some basic styles to make the items look a bit nicer
     userSelect: "none",
     padding: 0,
@@ -7,6 +7,9 @@ export const getItemStyle = (isDragging: any, draggableStyle: any) => ({
 
     // change background colour if dragging
     background: isDragging ? "lightgreen" : "white",
+    color: "black",
+    // background: isDragging ? "lightgreen" : isCorrect ? "var(--sciquel-primary)" : "white",
+    // color: isDragging ? "black" : isCorrect ? "white" : "black",
 
     // styles we need to apply on draggables
     ...draggableStyle,

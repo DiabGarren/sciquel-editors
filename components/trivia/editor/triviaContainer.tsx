@@ -46,6 +46,7 @@ export default function TriviaContainerEditor(props: any) {
                                                             question: "",
                                                             answer: "",
                                                             guess: "",
+                                                            key: "item-1",
                                                         },
                                                     ];
                                                     break;
@@ -498,6 +499,7 @@ export default function TriviaContainerEditor(props: any) {
                                                                 question: "",
                                                                 answer: "",
                                                                 guess: "",
+                                                                key: `item-${q.content.length + 1}`,
                                                             });
                                                             break;
                                                         default:
