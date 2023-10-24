@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
+import { AnyMxRecord } from "dns";
 
 const questionTypes = [
     { name: "True/False" },
@@ -459,10 +460,10 @@ export default function TriviaContainerEditor(props: any) {
             case "Multiple Matching":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
-                        <div className="my-[8px] items-center">
-                            <div>
+                        <div className="flex flex-col my-[8px] items-center">
+                            <div className="my-[2px]">
                                 <input
-                                    className="border-b-2 border-grey-light my-[2px]"
+                                    className="border-b-2 border-grey-light"
                                     placeholder="Category name"
                                     value={content.category}
                                     onChange={(event) => {
@@ -521,10 +522,157 @@ export default function TriviaContainerEditor(props: any) {
                                     }}
                                 />
                             </div>
-                            {content.answers.map((answer: string) => {
-                                return <input className="border-b-2 border-grey-light-1" />;
+                            {content.answers.map((answer: string, index: number) => {
+                                return (
+                                    <div className="flex w-[80%] items-center">
+                                        <input
+                                            className="border-b-2 border-grey-light-1 w-[80%]"
+                                            placeholder={`Answer ${index + 1}`}
+                                            value={answer}
+                                            onChange={(event) => {
+                                                props.setTrivia(
+                                                    props.trivia.map((trivia: any) => {
+                                                        const questions = trivia.questions.map(
+                                                            (question: any, questIndex: number) => {
+                                                                if (questIndex === questionIndex) {
+                                                                    const content =
+                                                                        question.content.map(
+                                                                            (
+                                                                                content: any,
+                                                                                cIndex: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    cIndex ===
+                                                                                    contentIndex
+                                                                                ) {
+                                                                                    const answers =
+                                                                                        content.answers.map(
+                                                                                            (
+                                                                                                a: any,
+                                                                                                aIndex: number
+                                                                                            ) => {
+                                                                                                if (
+                                                                                                    aIndex ===
+                                                                                                    index
+                                                                                                )
+                                                                                                    return event
+                                                                                                        .target
+                                                                                                        .value;
+                                                                                                else
+                                                                                                    return a;
+                                                                                            }
+                                                                                        );
+                                                                                    return {
+                                                                                        category:
+                                                                                            content.category,
+                                                                                        answers:
+                                                                                            answers,
+                                                                                        guesses:
+                                                                                            content.guesses,
+                                                                                    };
+                                                                                } else
+                                                                                    return content;
+                                                                            }
+                                                                        );
+                                                                    return {
+                                                                        type: question.type,
+                                                                        content: content,
+                                                                    };
+                                                                } else return question;
+                                                            }
+                                                        );
+                                                        return {
+                                                            name: trivia.name,
+                                                            questions: questions,
+                                                        };
+                                                    })
+                                                );
+                                            }}
+                                        />
+                                        <TrashIcon
+                                            className="trash-icon inline-block"
+                                            onClick={() => {
+                                                props.setTrivia(
+                                                    props.trivia.map((trivia: any) => {
+                                                        const questions = trivia.questions.map(
+                                                            (question: any, questIndex: number) => {
+                                                                if (questIndex === questionIndex) {
+                                                                    const content =
+                                                                        question.content.map(
+                                                                            (
+                                                                                c: any,
+                                                                                cIndex: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    cIndex ===
+                                                                                    contentIndex
+                                                                                ) {
+                                                                                    const answers: any[] =
+                                                                                        [];
+                                                                                    c.answers.forEach(
+                                                                                        (
+                                                                                            answer: any,
+                                                                                            aIndex: number
+                                                                                        ) => {
+                                                                                            if (
+                                                                                                aIndex !==
+                                                                                                index
+                                                                                            ) {
+                                                                                                answers.push(
+                                                                                                    answer
+                                                                                                );
+                                                                                            }
+                                                                                        }
+                                                                                    );
+
+                                                                                    const guesses: any[] =
+                                                                                        [];
+                                                                                    for (
+                                                                                        let i = 0;
+                                                                                        i <
+                                                                                        c.guesses
+                                                                                            .length -
+                                                                                            1;
+                                                                                        i++
+                                                                                    ) {
+                                                                                        guesses.push(
+                                                                                            c
+                                                                                                .guesses[
+                                                                                                i
+                                                                                            ]
+                                                                                        );
+                                                                                    }
+
+                                                                                    return {
+                                                                                        category:
+                                                                                            c.category,
+                                                                                        answers:
+                                                                                            answers,
+                                                                                        guesses:
+                                                                                            guesses,
+                                                                                    };
+                                                                                } else return c;
+                                                                            }
+                                                                        );
+                                                                    question.content = content;
+                                                                }
+                                                                return question;
+                                                            }
+                                                        );
+                                                        return {
+                                                            name: trivia.name,
+                                                            questions: questions,
+                                                        };
+                                                    })
+                                                );
+                                            }}
+                                        />
+                                    </div>
+                                );
                             })}
-                            <input
+                            {/* <input
+                                className="border-b-1 border-grey-light-1"
+                                placeholder="Add answer"
                                 onClick={() => {
                                     props.setTrivia(
                                         props.trivia.map((trivia: any) => {
@@ -550,13 +698,51 @@ export default function TriviaContainerEditor(props: any) {
                                         })
                                     );
                                 }}
-                            />
+                            /> */}
+                            <Button
+                                className="mt-[7px]"
+                                variant="solid"
+                                color="primary"
+                                onClick={() => {
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: any) => {
+                                            const questions = trivia.questions.map(
+                                                (question: any, questIndex: number) => {
+                                                    if (questIndex === questionIndex) {
+                                                        const content = question.content.map(
+                                                            (content: any, cIndex: number) => {
+                                                                if (cIndex === contentIndex) {
+                                                                    content.answers.push("");
+                                                                    content.guesses.push({
+                                                                        guess: "",
+                                                                        key: `item-${cIndex + 1}-${
+                                                                            content.guesses.length +
+                                                                            1
+                                                                        }`,
+                                                                    });
+                                                                }
+                                                                return content;
+                                                            }
+                                                        );
+                                                        return {
+                                                            type: question.type,
+                                                            content: content,
+                                                        };
+                                                    } else return question;
+                                                }
+                                            );
+                                            return { name: trivia.name, questions: questions };
+                                        })
+                                    );
+                                }}>
+                                +
+                            </Button>
                         </div>
                     );
                 });
                 content = (
                     <div
-                        className="grid grid-cols-2 max-w-[100%] overflow-x-auto border border-grey-light-1 p-[10px] rounded-md"
+                        className="grid grid-cols-2 border border-grey-light-1 p-[10px] rounded-md"
                         // style={{ gridTemplateColumns: `repeat(${content.length}, 250px)` }}
                     >
                         {content}
