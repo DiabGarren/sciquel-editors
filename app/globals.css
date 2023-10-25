@@ -253,4 +253,11 @@ main>div:last-child {
         border-radius: 0 0 5px 5px;
     }
 
+    .textContainer {
+        width: 100%;
+    }
+
+    .textContainer .ql-container {
+        min-height: 150px;
+    }
 }

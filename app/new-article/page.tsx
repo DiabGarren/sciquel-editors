@@ -10,6 +10,7 @@ import AcknowledgementsPreview from "@/components/acknowledgements/preview/ackno
 import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
 import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
+import TextContainer from "@/components/text_container/textContainer";
 
 export default function NewPage(props: any) {
     const [image, setImage] = useState(null);
@@ -155,6 +156,9 @@ export default function NewPage(props: any) {
                         {...triviaProps}
                         triviaPosition="pre"
                     />
+                </div>
+                <div className="mb-[30px]">
+                    <TextContainer />
                 </div>
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
