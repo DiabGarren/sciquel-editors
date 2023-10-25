@@ -273,7 +273,9 @@ export default function TriviaContainerPreview(props: any) {
                                                                             snapshot.isDragging,
                                                                             provided.draggableProps
                                                                                 .style,
-                                                                                item.guess === item.answer
+                                                                            item.guess ===
+                                                                                item.answer,
+                                                                            trivia.name == "post"
                                                                         )}>
                                                                         <div className="flex items-center">
                                                                             <svg
@@ -325,6 +327,425 @@ export default function TriviaContainerPreview(props: any) {
                                 </div>
                             );
                             break;
+                        case "Multiple Matching":
+                            const answers: string[] = [];
+                            question.content.forEach((content: any) => {
+                                content.answers.forEach((answer: string) => {
+                                    answers.push(answer);
+                                });
+                            });
+                            const randomiseAnswers = answers
+                                .map((a: any) => ({ sort: Math.random(), value: a }))
+                                .sort((a: any, b: any) => a.sort - b.sort)
+                                .map((a: any) => a.value);
+
+                            let randomPos = -1;
+
+                            content = question.content.map((content: any, contentIndex: number) => {
+                                return (
+                                    <>
+                                        <div className="my-[5px] h-[30px]">
+                                            <p className="inline-block mr-[5px]">
+                                                {contentIndex + 1}.
+                                            </p>
+                                            <input
+                                                className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
+                                                value={content.question}
+                                                disabled
+                                                readOnly
+                                            />
+                                        </div>
+                                    </>
+                                );
+                            });
+                            const reorderLists = (source: any, destination: any) => {
+                                props.setTrivia(
+                                    props.trivia.map((trivia: any, tIndex: number) => {
+                                        if (tIndex === triviaIndex) {
+                                            const questions = trivia.questions.map(
+                                                (question: any, qIndex: number) => {
+                                                    if (qIndex === questionIndex) {
+                                                        const content = question.content.map(
+                                                            (content: any, cIndex: number) => {
+                                                                content.guesses =
+                                                                    content.guesses.map(
+                                                                        (
+                                                                            guess: any,
+                                                                            index: number
+                                                                        ) => {
+                                                                            return {
+                                                                                guess:
+                                                                                    guess.guess ==
+                                                                                    ""
+                                                                                        ? content
+                                                                                              .answers[
+                                                                                              index
+                                                                                          ]
+                                                                                        : guess.guess,
+                                                                                key: guess.key,
+                                                                            };
+                                                                        }
+                                                                    );
+                                                                if (
+                                                                    parseInt(source.droppableId) ===
+                                                                        parseInt(
+                                                                            destination.droppableId
+                                                                        ) &&
+                                                                    parseInt(source.droppableId) ===
+                                                                        cIndex
+                                                                ) {
+                                                                    let new_index =
+                                                                        destination.index;
+                                                                    let old_index = source.index;
+                                                                    const guesses: {
+                                                                        guess: string;
+                                                                        key: string;
+                                                                    }[] = [];
+                                                                    content.guesses.forEach(
+                                                                        (
+                                                                            guess: any,
+                                                                            index: number
+                                                                        ) => {
+                                                                            guesses.push({
+                                                                                guess:
+                                                                                    guess.guess ===
+                                                                                    ""
+                                                                                        ? content
+                                                                                              .answers[
+                                                                                              index
+                                                                                          ]
+                                                                                        : guess.guess,
+                                                                                key: guess.key,
+                                                                            });
+                                                                        }
+                                                                    );
+
+                                                                    if (
+                                                                        new_index >=
+                                                                        content.guesses.length
+                                                                    ) {
+                                                                        var k =
+                                                                            new_index -
+                                                                            guesses.length +
+                                                                            1;
+                                                                        while (k--) {
+                                                                            guesses.push({
+                                                                                guess: "",
+                                                                                key: "",
+                                                                            });
+                                                                        }
+                                                                    }
+                                                                    guesses.splice(
+                                                                        new_index,
+                                                                        0,
+                                                                        guesses.splice(
+                                                                            old_index,
+                                                                            1
+                                                                        )[0]
+                                                                    );
+
+                                                                    content.guesses.forEach(
+                                                                        (
+                                                                            guess: any,
+                                                                            index: number
+                                                                        ) => {
+                                                                            guess.guess =
+                                                                                guesses[
+                                                                                    index
+                                                                                ].guess;
+                                                                            guess.key =
+                                                                                guesses[index].key;
+                                                                        }
+                                                                    );
+
+                                                                    return {
+                                                                        category: content.category,
+                                                                        answers: content.answers,
+                                                                        guesses: content.guesses,
+                                                                    };
+                                                                }
+
+                                                                if (
+                                                                    parseInt(source.droppableId) ===
+                                                                    cIndex
+                                                                ) {
+                                                                    const guesses =
+                                                                        content.guesses.map(
+                                                                            (
+                                                                                guess: any,
+                                                                                index: number
+                                                                            ) => {
+                                                                                guess.guess =
+                                                                                    guess.guess ==
+                                                                                    ""
+                                                                                        ? content
+                                                                                              .answers[
+                                                                                              index
+                                                                                          ]
+                                                                                        : guess.guess;
+                                                                                return guess;
+                                                                            }
+                                                                        );
+                                                                    return {
+                                                                        category: content.category,
+                                                                        answers: content.answers,
+                                                                        guesses: guesses,
+                                                                    };
+                                                                }
+
+                                                                if (
+                                                                    parseInt(
+                                                                        destination.droppableId
+                                                                    ) === cIndex
+                                                                ) {
+                                                                    content.guesses.splice(
+                                                                        destination.index,
+                                                                        0,
+                                                                        {
+                                                                            guess:
+                                                                                question.content[
+                                                                                    source
+                                                                                        .droppableId
+                                                                                ].guesses[
+                                                                                    source.index
+                                                                                ].guess === ""
+                                                                                    ? question
+                                                                                          .content[
+                                                                                          source
+                                                                                              .droppableId
+                                                                                      ].answers[
+                                                                                          source
+                                                                                              .index
+                                                                                      ]
+                                                                                    : question
+                                                                                          .content[
+                                                                                          source
+                                                                                              .droppableId
+                                                                                      ].guesses[
+                                                                                          source
+                                                                                              .index
+                                                                                      ].guess,
+
+                                                                            key: question.content[
+                                                                                source.droppableId
+                                                                            ].guesses[source.index]
+                                                                                .key,
+                                                                        }
+                                                                    );
+                                                                }
+
+                                                                return {
+                                                                    category: content.category,
+                                                                    answers: content.answers,
+                                                                    guesses: content.guesses,
+                                                                };
+                                                            }
+                                                        );
+
+                                                        if (
+                                                            source.droppableId !==
+                                                            destination.droppableId
+                                                        ) {
+                                                            const content = question.content.map(
+                                                                (content: any, index: number) => {
+                                                                    if (
+                                                                        index ===
+                                                                        parseInt(source.droppableId)
+                                                                    ) {
+                                                                        const guesses: any[] = [];
+                                                                        content.guesses.forEach(
+                                                                            (
+                                                                                guess: any,
+                                                                                index: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    index !==
+                                                                                    parseInt(
+                                                                                        source.index
+                                                                                    )
+                                                                                )
+                                                                                    guesses.push(
+                                                                                        guess
+                                                                                    );
+                                                                            }
+                                                                        );
+                                                                        return {
+                                                                            category:
+                                                                                content.category,
+                                                                            answers:
+                                                                                content.answers,
+                                                                            guesses: guesses,
+                                                                        };
+                                                                    }
+                                                                    return content;
+                                                                }
+                                                            );
+                                                            return {
+                                                                type: question.type,
+                                                                content: content,
+                                                            };
+                                                        }
+                                                        return {
+                                                            type: question.type,
+                                                            content: content,
+                                                        };
+                                                    }
+                                                    return question;
+                                                }
+                                            );
+                                            return {
+                                                name: trivia.name,
+                                                questions: questions,
+                                            };
+                                        }
+                                        return trivia;
+                                    })
+                                );
+                            };
+                            content = (
+                                <>
+                                    <DragDropContext
+                                        onDragEnd={(event) => {
+                                            const { source, destination } = event;
+                                            if (event.destination) {
+                                                reorderLists(source, destination);
+                                            }
+                                        }}>
+                                        <div className="grid grid-cols-2 justify-items-center">
+                                            {question.content.map(
+                                                (content: any, cIndex: number) => {
+                                                    return (
+                                                        <div className="w-[80%]">
+                                                            <h3 className="text-center">
+                                                                {content.category == ""
+                                                                    ? `Category ${cIndex + 1}`
+                                                                    : content.category}
+                                                            </h3>
+                                                            <Droppable droppableId={`${cIndex}`}>
+                                                                {(provided, snapshot) => (
+                                                                    <div
+                                                                        {...provided.droppableProps}
+                                                                        ref={provided.innerRef}
+                                                                        style={getListStyle(
+                                                                            snapshot.isDraggingOver
+                                                                        )}>
+                                                                        {question.content[
+                                                                            cIndex
+                                                                        ].guesses.map(
+                                                                            (
+                                                                                guess: any,
+                                                                                index: number
+                                                                            ) => {
+                                                                                randomPos++;
+                                                                                let text =
+                                                                                    guess.guess ===
+                                                                                    ""
+                                                                                        ? randomiseAnswers[
+                                                                                              randomPos
+                                                                                          ]
+                                                                                        : guess.guess;
+
+                                                                                return (
+                                                                                    <Draggable
+                                                                                        key={
+                                                                                            guess.key
+                                                                                        }
+                                                                                        draggableId={
+                                                                                            guess.key
+                                                                                        }
+                                                                                        index={
+                                                                                            index
+                                                                                        }>
+                                                                                        {(
+                                                                                            provided,
+                                                                                            snapshot
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                ref={
+                                                                                                    provided.innerRef
+                                                                                                }
+                                                                                                {...provided.draggableProps}
+                                                                                                {...provided.dragHandleProps}
+                                                                                                style={getItemStyle(
+                                                                                                    snapshot.isDragging,
+                                                                                                    provided
+                                                                                                        .draggableProps
+                                                                                                        .style,
+                                                                                                    guess.guess ===
+                                                                                                        question
+                                                                                                            .content[
+                                                                                                            cIndex
+                                                                                                        ]
+                                                                                                            .answers[
+                                                                                                            index
+                                                                                                        ],
+                                                                                                    trivia.name ==
+                                                                                                        "post"
+                                                                                                )}>
+                                                                                                <div className="flex items-center">
+                                                                                                    <svg
+                                                                                                        className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl"
+                                                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                                                        width="29"
+                                                                                                        height="30"
+                                                                                                        viewBox="0 0 40 27"
+                                                                                                        fill="none">
+                                                                                                        <rect
+                                                                                                            width="40"
+                                                                                                            height="4"
+                                                                                                            rx="1.5"
+                                                                                                            fill="#7B6D6D"
+                                                                                                        />
+                                                                                                        <rect
+                                                                                                            y="12"
+                                                                                                            width="40"
+                                                                                                            height="4"
+                                                                                                            rx="1.5"
+                                                                                                            fill="#7B6D6D"
+                                                                                                        />
+                                                                                                        <rect
+                                                                                                            y="24"
+                                                                                                            width="40"
+                                                                                                            height="4"
+                                                                                                            rx="1.5"
+                                                                                                            fill="#7B6D6D"
+                                                                                                        />
+                                                                                                    </svg>
+                                                                                                    <p className="px-[5px]">
+                                                                                                        {guess.guess ===
+                                                                                                        ""
+                                                                                                            ? question
+                                                                                                                  .content[
+                                                                                                                  cIndex
+                                                                                                              ]
+                                                                                                                  .answers[
+                                                                                                                  index
+                                                                                                              ]
+                                                                                                            : guess.guess}
+                                                                                                        {/* {
+                                                                                                            text
+                                                                                                        } */}
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        )}
+                                                                                    </Draggable>
+                                                                                );
+                                                                            }
+                                                                        )}
+                                                                        {provided.placeholder}
+                                                                    </div>
+                                                                )}
+                                                            </Droppable>
+                                                        </div>
+                                                    );
+                                                }
+                                            )}
+                                        </div>
+                                    </DragDropContext>
+                                </>
+                            );
+                            break;
                         default:
                             content = "";
                     }
@@ -354,5 +775,7 @@ export default function TriviaContainerPreview(props: any) {
             } else return <></>;
         } else return <></>;
     });
+
+    console.log(props.trivia);
     return trivia;
 }

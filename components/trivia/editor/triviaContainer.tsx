@@ -884,7 +884,5 @@ export default function TriviaContainerEditor(props: any) {
         } else return <></>;
     });
 
-    console.log(props.trivia);
-
     return trivia;
 }
