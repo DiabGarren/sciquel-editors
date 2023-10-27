@@ -217,6 +217,8 @@ main>div:last-child {
 
     Button {
         border: 2px solid var(--sciquel-primary);
+        background: var(--sciquel-primary);
+        color: white;
     }
 
     Button:hover {

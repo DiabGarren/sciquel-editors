@@ -6,7 +6,7 @@ export default function CoverImagePreview(props: any) {
             className="cover-image mx-[auto] h-[500px] bg-center bg-cover bg-no-repeat flex flex-row items-end"
             style={{
                 backgroundImage: props.finalImage
-                    ? `url('/images/${props.finalImage.name}')`
+                    ? `url('${props.finalImage}')`
                     : "url('/images/bobtail.png')",
             }}>
             <div className="ml-[25px] mb-[15px] text-white">
