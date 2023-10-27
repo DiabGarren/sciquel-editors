@@ -57,6 +57,8 @@ export default function CoverImageEditor(props: AnyObject) {
             <UploadButton
                 appearance={{
                     button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
+                    container: "block w-fit mt-[7px]",
+                    allowedContent: "text-center",
                 }}
                 endpoint="imageUploader"
                 onClientUploadComplete={(res) => {
