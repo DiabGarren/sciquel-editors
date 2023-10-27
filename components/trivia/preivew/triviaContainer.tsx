@@ -722,9 +722,6 @@ export default function TriviaContainerPreview(props: any) {
                                                                                                                   index
                                                                                                               ]
                                                                                                             : guess.guess}
-                                                                                                        {/* {
-                                                                                                            text
-                                                                                                        } */}
                                                                                                     </p>
                                                                                                 </div>
                                                                                             </div>
@@ -734,6 +731,9 @@ export default function TriviaContainerPreview(props: any) {
                                                                             }
                                                                         )}
                                                                         {provided.placeholder}
+                                                                        <div className="w-[95%] bg-white text-center rounded mx-auto mb-[5px]">
+                                                                            ...
+                                                                        </div>
                                                                     </div>
                                                                 )}
                                                             </Droppable>
