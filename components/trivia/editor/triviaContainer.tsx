@@ -15,6 +15,7 @@ export default function TriviaContainerEditor(props: any) {
         return (
             <div>
                 <Select
+                    color="primary"
                     label="Question Type"
                     placeholder="Select a question type"
                     selectedKeys={[question.type]}
