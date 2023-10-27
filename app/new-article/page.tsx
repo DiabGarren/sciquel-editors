@@ -121,6 +121,10 @@ export default function NewPage(props: any) {
         setTrivia,
     };
 
+    const textContainerProps = {
+        allContributors
+    }
+
     const acknowldgeProps = {
         contributors,
         setContributors,
@@ -158,7 +162,7 @@ export default function NewPage(props: any) {
                     />
                 </div>
                 <div className="mb-[30px]">
-                    <TextContainer />
+                    <TextContainer {...textContainerProps}/>
                 </div>
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />

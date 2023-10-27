@@ -260,4 +260,15 @@ main>div:last-child {
     .textContainer .ql-container {
         min-height: 150px;
     }
+
+    .richtext-wrapper {
+        border: 1px solid var(--grey-light-1);
+        border-radius: 5px;
+    }
+
+    .richtext-editor {
+        min-height: 150px;
+        padding: 0px 15px;
+    }
+
 }
