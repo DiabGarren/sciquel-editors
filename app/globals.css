@@ -288,4 +288,29 @@ main>div:last-child {
         margin: 5px 0;
         padding-left: 16px;
     }
+
+    .text-container ul,
+    .text-container ol {
+        padding-left: 18px;
+    }
+
+    @counter-style dash-counter {
+        system: cyclic;
+        suffix: " ";
+        symbols: "-";
+    }
+
+    .text-editor .ql-editor ol,
+    .text-container ol {
+        list-style-type: decimal;
+    }
+
+    .text-editor .ql-editor ul,
+    .text-container ul {
+        list-style-type: dash-counter;
+    }
+
+    .text-editor .ql-editor ul li::before {
+        content: "-"
+    }
 }
