@@ -10,7 +10,7 @@ export default function HeadingContainerEditor(props: any) {
         <>
             <h3>Heading</h3>
             <ReactQuill
-                className="textEditor"
+                className="text-editor"
                 theme="snow"
                 modules={modules}
                 value={props.heading}
@@ -18,7 +18,7 @@ export default function HeadingContainerEditor(props: any) {
             />
             <h3>Subheading</h3>
             <ReactQuill
-                className="textEditor"
+                className="text-editor"
                 theme="snow"
                 modules={modules}
                 value={props.subheading}
