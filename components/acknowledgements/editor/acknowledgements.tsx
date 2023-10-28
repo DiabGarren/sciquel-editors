@@ -31,7 +31,7 @@ export default function AcknowledgementsEditor(props: any) {
                                     {con.name}
                                 </div>
                                 <ReactQuill
-                                    className="textEditor"
+                                    className="text-editor"
                                     theme="snow"
                                     modules={modules}
                                     value={con.message}
