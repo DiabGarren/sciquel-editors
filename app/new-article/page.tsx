@@ -7,10 +7,11 @@ import TopSection from "@/components/top_section/topSection";
 import { useRef, useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImage";
 import AcknowledgementsPreview from "@/components/acknowledgements/preview/acknowledgements";
-import AcknowledgementsEditor from "@/components/acknowledgements/edit/acknowledgements";
+import AcknowledgementsEditor from "@/components/acknowledgements/editor/acknowledgements";
 import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
-import TextContainer from "@/components/text_container/textContainer";
+import SectionContainerPreview from "@/components/section_container/preview/sectionContainer";
+import SectionContainerEditor from "@/components/section_container/editor/sectionContainer";
 
 export default function NewPage(props: any) {
     const [image, setImage] = useState(null);
@@ -72,6 +73,8 @@ export default function NewPage(props: any) {
         { name: "post", questions: [] },
     ]);
 
+    const [text, setText] = useState("");
+
     const headingProps = {
         heading,
         setHeading,
@@ -121,9 +124,11 @@ export default function NewPage(props: any) {
         setTrivia,
     };
 
-    const textContainerProps = {
-        allContributors
-    }
+    const sectionContainerProps = {
+        allContributors,
+        text,
+        setText,
+    };
 
     const acknowldgeProps = {
         contributors,
@@ -162,7 +167,7 @@ export default function NewPage(props: any) {
                     />
                 </div>
                 <div className="mb-[30px]">
-                    <TextContainer {...textContainerProps}/>
+                    <SectionContainerEditor {...sectionContainerProps} />
                 </div>
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
@@ -170,22 +175,25 @@ export default function NewPage(props: any) {
             </div>
             <div className="relative">
                 <CoverImagePreview {...imageProps} />
-                <div className="preview mx-[auto]">
+                <div className="preview ">
                     <GeneralByline {...generalProps} />
                 </div>
-                <div className="preview mx-[auto]">
+                <div className="preview ">
                     <TriviaContainerPreview
                         {...triviaProps}
                         triviaPosition="pre"
                     />
                 </div>
-                <div className="preview mx-[auto]">
+                <div className="preview">
+                    <SectionContainerPreview {...sectionContainerProps} />
+                </div>
+                <div className="preview">
                     <TriviaContainerPreview
                         {...triviaProps}
                         triviaPosition="post"
                     />
                 </div>
-                <div className="preview m-[auto]">
+                <div className="preview">
                     <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
