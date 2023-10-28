@@ -7,6 +7,7 @@ const Editor = dynamic(() => import("react-draft-wysiwyg").then((module) => modu
 });
 // import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import React from "react";
 
 export default function TextContainer(props: any) {
     return (
