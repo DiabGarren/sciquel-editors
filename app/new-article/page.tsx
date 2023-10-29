@@ -178,7 +178,7 @@ export default function NewPage(props: any) {
                 <div className="preview ">
                     <GeneralByline {...generalProps} />
                 </div>
-                <div className="preview ">
+                <div className="preview">
                     <TriviaContainerPreview
                         {...triviaProps}
                         triviaPosition="pre"
