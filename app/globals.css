@@ -276,20 +276,36 @@ main>div:last-child {
     .text-container pre {
         color: white;
         background-color: #23241f;
-        margin: 5px 0;
         padding: 5px 10px;
         border-radius: 2px;
         font-family: 'Fira Code';
     }
 
     .text-editor .ql-editor blockquote,
-    .text-container blockquote {
-        border-left: 4px solid var(--sciquel-primary) !important;
-        margin: 5px 0;
-        padding-left: 16px;
+    .text-container blockquote,
+    .text-editor .ql-editor pre.ql-syntax,
+    .text-container pre {
+        margin: 5px 8px;
     }
 
-    .text-container ul,
+
+    .text-editor .ql-editor blockquote,
+    .text-container blockquote {
+        border-left: 4px solid var(--sciquel-primary) !important;
+        padding-left: 12px;
+    }
+
+    .text-editor .ql-editor blockquote+blockquote,
+    .text-container blockquote+blockquote {
+        margin-top: 0;
+    }
+
+    .text-editor .ql-editor blockquote:has(+ blockquote),
+    .text-container blockquote:has(+ blockquote) {
+        margin-bottom: 0;
+    }
+
+    .text-editor .ql-editor .text-container ul,
     .text-container ol {
         padding-left: 18px;
     }
