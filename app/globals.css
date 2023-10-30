@@ -323,12 +323,12 @@ main>div:last-child {
         list-style-type: decimal;
     }
 
-    .text-editor .ql-editor ul,
+    /* .text-editor .ql-editor ul,
     .text-container ul {
         list-style-type: dash-counter;
     }
 
     .text-editor .ql-editor ul li::before {
         content: "-"
-    }
+    } */
 }

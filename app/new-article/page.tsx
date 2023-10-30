@@ -184,7 +184,7 @@ export default function NewPage(props: any) {
                         triviaPosition="pre"
                     />
                 </div>
-                <div className="preview">
+                <div className="mx-auto max-w-[800px]">
                     <SectionContainerPreview {...sectionContainerProps} />
                 </div>
                 <div className="preview">

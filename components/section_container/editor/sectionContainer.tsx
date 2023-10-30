@@ -12,7 +12,8 @@ export default function SectionContainerEditor(props: any) {
                     setSection: props.setSection,
                     index: index,
                 };
-                if (section.type === "text") return <TextContainerEditor {...containerProps} />;
+                if (section.type === "text" || section.type === "sectionHeader")
+                    return <TextContainerEditor {...containerProps} />;
 
                 if (section.type === "image") return <ImageContainerEditor {...containerProps} />;
             })}
@@ -29,19 +30,26 @@ export default function SectionContainerEditor(props: any) {
                         props.setSection([
                             ...props.section,
                             event === "text"
-                                ? { type: "text", text: "" }
-                                : {
-                                      type: "image",
+                                ? { type: event, text: "" }
+                                : event === "image"
+                                ? {
+                                      type: event,
                                       imageUrl: "",
                                       width: 0,
                                       height: 0,
                                       altText: "",
                                       caption: "",
-                                  },
+                                      credit: "",
+                                  }
+                                : { type: event, text: "" },
                         ]);
                     }}
-                    items={[{ name: "text" }, { name: "image" }]}>
-                    {(item: any) => <DropdownItem key={item.name}>{item.name}</DropdownItem>}
+                    items={[
+                        { name: "Section Header", key: "sectionHeader" },
+                        { name: "Text", key: "text" },
+                        { name: "Image", key: "image" },
+                    ]}>
+                    {(item: any) => <DropdownItem key={item.key}>{item.name}</DropdownItem>}
                 </DropdownMenu>
             </Dropdown>
         </div>

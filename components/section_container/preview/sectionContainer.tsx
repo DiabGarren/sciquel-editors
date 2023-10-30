@@ -11,7 +11,9 @@ export default function SectionContainerPreview(props: any) {
                     setSection: props.setSection,
                     index: index,
                 };
-                if (section.type === "text") return <TextContainerPreview {...containerProps} />;
+
+                if (section.type === "text" || section.type === "sectionHeader")
+                    return <TextContainerPreview {...containerProps} />;
                 if (section.type === "image") return <ImageContainerPreview {...containerProps} />;
             })}
         </div>

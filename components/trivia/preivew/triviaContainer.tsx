@@ -731,7 +731,7 @@ export default function TriviaContainerPreview(props: any) {
                                                                             }
                                                                         )}
                                                                         {provided.placeholder}
-                                                                        <div className="w-[95%] bg-white text-center rounded mx-auto mb-[5px]">
+                                                                        <div className="w-[95%] border-dotted bg-white text-center rounded mx-auto mb-[5px]">
                                                                             ...
                                                                         </div>
                                                                     </div>

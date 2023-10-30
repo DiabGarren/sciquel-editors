@@ -96,6 +96,36 @@ export default function ImageContainerEditor(props: any) {
                     );
                 }}
             />
+            <h4>Credit</h4>
+            <input
+                className="border border-grey-light rounded"
+                value={props.section[props.index].crefit}
+                onChange={(event) => {
+                    props.setSection(
+                        props.section.map((section: any, index: number) => {
+                            if (index === props.index) {
+                                section.credit = event.target.value;
+                            }
+                            return section;
+                        })
+                    );
+                }}
+            />
+            {/* <h4>URL Keywords</h4>
+            <input
+                className="border border-grey-light rounded"
+                value={props.section[props.index].caption}
+                onChange={(event) => {
+                    props.setSection(
+                        props.section.map((section: any, index: number) => {
+                            if (index === props.index) {
+                                section.caption = event.target.value;
+                            }
+                            return section;
+                        })
+                    );
+                }}
+            /> */}
         </div>
     );
 }
