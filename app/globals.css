@@ -279,6 +279,8 @@ main>div:last-child {
         padding: 5px 10px;
         border-radius: 2px;
         font-family: 'Fira Code';
+        white-space: pre-wrap;
+        word-wrap: break-word;
     }
 
     .text-editor .ql-editor blockquote,
