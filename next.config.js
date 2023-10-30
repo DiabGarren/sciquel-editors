@@ -6,6 +6,14 @@ const nextConfig = {
         swcMinify: false,
         serverComponentsExternalPackages: ["mongoose", "@typegoose/typegoose"]
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "utfs.io",
+            }
+        ]
+    }
 };
 
 module.exports = nextConfig;
