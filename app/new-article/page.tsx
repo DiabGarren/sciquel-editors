@@ -73,6 +73,7 @@ export default function NewPage(props: any) {
         { name: "post", questions: [] },
     ]);
 
+    const [section, setSection] = useState([]);
     const [text, setText] = useState("");
 
     const headingProps = {
@@ -125,9 +126,8 @@ export default function NewPage(props: any) {
     };
 
     const sectionContainerProps = {
-        allContributors,
-        text,
-        setText,
+        section,
+        setSection,
     };
 
     const acknowldgeProps = {

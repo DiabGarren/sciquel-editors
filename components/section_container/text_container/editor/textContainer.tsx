@@ -1,21 +1,39 @@
 /* eslint-disable react/jsx-key */
+import { TrashIcon } from "@heroicons/react/20/solid";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
-const Editor = dynamic(() => import("react-draft-wysiwyg").then((module) => module.Editor), {
-    ssr: false,
-});
-// import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 export default function TextContainerEditor(props: any) {
     return (
-        <>
+        <div className="border border-grey-light-1 rounded-md p-[10px]">
+            <div className="flex">
+                <h3>Text</h3>
+                <TrashIcon
+                    className="trash-icon ml-[10px]"
+                    onClick={() => {
+                        const sections: any[] = [];
+                        props.section.forEach((section: any, index: number) => {
+                            if (index !== props.index) sections.push(section);
+                        });
+                        props.setSection(sections);
+                    }}
+                />
+            </div>
             <ReactQuill
                 className="text-editor w-[100%]"
                 theme="snow"
-                value={props.text}
-                onChange={props.setText}
+                value={props.section[props.index].text}
+                onChange={(event) => {
+                    props.setSection(
+                        props.section.map((section: any, sIndex: number) => {
+                            if (sIndex === props.index) {
+                                section.text = event;
+                            }
+                            return section;
+                        })
+                    );
+                }}
                 modules={{
                     toolbar: [
                         ["bold", "italic", "underline", "strike"],
@@ -27,49 +45,6 @@ export default function TextContainerEditor(props: any) {
                     ],
                 }}
             />
-            {/* <Editor
-                wrapperClassName="richtext-wrapper"
-                editorClassName="richtext-editor"
-                toolbarClassName="richtext-toolbar"
-                initialContentState={props.text}
-                onContentStateChange={props.setText}
-                toolbar={{
-                    options: ["inline", "blockType", "list", "colorPicker", "link", "remove"],
-                    inline: {
-                        inDropdown: false,
-                        className: undefined,
-                        component: undefined,
-                        dropdownClassName: undefined,
-                        options: ["bold", "italic", "underline", "strikethrough"],
-                    },
-                    blockType: {
-                        inDropdown: true,
-                        options: ["Normal", "Blockquote", "Code"],
-                    },
-                    list: {
-                        inDropdown: false,
-                        className: undefined,
-                        component: undefined,
-                        dropdownClassName: undefined,
-                        options: ["ordered", "unordered"],
-                    },
-                    colorPicker: {
-                        className: undefined,
-                        component: undefined,
-                        popupClassName: undefined,
-                    },
-                }}
-                mention={{
-                    separator: " ",
-                    trigger: "@",
-                    suggestions: props.allContributors.map((contributor: any) => {
-                        return {
-                            text: `${contributor.firstName} ${contributor.lastName}`,
-                            value: `${contributor.firstName.toLowerCase()}${contributor.lastName}`,
-                        };
-                    }),
-                }}
-            /> */}
-        </>
+        </div>
     );
 }
