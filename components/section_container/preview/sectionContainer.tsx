@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import ImageContainerPreview from "../image_container/editor/preview/imageContainer";
+import ImageContainerPreview from "../image_container/preview/imageContainer";
 import TextContainerPreview from "../text_container/preview/textContainer";
 
 export default function SectionContainerPreview(props: any) {

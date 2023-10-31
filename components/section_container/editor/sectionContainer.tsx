@@ -40,6 +40,7 @@ export default function SectionContainerEditor(props: any) {
                                       altText: "",
                                       caption: "",
                                       credit: "",
+                                      pos: "center",
                                   }
                                 : { type: event, text: "" },
                         ]);
