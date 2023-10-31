@@ -165,30 +165,25 @@ export default function ImageContainerEditor(props: any) {
                     alert(`Error: ${error.message}`);
                 }}
             />
-            <h4>Size</h4>
+            {/* <h4>Size</h4>
             <div className="flex">
                 <h5>Width:</h5>
                 <input
                     className="border border-grey-light rounded w-[80px] ml-[5px] mr-[15px] pl-[2px]"
                     type="number"
-                    value={
-                        props.section[props.index].width === 0
-                            ? ""
-                            : props.section[props.index].width
-                    }
+                    value={props.section[props.index].width || ""}
                     onChange={(event) => {
                         props.setSection(
                             props.section.map((section: any, index: number) => {
                                 if (index === props.index) {
-                                    section.width =
-                                        event.target.value === "" ? 0 : event.target.value;
+                                    section.width = event.target.value || 0;
                                 }
                                 return section;
                             })
                         );
                     }}
                 />
-            </div>
+            </div> */}
             <h4>Alt text</h4>
             <input
                 className="border border-grey-light rounded"
