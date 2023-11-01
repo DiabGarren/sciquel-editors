@@ -16,10 +16,10 @@ export default function ImageContainerPreview(props: any) {
     switch (props.section[props.index].pos) {
         case "left":
             return (
-                <div className="grid grid-cols-[2fr_1fr]">
-                    <div>
+                <div className="grid grid-cols-[2fr_1fr] w-[650px] align-center">
+                    <div className="mr-[7px] align-center">
                         {image}
-                        <p className="break-words mx-auto text-grey">{credit}</p>
+                        <p className="break-words mx-auto text-grey text-[12px]">{credit}</p>
                     </div>
                     <p className="break-words mr-[15px] inline">{caption}</p>
                 </div>
@@ -28,8 +28,8 @@ export default function ImageContainerPreview(props: any) {
             return (
                 <>
                     {image}
-                    <p className="break-words mr-[15px] inline">{caption}</p>
-                    <p className="break-words mx-auto text-grey inline">{credit}</p>
+                    <p className="break-words mr-[7px] inline text-[12px]">{caption}</p>
+                    <p className="break-words mx-auto text-grey inline text-[12px]">{credit}</p>
                 </>
             );
         case "right": {
@@ -38,7 +38,7 @@ export default function ImageContainerPreview(props: any) {
                     <p className="break-words mr-[15px] inline">{caption}</p>
                     <div>
                         {image}
-                        <p className="break-words mx-auto text-grey">{credit}</p>
+                        <p className="break-words mx-auto text-grey text-[12px]">{credit}</p>
                     </div>
                 </div>
             );

@@ -7,7 +7,7 @@ export default function TextContainerPreview(props: any) {
         );
     } else {
         return (
-            <div className="text-container break-words">
+            <div className="text-container break-words w-[500px] mx-auto">
                 {parse(props.section[props.index].text)}
             </div>
         );

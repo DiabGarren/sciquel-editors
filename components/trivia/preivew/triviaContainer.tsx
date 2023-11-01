@@ -731,8 +731,18 @@ export default function TriviaContainerPreview(props: any) {
                                                                             }
                                                                         )}
                                                                         {provided.placeholder}
-                                                                        <div className="w-[95%] border-dotted bg-white text-center rounded mx-auto mb-[5px]">
-                                                                            ...
+                                                                        {/* {question.content[cIndex]
+                                                                            .answers.length <=
+                                                                        question.content[cIndex]
+                                                                            .guesses.length ? (
+                                                                            <></>
+                                                                        ) : (
+                                                                            <div className="w-[95%] border-b-2 border-dashed bg-white text-center rounded mx-auto mb-[5px]">
+                                                                                <br />
+                                                                            </div>
+                                                                        )} */}
+                                                                        <div className="w-[95%] border-2 border-dashed text-center rounded mx-auto mb-[5px]">
+                                                                            <br />
                                                                         </div>
                                                                     </div>
                                                                 )}

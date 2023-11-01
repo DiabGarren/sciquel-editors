@@ -29,7 +29,7 @@ export default function SectionContainerEditor(props: any) {
                     onAction={(event) => {
                         props.setSection([
                             ...props.section,
-                            event === "text"
+                            event === "sectionHeader"
                                 ? { type: event, text: "" }
                                 : event === "image"
                                 ? {
@@ -42,13 +42,16 @@ export default function SectionContainerEditor(props: any) {
                                       credit: "",
                                       pos: "center",
                                   }
-                                : { type: event, text: "" },
+                                : event === "text"
+                                ? { type: event, text: "" }
+                                : { type: event, modules: [{}, {}] },
                         ]);
                     }}
                     items={[
                         { name: "Section Header", key: "sectionHeader" },
                         { name: "Text", key: "text" },
                         { name: "Image", key: "image" },
+                        { name: "Text/Image", key: "modular" },
                     ]}>
                     {(item: any) => <DropdownItem key={item.key}>{item.name}</DropdownItem>}
                 </DropdownMenu>

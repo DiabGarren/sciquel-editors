@@ -1,5 +1,8 @@
 import { UploadButton } from "@/utils/uploadthing";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
 
 export default function ImageContainerEditor(props: any) {
     return (
