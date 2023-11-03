@@ -7,7 +7,7 @@ import "react-quill/dist/quill.snow.css";
 export default function TextContainerEditor(props: any) {
     if (props.section[props.index].type === "sectionHeader") {
         return (
-            <div className="border border-grey-light-1 rounded-md p-[10px]">
+            <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
                 <div className="flex">
                     <h3>Section Header</h3>
                     <TrashIcon
@@ -50,7 +50,7 @@ export default function TextContainerEditor(props: any) {
         );
     } else {
         return (
-            <div className="border border-grey-light-1 rounded-md p-[10px]">
+            <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
                 <div className="flex">
                     <h3>Text</h3>
                     <TrashIcon

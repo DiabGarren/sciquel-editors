@@ -7,7 +7,7 @@ import "react-quill/dist/quill.snow.css";
 
 export default function ImageContainerEditor(props: any) {
     return (
-        <div className="border border-grey-light-1 rounded-md p-[10px]">
+        <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
             <div className="flex">
                 <h3>Image</h3>
                 <TrashIcon
