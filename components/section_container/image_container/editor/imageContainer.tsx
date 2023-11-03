@@ -1,5 +1,6 @@
 import { UploadButton } from "@/utils/uploadthing";
 import { TrashIcon } from "@heroicons/react/20/solid";
+import { Radio, RadioGroup } from "@nextui-org/react";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
@@ -20,7 +21,7 @@ export default function ImageContainerEditor(props: any) {
                     }}
                 />
             </div>
-            <div className="flex space-x-3">
+            <div className="flex space-x-3 mb-[7px]">
                 <button
                     className={`p-[5px] rounded ${
                         props.section[props.index].pos === "left" ? "bg-white" : "bg-teal"
@@ -143,110 +144,360 @@ export default function ImageContainerEditor(props: any) {
                     </svg>
                 </button>
             </div>
-            <UploadButton
-                appearance={{
-                    button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
-                    container: "block w-fit mt-[7px]",
-                    allowedContent: "text-center",
-                }}
-                endpoint="imageUploader"
-                onClientUploadComplete={(res) => {
-                    console.log("Files: ", res);
-                    if (res) {
-                        props.setSection(
-                            props.section.map((section: any, index: number) => {
-                                if (index === props.index) {
-                                    section.imageUrl = res[0].url;
-                                }
-                                return section;
-                            })
+            {(() => {
+                switch (props.section[props.index].pos) {
+                    case "left":
+                        return (
+                            <div className="grid grid-cols-2 gap-[5px]">
+                                <div className="border border-grey-light-1 rounded p-[5px]">
+                                    <h4>Image</h4>
+                                    <UploadButton
+                                        appearance={{
+                                            button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
+                                            container: "block w-fit mt-[7px]",
+                                            allowedContent: "text-center",
+                                        }}
+                                        endpoint="imageUploader"
+                                        onClientUploadComplete={(res) => {
+                                            console.log("Files: ", res);
+                                            if (res) {
+                                                props.setSection(
+                                                    props.section.map(
+                                                        (section: any, index: number) => {
+                                                            if (index === props.index) {
+                                                                section.imageUrl = res[0].url;
+                                                            }
+                                                            return section;
+                                                        }
+                                                    )
+                                                );
+                                            }
+                                            alert("Upload Completed");
+                                        }}
+                                        onUploadError={(error: Error) => {
+                                            alert(`Error: ${error.message}`);
+                                        }}
+                                    />
+                                    <h4>Alt text</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        placeholder="Image Alt Text"
+                                        value={props.section[props.index].altText}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.altText = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                    <h4>Width</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        type="number"
+                                        placeholder="300"
+                                        value={props.section[props.index].width || ""}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.width = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                    <h4>Credit</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        placeholder="Image Credit"
+                                        value={props.section[props.index].credit}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.credit = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <div className="border border-grey-light-1 rounded p-[5px]">
+                                    <h4>Caption</h4>
+                                    <ReactQuill
+                                        className="text-editor image-text-editor w-[100%]"
+                                        theme="snow"
+                                        value={props.section[props.index].caption}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map(
+                                                    (section: any, sIndex: number) => {
+                                                        if (sIndex === props.index) {
+                                                            section.caption = event;
+                                                        }
+                                                        return section;
+                                                    }
+                                                )
+                                            );
+                                        }}
+                                        modules={{
+                                            toolbar: [
+                                                ["bold", "italic", "underline", "strike"],
+                                                // ["blockquote", "code-block"],
+                                                [{ list: "bullet" }],
+                                                [{ color: [] }, { background: [] }],
+                                                // ["link"],
+                                                ["clean"],
+                                            ],
+                                        }}
+                                    />
+                                    <h4>Wrap Text</h4>
+                                    <RadioGroup
+                                        orientation="horizontal"
+                                        value={props.section[props.index].wrap}
+                                        onValueChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.wrap = event;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}>
+                                        <Radio value={"true"}>True</Radio>
+                                        <Radio value={"false"}>False</Radio>
+                                    </RadioGroup>
+                                </div>
+                            </div>
                         );
-                    }
-                    alert("Upload Completed");
-                }}
-                onUploadError={(error: Error) => {
-                    alert(`Error: ${error.message}`);
-                }}
-            />
-            {/* <h4>Size</h4>
-            <div className="flex">
-                <h5>Width:</h5>
-                <input
-                    className="border border-grey-light rounded w-[80px] ml-[5px] mr-[15px] pl-[2px]"
-                    type="number"
-                    value={props.section[props.index].width || ""}
-                    onChange={(event) => {
-                        props.setSection(
-                            props.section.map((section: any, index: number) => {
-                                if (index === props.index) {
-                                    section.width = event.target.value || 0;
-                                }
-                                return section;
-                            })
+                    case "center":
+                        return (
+                            <div className="border border-grey-light-1 rounded p-[7px]">
+                                <UploadButton
+                                    appearance={{
+                                        button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
+                                        container: "block w-fit mt-[7px] mx-auto",
+                                        allowedContent: "text-center",
+                                    }}
+                                    endpoint="imageUploader"
+                                    onClientUploadComplete={(res) => {
+                                        console.log("Files: ", res);
+                                        if (res) {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.imageUrl = res[0].url;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }
+                                        alert("Upload Completed");
+                                    }}
+                                    onUploadError={(error: Error) => {
+                                        alert(`Error: ${error.message}`);
+                                    }}
+                                />
+                                <h4>Alt text</h4>
+                                <input
+                                    className="border border-grey-light rounded w-[100%]"
+                                    placeholder="Image Alt Text"
+                                    value={props.section[props.index].altText}
+                                    onChange={(event) => {
+                                        props.setSection(
+                                            props.section.map((section: any, index: number) => {
+                                                if (index === props.index) {
+                                                    section.altText = event.target.value;
+                                                }
+                                                return section;
+                                            })
+                                        );
+                                    }}
+                                />
+                                <h4>Caption</h4>
+                                <ReactQuill
+                                    className="text-editor w-[100%]"
+                                    theme="snow"
+                                    value={props.section[props.index].caption}
+                                    onChange={(event) => {
+                                        props.setSection(
+                                            props.section.map((section: any, sIndex: number) => {
+                                                if (sIndex === props.index) {
+                                                    section.caption = event;
+                                                }
+                                                return section;
+                                            })
+                                        );
+                                    }}
+                                    modules={{
+                                        toolbar: [
+                                            ["bold", "italic", "underline", "strike"],
+                                            // ["blockquote", "code-block"],
+                                            [{ list: "bullet" }],
+                                            [{ color: [] }, { background: [] }],
+                                            // ["link"],
+                                            ["clean"],
+                                        ],
+                                    }}
+                                />
+                                <h4>Credit</h4>
+                                <input
+                                    className="border border-grey-light rounded w-[100%]"
+                                    placeholder="Image Credit"
+                                    value={props.section[props.index].crefit}
+                                    onChange={(event) => {
+                                        props.setSection(
+                                            props.section.map((section: any, index: number) => {
+                                                if (index === props.index) {
+                                                    section.credit = event.target.value;
+                                                }
+                                                return section;
+                                            })
+                                        );
+                                    }}
+                                />
+                            </div>
                         );
-                    }}
-                />
-            </div> */}
-            <h4>Alt text</h4>
-            <input
-                className="border border-grey-light rounded"
-                value={props.section[props.index].altText}
-                onChange={(event) => {
-                    props.setSection(
-                        props.section.map((section: any, index: number) => {
-                            if (index === props.index) {
-                                section.altText = event.target.value;
-                            }
-                            return section;
-                        })
-                    );
-                }}
-            />
-            <h4>Caption</h4>
-            <input
-                className="border border-grey-light rounded"
-                value={props.section[props.index].caption}
-                onChange={(event) => {
-                    props.setSection(
-                        props.section.map((section: any, index: number) => {
-                            if (index === props.index) {
-                                section.caption = event.target.value;
-                            }
-                            return section;
-                        })
-                    );
-                }}
-            />
-            <h4>Credit</h4>
-            <input
-                className="border border-grey-light rounded"
-                value={props.section[props.index].crefit}
-                onChange={(event) => {
-                    props.setSection(
-                        props.section.map((section: any, index: number) => {
-                            if (index === props.index) {
-                                section.credit = event.target.value;
-                            }
-                            return section;
-                        })
-                    );
-                }}
-            />
-            {/* <h4>URL Keywords</h4>
-            <input
-                className="border border-grey-light rounded"
-                value={props.section[props.index].caption}
-                onChange={(event) => {
-                    props.setSection(
-                        props.section.map((section: any, index: number) => {
-                            if (index === props.index) {
-                                section.caption = event.target.value;
-                            }
-                            return section;
-                        })
-                    );
-                }}
-            /> */}
+                    case "right":
+                        return (
+                            <div className="grid grid-cols-2 gap-[5px]">
+                                <div className="border border-grey-light-1 rounded p-[5px]">
+                                    <h4>Caption</h4>
+                                    <ReactQuill
+                                        className="text-editor image-text-editor w-[100%]"
+                                        theme="snow"
+                                        value={props.section[props.index].caption}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map(
+                                                    (section: any, sIndex: number) => {
+                                                        if (sIndex === props.index) {
+                                                            section.caption = event;
+                                                        }
+                                                        return section;
+                                                    }
+                                                )
+                                            );
+                                        }}
+                                        modules={{
+                                            toolbar: [
+                                                ["bold", "italic", "underline", "strike"],
+                                                // ["blockquote", "code-block"],
+                                                [{ list: "bullet" }],
+                                                [{ color: [] }, { background: [] }],
+                                                // ["link"],
+                                                ["clean"],
+                                            ],
+                                        }}
+                                    />
+                                    <h4>Wrap Text</h4>
+                                    <RadioGroup
+                                        orientation="horizontal"
+                                        value={props.section[props.index].wrap}
+                                        onValueChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.wrap = event;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}>
+                                        <Radio value={"true"}>True</Radio>
+                                        <Radio value={"false"}>False</Radio>
+                                    </RadioGroup>
+                                </div>
+                                <div className="border border-grey-light-1 rounded p-[5px]">
+                                    <h4>Image</h4>
+                                    <UploadButton
+                                        appearance={{
+                                            button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
+                                            container: "block w-fit mt-[7px]",
+                                            allowedContent: "text-center",
+                                        }}
+                                        endpoint="imageUploader"
+                                        onClientUploadComplete={(res) => {
+                                            console.log("Files: ", res);
+                                            if (res) {
+                                                props.setSection(
+                                                    props.section.map(
+                                                        (section: any, index: number) => {
+                                                            if (index === props.index) {
+                                                                section.imageUrl = res[0].url;
+                                                            }
+                                                            return section;
+                                                        }
+                                                    )
+                                                );
+                                            }
+                                            alert("Upload Completed");
+                                        }}
+                                        onUploadError={(error: Error) => {
+                                            alert(`Error: ${error.message}`);
+                                        }}
+                                    />
+                                    <h4>Alt text</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        placeholder="Image Alt Text"
+                                        value={props.section[props.index].altText}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.altText = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                    <h4>Width</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        type="number"
+                                        placeholder="300"
+                                        value={props.section[props.index].width || ""}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.width = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                    <h4>Credit</h4>
+                                    <input
+                                        className="border border-grey-light rounded"
+                                        placeholder="Image Credit"
+                                        value={props.section[props.index].credit}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.credit = event.target.value;
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        );
+                }
+            })()}
         </div>
     );
 }

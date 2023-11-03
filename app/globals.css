@@ -232,6 +232,10 @@ main>div:last-child {
         background: #fff;
     }
 
+    input {
+        padding-left: 2px;
+    }
+
     input[type="checkbox"].switch {
         appearance: none;
         width: 20px;
@@ -252,25 +256,22 @@ main>div:last-child {
         width: 250px;
     }
 
+
     .text-editor .ql-toolbar {
         border-radius: 5px 5px 0 0;
         padding: 2px 5px !important;
+        border-color: #898c8a !important;
     }
 
     .text-editor .ql-container {
         border-radius: 0 0 5px 5px;
+        border-color: #898c8a !important;
     }
 
-    .richtext-wrapper {
-        border: 1px solid var(--grey-light-1);
-        border-radius: 5px;
+    .image-text-editor .ql-container {
+        max-height: 200px;
+        overflow-y: auto;
     }
-
-    .richtext-editor {
-        min-height: 150px;
-        padding: 0px 15px;
-    }
-
 
     .text-editor .ql-editor pre.ql-syntax,
     .text-container pre {
@@ -321,6 +322,10 @@ main>div:last-child {
     .text-editor .ql-editor ol,
     .text-container ol {
         list-style-type: decimal;
+    }
+
+    .image-credit p {
+        display: inline;
     }
 
     /* .text-editor .ql-editor ul,
