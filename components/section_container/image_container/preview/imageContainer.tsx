@@ -18,7 +18,7 @@ export default function ImageContainerPreview(props: any) {
         case "left":
             if (props.section[props.index].wrap === "true") {
                 return (
-                    <div className="w-[500px] mx-auto">
+                    <div className="w-[500px] mx-auto mb-[18px]">
                         <div
                             className="float float-left mr-[5px] align-center"
                             style={{ width: `${props.section[props.index].width || 300}px` }}>
@@ -30,7 +30,7 @@ export default function ImageContainerPreview(props: any) {
                 );
             } else {
                 return (
-                    <div className="grid grid-cols-[407px_1fr] w-[650px] items-center">
+                    <div className="grid grid-cols-[407px_1fr] w-[650px] items-center mb-[18px]">
                         <div className="w-[400px]">
                             {image}
                             <p className="break-words text-grey text-[12px]">{credit}</p>
@@ -41,9 +41,11 @@ export default function ImageContainerPreview(props: any) {
             }
         case "center":
             return (
-                <div className="w-[650px] mx-auto">
+                <div className="w-[650px] mx-auto my-[35px]">
                     {image}
-                    <p className="image-credit break-words mr-[7px] inline text-[13px]">
+                    <p
+                        className="image-credit break-words mr-[7px] inline text-[13px]"
+                        style={{ lineHeight: "3px" }}>
                         {caption}
                     </p>
                     <p className="break-words mx-auto text-grey inline text-[13px]">{credit}</p>
@@ -52,7 +54,7 @@ export default function ImageContainerPreview(props: any) {
         case "right": {
             if (props.section[props.index].wrap === "true") {
                 return (
-                    <div className="w-[500px] mx-auto">
+                    <div className="w-[500px] mx-auto mb-[18px]">
                         <div
                             className="float float-right ml-[5px] align-center"
                             style={{ width: `${props.section[props.index].width || 300}px` }}>
@@ -64,7 +66,7 @@ export default function ImageContainerPreview(props: any) {
                 );
             } else {
                 return (
-                    <div className="grid grid-cols-[250px_250px] w-[500px] mx-auto items-center">
+                    <div className="grid grid-cols-[250px_250px] w-[500px] mx-auto items-center mb-[18px]">
                         <p className="break-words">{caption}</p>
                         <div className="w-[400px]">
                             {image}
