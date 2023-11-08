@@ -1,5 +1,4 @@
 import _mongoose, { connect } from "mongoose";
-const MONGODB_URI = process.env.MONGODB_URI;
 
 declare global {
     var mongoose: {
@@ -7,6 +6,8 @@ declare global {
         conn: typeof _mongoose | null;
     };
 }
+
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI || MONGODB_URI.length === 0) {
     throw new Error("Please add Mongodb URI to .env.local");

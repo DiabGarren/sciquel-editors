@@ -5,36 +5,6 @@ import Tags from "./tags";
 import { Dispatch, SetStateAction } from "react";
 
 export default function TopSection(props: any) {
-    if (props.topics && props.subtopics && props.subjects && props.allContributors) {
-        if (
-            props.topics.length === 0 ||
-            props.subtopics.length === 0 ||
-            props.subjects.length === 0 ||
-            props.allContributors.length === 0
-        ) {
-            var XMLHttpRequest = require("xhr2");
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", `${process.env.NEXT_PUBLIC_API_URL}/top-section`);
-            xhr.onload = () => {
-                if (xhr.status === 200) {
-                    if (props.topics.length === 0) {
-                        props.setTopics(JSON.parse(xhr.responseText).topics);
-                    }
-                    if (props.subtopics.length === 0) {
-                        props.setSubtopics(JSON.parse(xhr.responseText).subtopics);
-                    }
-                    if (props.subjects.length === 0) {
-                        props.setSubjects(JSON.parse(xhr.responseText).subjects);
-                    }
-                    if (props.allContributors.length === 0) {
-                        props.setAllContributors(JSON.parse(xhr.responseText).contributors);
-                    }
-                }
-            };
-            xhr.send();
-        }
-    }
-
     const tagsProps = {
         topics: props.topics,
         setTopics: props.setTopics,

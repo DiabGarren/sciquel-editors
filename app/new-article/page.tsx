@@ -1,10 +1,9 @@
 "use client";
+
 import CoverImagePreview from "@/components/cover_image/preview/coverImage";
 import GeneralByline from "@/components/general_byline/generalByline";
 import HeadingContainerEditor from "@/components/heading/editor/headingContainer";
-import TableContainer from "@/components/table_graph/tableContainer";
 import TopSection from "@/components/top_section/topSection";
-import { useRef, useState } from "react";
 import CoverImageEditor from "@/components/cover_image/editor/coverImage";
 import AcknowledgementsPreview from "@/components/acknowledgements/preview/acknowledgements";
 import AcknowledgementsEditor from "@/components/acknowledgements/editor/acknowledgements";
@@ -12,108 +11,50 @@ import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
 import SectionContainerPreview from "@/components/section_container/preview/sectionContainer";
 import SectionContainerEditor from "@/components/section_container/editor/sectionContainer";
+import NewArticleProps from "@/components/new_article_props/newArticleProps";
+import { Button } from "@nextui-org/react";
 
-export default function NewPage(props: any) {
-    const [image, setImage] = useState(null);
-    const [finalImage, setFinalImage] = useState(null);
-
-    const [heading, setHeading] = useState("");
-    const [subheading, setSubheading] = useState("");
-
-    const [urlSlug, setUrlSlug] = useState("");
-    const [mediaType, setMediaType] = useState("Article");
-    const mediaTypes = [
-        { key: "article", name: "Article" },
-        { key: "podcast", name: "Podcast" },
-        { key: "video", name: "Video" },
-        { key: "infographic", name: "Infographic" },
-    ];
-
-    const [articleType, setArticleType] = useState("Essay");
-    const articleTypes = [
-        { key: "essay", name: "Essay" },
-        { key: "digest", name: "Digest" },
-    ];
-
-    const [topics, setTopics] = useState([]);
-
-    const [subtopics, setSubtopics] = useState([]);
-
-    const [subjects, setSubjects] = useState([]);
-
-    const [tagName, setTagName] = useState("");
-    const [tagColor, setTagColor] = useState("#8ECAEC");
-
-    const [allContributors, setAllContributors] = useState([]);
-    const [contributors, setContributors] = useState([
-        { name: "Author", contributors: [], checked: false },
-        { name: "Animator", verb: "animated", contributors: [], checked: false },
-        {
-            name: "Illustrator",
-            verb: "illustrated",
-            contributors: [],
-            checked: false,
-        },
-        {
-            name: "Photographer",
-            verb: "photographed",
-            contributors: [],
-            checked: false,
-        },
-    ]);
-
-    const [manual, setManual] = useState(false);
-    const [rows, setRows] = useState(3);
-    const [cols, setCols] = useState(2);
-    let [cell, setCell] = useState([]);
-    const [graphType, setGraphType] = useState("bar");
-
-    const [trivia, setTrivia] = useState([
-        { name: "pre", questions: [] },
-        { name: "post", questions: [] },
-    ]);
-
-    const [section, setSection] = useState([]);
-    const [text, setText] = useState("");
+export default function NewPage() {
+    const props = NewArticleProps();
 
     const headingProps = {
-        heading,
-        setHeading,
-        subheading,
-        setSubheading,
+        heading: props.heading,
+        setHeading: props.setHeading,
+        subheading: props.subheading,
+        setSubheading: props.setSubheading,
     };
 
     const imageProps = {
-        image,
-        setImage,
-        finalImage,
-        setFinalImage,
+        image: props.image,
+        setImage: props.setImage,
+        finalImage: props.finalImage,
+        setFinalImage: props.setFinalImage,
         headingProps,
     };
 
     const topSectionProps = {
-        urlSlug,
-        setUrlSlug,
-        mediaType,
-        setMediaType,
-        mediaTypes,
-        articleType,
-        setArticleType,
-        articleTypes,
-        topics,
-        setTopics,
-        subtopics,
-        setSubtopics,
-        subjects,
-        setSubjects,
-        tagName,
-        setTagName,
-        tagColor,
-        setTagColor,
-        allContributors,
-        setAllContributors,
-        contributors,
-        setContributors,
+        urlSlug: props.urlSlug,
+        setUrlSlug: props.setUrlSlug,
+        mediaType: props.mediaType,
+        setMediaType: props.setMediaType,
+        mediaTypes: props.mediaTypes,
+        articleType: props.articleType,
+        setArticleType: props.setArticleType,
+        articleTypes: props.articleTypes,
+        topics: props.topics,
+        setTopics: props.setTopics,
+        subtopics: props.subtopics,
+        setSubtopics: props.setSubtopics,
+        subjects: props.subjects,
+        setSubjects: props.setSubjects,
+        tagName: props.tagName,
+        setTagName: props.setTagName,
+        tagColor: props.tagColor,
+        setTagColor: props.setTagColor,
+        allContributors: props.allContributors,
+        setAllContributors: props.setAllContributors,
+        contributors: props.contributors,
+        setContributors: props.setContributors,
     };
 
     const generalProps = {
@@ -121,31 +62,44 @@ export default function NewPage(props: any) {
     };
 
     const triviaProps = {
-        trivia,
-        setTrivia,
+        trivia: props.trivia,
+        setTrivia: props.setTrivia,
     };
 
     const sectionContainerProps = {
-        section,
-        setSection,
+        section: props.section,
+        setSection: props.setSection,
     };
 
     const acknowldgeProps = {
-        contributors,
-        setContributors,
+        contributors: props.contributors,
+        setContributors: props.setContributors,
     };
 
-    const graphProps = {
-        manual,
-        setManual,
-        rows,
-        setRows,
-        cols,
-        setCols,
-        cell,
-        setCell,
-        type: graphType,
-        setType: setGraphType,
+    const createArticle = async () => {
+        try {
+            fetch(process.env.NEXT_PUBLIC_API_URL + "/article", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    heading: props.heading,
+                    subheading: props.subheading,
+                    finalImage: props.finalImage,
+                    urlSlug: props.urlSlug,
+                    mediaType: props.mediaType,
+                    articleType: props.articleType,
+                    topics: props.topics,
+                    subtopics: props.subtopics,
+                    subjects: props.subjects,
+                    contributors: props.contributors,
+                    trivia: props.trivia,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log(data));
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -172,6 +126,7 @@ export default function NewPage(props: any) {
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
+                <Button onClick={createArticle}>Create Article</Button>
             </div>
             <div className="relative">
                 <CoverImagePreview {...imageProps} />
@@ -198,9 +153,6 @@ export default function NewPage(props: any) {
                     <AcknowledgementsPreview {...acknowldgeProps} />
                 </div>
             </div>
-            {/* 
-            <TableContainer {...graphProps} />
-        */}
         </main>
     );
 }
