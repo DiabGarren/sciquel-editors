@@ -51,7 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             placeholder="Search"
                         />
                     </div>
-                    <a className="flex h-[100%] items-center justify-center">
+                    <a
+                        className="flex h-[100%] items-center justify-center"
+                        href="/">
                         <svg
                             className="h-[100%] w-[40px] mx-[5px]"
                             xmlns="http://www.w3.org/2000/svg"
