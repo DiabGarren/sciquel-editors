@@ -248,8 +248,6 @@ export default function TriviaContainerPreview(props: any) {
                                         onDragEnd={(event) => {
                                             if (event.destination) {
                                                 reorderList(event);
-
-                                                console.log(props.trivia);
                                             }
                                         }}>
                                         <Droppable droppableId="droppable">
@@ -785,7 +783,5 @@ export default function TriviaContainerPreview(props: any) {
             } else return <></>;
         } else return <></>;
     });
-
-    console.log(props.trivia);
     return trivia;
 }

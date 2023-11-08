@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
-import { AnyMxRecord } from "dns";
 
 const questionTypes = [
     { name: "True/False" },
