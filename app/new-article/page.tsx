@@ -11,50 +11,134 @@ import TriviaContainerEditor from "@/components/trivia/editor/triviaContainer";
 import TriviaContainerPreview from "@/components/trivia/preivew/triviaContainer";
 import SectionContainerPreview from "@/components/section_container/preview/sectionContainer";
 import SectionContainerEditor from "@/components/section_container/editor/sectionContainer";
-import NewArticleProps from "@/components/new_article_props/newArticleProps";
+import { useState } from "react";
 import { Button } from "@nextui-org/react";
 
 export default function NewPage() {
-    const props = NewArticleProps();
+    const [image, setImage] = useState(null);
+    const [finalImage, setFinalImage] = useState(null);
+
+    const [heading, setHeading] = useState("");
+    const [subheading, setSubheading] = useState("");
+
+    const [urlSlug, setUrlSlug] = useState("");
+    const [mediaType, setMediaType] = useState("Article");
+    const mediaTypes = [
+        { key: "article", name: "Article" },
+        { key: "podcast", name: "Podcast" },
+        { key: "video", name: "Video" },
+        { key: "infographic", name: "Infographic" },
+    ];
+
+    const [articleType, setArticleType] = useState("Essay");
+    const articleTypes = [
+        { key: "essay", name: "Essay" },
+        { key: "digest", name: "Digest" },
+    ];
+
+    const [topics, setTopics] = useState([]);
+
+    const [subtopics, setSubtopics] = useState([]);
+
+    const [subjects, setSubjects] = useState([]);
+
+    const [tagName, setTagName] = useState("");
+    const [tagColor, setTagColor] = useState("#8ECAEC");
+
+    const [allContributors, setAllContributors] = useState([]);
+
+    if (
+        topics.length === 0 ||
+        subtopics.length === 0 ||
+        subjects.length === 0 ||
+        allContributors.length === 0
+    ) {
+        fetch(process.env.NEXT_PUBLIC_API_URL + "/top-section")
+            .then((response) => response.json())
+            .then((data) => {
+                if (topics.length === 0) {
+                    setTopics(data.topics);
+                }
+                if (subtopics.length === 0) {
+                    setSubtopics(data.subtopics);
+                }
+                if (subjects.length === 0) {
+                    setSubjects(data.subjects);
+                }
+                if (allContributors.length === 0) {
+                    setAllContributors(data.contributors);
+                }
+            });
+    }
+
+    const [contributors, setContributors] = useState([
+        { name: "Author", contributors: [], checked: false },
+        { name: "Animator", verb: "animated", contributors: [], checked: false },
+        {
+            name: "Illustrator",
+            verb: "illustrated",
+            contributors: [],
+            checked: false,
+        },
+        {
+            name: "Photographer",
+            verb: "photographed",
+            contributors: [],
+            checked: false,
+        },
+    ]);
+
+    const [manual, setManual] = useState(false);
+    const [rows, setRows] = useState(3);
+    const [cols, setCols] = useState(2);
+    let [cell, setCell] = useState([]);
+    const [graphType, setGraphType] = useState("bar");
+
+    const [trivia, setTrivia] = useState([
+        { name: "pre", questions: [] },
+        { name: "post", questions: [] },
+    ]);
+
+    const [section, setSection] = useState([]);
 
     const headingProps = {
-        heading: props.heading,
-        setHeading: props.setHeading,
-        subheading: props.subheading,
-        setSubheading: props.setSubheading,
+        heading: heading,
+        setHeading: setHeading,
+        subheading: subheading,
+        setSubheading: setSubheading,
     };
 
     const imageProps = {
-        image: props.image,
-        setImage: props.setImage,
-        finalImage: props.finalImage,
-        setFinalImage: props.setFinalImage,
+        image: image,
+        setImage: setImage,
+        finalImage: finalImage,
+        setFinalImage: setFinalImage,
         headingProps,
     };
 
     const topSectionProps = {
-        urlSlug: props.urlSlug,
-        setUrlSlug: props.setUrlSlug,
-        mediaType: props.mediaType,
-        setMediaType: props.setMediaType,
-        mediaTypes: props.mediaTypes,
-        articleType: props.articleType,
-        setArticleType: props.setArticleType,
-        articleTypes: props.articleTypes,
-        topics: props.topics,
-        setTopics: props.setTopics,
-        subtopics: props.subtopics,
-        setSubtopics: props.setSubtopics,
-        subjects: props.subjects,
-        setSubjects: props.setSubjects,
-        tagName: props.tagName,
-        setTagName: props.setTagName,
-        tagColor: props.tagColor,
-        setTagColor: props.setTagColor,
-        allContributors: props.allContributors,
-        setAllContributors: props.setAllContributors,
-        contributors: props.contributors,
-        setContributors: props.setContributors,
+        urlSlug: urlSlug,
+        setUrlSlug: setUrlSlug,
+        mediaType: mediaType,
+        setMediaType: setMediaType,
+        mediaTypes: mediaTypes,
+        articleType: articleType,
+        setArticleType: setArticleType,
+        articleTypes: articleTypes,
+        topics: topics,
+        setTopics: setTopics,
+        subtopics: subtopics,
+        setSubtopics: setSubtopics,
+        subjects: subjects,
+        setSubjects: setSubjects,
+        tagName: tagName,
+        setTagName: setTagName,
+        tagColor: tagColor,
+        setTagColor: setTagColor,
+        allContributors: allContributors,
+        setAllContributors: setAllContributors,
+        contributors: contributors,
+        setContributors: setContributors,
     };
 
     const generalProps = {
@@ -62,18 +146,18 @@ export default function NewPage() {
     };
 
     const triviaProps = {
-        trivia: props.trivia,
-        setTrivia: props.setTrivia,
+        trivia: trivia,
+        setTrivia: setTrivia,
     };
 
     const sectionContainerProps = {
-        section: props.section,
-        setSection: props.setSection,
+        section: section,
+        setSection: setSection,
     };
 
     const acknowldgeProps = {
-        contributors: props.contributors,
-        setContributors: props.setContributors,
+        contributors: contributors,
+        setContributors: setContributors,
     };
 
     const createArticle = () => {
@@ -82,17 +166,17 @@ export default function NewPage() {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({
-                    heading: props.heading,
-                    subheading: props.subheading,
-                    finalImage: props.finalImage,
-                    urlSlug: props.urlSlug,
-                    mediaType: props.mediaType,
-                    articleType: props.articleType,
-                    topics: props.topics,
-                    subtopics: props.subtopics,
-                    subjects: props.subjects,
-                    contributors: props.contributors,
-                    trivia: props.trivia,
+                    heading: heading,
+                    subheading: subheading,
+                    finalImage: finalImage,
+                    urlSlug: urlSlug,
+                    mediaType: mediaType,
+                    articleType: articleType,
+                    topics: topics,
+                    subtopics: subtopics,
+                    subjects: subjects,
+                    contributors: contributors,
+                    trivia: trivia,
                 }),
             })
                 .then((response) => response.json())
