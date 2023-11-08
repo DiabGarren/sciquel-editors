@@ -2,13 +2,7 @@
 "use client";
 
 import { TrashIcon } from "@heroicons/react/20/solid";
-import {
-    Button,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownTrigger,
-} from "@nextui-org/react";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ChromePicker } from "react-color";
 
@@ -21,9 +15,7 @@ interface Tag {
 export default function Tags(props: any) {
     const [selectedTopics, setSelectedTopics] = useState(new Set<string>());
 
-    const [selectedSubtopics, setSelectedSubtopics] = useState(
-        new Set<string>()
-    );
+    const [selectedSubtopics, setSelectedSubtopics] = useState(new Set<string>());
     const [selectedSubjects, setSelectedSubjects] = useState(new Set<string>());
 
     const displayTagHolder = (
@@ -37,12 +29,13 @@ export default function Tags(props: any) {
             <div className="mb-[15px]">
                 <div
                     className="grid w-[150px] items-center"
-                    style={{ gridTemplateColumns: "125px 1fr" }}
-                >
+                    style={{ gridTemplateColumns: "125px 1fr" }}>
                     <h3 className="inline-block">{title}</h3>
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant="solid" color="primary">
+                            <Button
+                                variant="solid"
+                                color="primary">
                                 +
                             </Button>
                         </DropdownTrigger>
@@ -54,8 +47,7 @@ export default function Tags(props: any) {
                             selectionMode="multiple"
                             selectedKeys={selectedArray}
                             onSelectionChange={setSelectedArray}
-                            items={tagArray}
-                        >
+                            items={tagArray}>
                             {(item: Tag | any) => (
                                 <DropdownItem
                                     key={item.name}
@@ -63,15 +55,13 @@ export default function Tags(props: any) {
                                         setTagArray(
                                             tagArray.map((tag: any) => {
                                                 if (tag.name === item.name) {
-                                                    if (tag.checked)
-                                                        tag.checked = false;
+                                                    if (tag.checked) tag.checked = false;
                                                     else tag.checked = true;
                                                 }
                                                 return tag;
                                             })
                                         );
-                                    }}
-                                >
+                                    }}>
                                     {item.name}
                                 </DropdownItem>
                             )}
@@ -94,15 +84,12 @@ export default function Tags(props: any) {
         return (
             <div
                 className={`color ${title}-color absolute flex-col w-[250px] z-10 hidden`}
-                style={{ maxHeight: "none" }}
-            >
+                style={{ maxHeight: "none" }}>
                 <input
                     className="border block w-[100%]"
                     placeholder={title.substring(0, title.length - 1)}
                     value={props.tagName}
-                    onChange={(event: any) =>
-                        props.setTagName(event.target.value)
-                    }
+                    onChange={(event: any) => props.setTagName(event.target.value)}
                 />
                 <ChromePicker
                     color={props.tagColor}
@@ -127,15 +114,12 @@ export default function Tags(props: any) {
 
                             props.setTagName("");
 
-                            document
-                                .querySelectorAll(".color")
-                                .forEach((el) => {
-                                    el?.classList.remove("block");
-                                    el?.classList.add("hidden");
-                                });
+                            document.querySelectorAll(".color").forEach((el) => {
+                                el?.classList.remove("block");
+                                el?.classList.add("hidden");
+                            });
                         }
-                    }}
-                >
+                    }}>
                     Add
                 </button>
                 <button
@@ -145,29 +129,21 @@ export default function Tags(props: any) {
                             el?.classList.remove("block");
                             el?.classList.add("hidden");
                         });
-                    }}
-                >
+                    }}>
                     Cancel
                 </button>
             </div>
         );
     };
 
-    const displayTags = (
-        tagArray: any[],
-        setTagArray: any,
-        selectedArray: Set<string>
-    ) => {
+    const displayTags = (tagArray: any[], setTagArray: any, selectedArray: Set<string>) => {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
                     <div
                         className="tag my-[2px]"
-                        style={{ backgroundColor: tag.color }}
-                    >
-                        <p className="inline-block text-white mr-[5px]">
-                            {tag.name}
-                        </p>
+                        style={{ backgroundColor: tag.color }}>
+                        <p className="inline-block text-white mr-[5px]">{tag.name}</p>
                         <TrashIcon
                             className="trash-icon inline-block h-[21px]"
                             aria-hidden="true"
@@ -187,7 +163,7 @@ export default function Tags(props: any) {
                 );
             }
         });
-        return tags;
+        return <div className="flex flex-wrap gap-x-[7px]">{tags}</div>;
     };
     return (
         <div className="mb-[30px]">
