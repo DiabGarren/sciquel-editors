@@ -76,7 +76,7 @@ export default function NewPage() {
         setContributors: props.setContributors,
     };
 
-    const createArticle = async () => {
+    const createArticle = () => {
         try {
             fetch(process.env.NEXT_PUBLIC_API_URL + "/article", {
                 method: "POST",
@@ -103,7 +103,7 @@ export default function NewPage() {
     };
 
     return (
-        <main className="grid">
+        <main className="article grid">
             <div className="p-[15px] pb-[50px]">
                 <div className="mb-[30px]">
                     <CoverImageEditor {...imageProps} />

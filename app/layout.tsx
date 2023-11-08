@@ -51,7 +51,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             placeholder="Search"
                         />
                     </div>
-                    <div className="flex h-[100%] items-center justify-center">
+                    <a
+                        className="flex h-[100%] items-center justify-center"
+                        href="/">
                         <svg
                             className="h-[100%] w-[40px] mx-[5px]"
                             xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             />
                         </svg>
                         <h1 className={`${quicksand.className} text-white font-[700]`}>SCIQUEL</h1>
-                    </div>
+                    </a>
                 </header>
                 {children}
             </body>
