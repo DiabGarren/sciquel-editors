@@ -198,6 +198,10 @@ main.article>div:last-child {
         display: flex
     }
 
+    .dashboard {
+        width: 1000px;
+    }
+
 }
 
 @layer components {
