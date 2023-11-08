@@ -3,23 +3,23 @@ import Image from "next/image";
 import parse from "html-react-parser";
 
 export default async function Home() {
-    const allArticles = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/article`).then((response) =>
-        response.json()
-    );
+    // const allArticles = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/article`).then((response) =>
+    //     response.json()
+    // );
 
-    const articleTags = (array: []) => {
-        return array.map((item: any) => {
-            if (item.checked) {
-                return (
-                    <div
-                        className="w-fit px-[5px] text-[12px] text-white rounded-md"
-                        style={{ backgroundColor: item.color }}>
-                        {item.name}
-                    </div>
-                );
-            } else return <></>;
-        });
-    };
+    // const articleTags = (array: []) => {
+    //     return array.map((item: any) => {
+    //         if (item.checked) {
+    //             return (
+    //                 <div
+    //                     className="w-fit px-[5px] text-[12px] text-white rounded-md"
+    //                     style={{ backgroundColor: item.color }}>
+    //                     {item.name}
+    //                 </div>
+    //             );
+    //         } else return <></>;
+    //     });
+    // };
 
     return (
         <main className="m-[50px]">
@@ -29,7 +29,7 @@ export default async function Home() {
                 New Article
             </a>
             <div className="flex flex-wrap gap-[10px]">
-                {allArticles.data.map((data: any) => {
+                {/* {allArticles.data.map((data: any) => {
                     return (
                         <div className="border-2 border-teal w-[300px] rounded-md my-[10px] pb-[5px]">
                             <div
@@ -68,7 +68,7 @@ export default async function Home() {
                             </div>
                         </div>
                     );
-                })}
+                })} */}
             </div>
         </main>
     );
