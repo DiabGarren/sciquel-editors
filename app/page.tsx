@@ -21,6 +21,47 @@ export default async function Home() {
         });
     };
 
+    const displayArticles = () => {
+        return allArticles.data.map((data: any) => {
+            return (
+                <div className="border-2 border-teal w-[300px] rounded-md my-[10px] pb-[5px]">
+                    <div
+                        className="w-[100%] h-[150px] bg-cover bg-center rounded-[8px_8px_0_0]"
+                        style={{
+                            backgroundImage: `url(${data.finalImage || "/images/bobtail.png"})`,
+                        }}></div>
+
+                    <div className="mx-[5px]">
+                        <div className="text-[18px]">
+                            {data.heading === "" || data.heading === "<p><br></p>" ? (
+                                <p>Heading</p>
+                            ) : (
+                                parse(data.heading)
+                            )}
+                        </div>
+                        <div className="text-[16px]">
+                            {data.subheading === "" || data.subheading === "<p><br></p>" ? (
+                                <p>Subheading</p>
+                            ) : (
+                                parse(data.subheading)
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-x-[5px] gap-y-[2px] text-[13px] mx-[5px]">
+                        <p>
+                            {data.mediaType} |{" "}
+                            {data.mediaType === "Article" ? data.articleType + " | " : ""}
+                        </p>
+                        {articleTags(data.topics)}
+                        {articleTags(data.subtopics)}
+                        {articleTags(data.subjects)}
+                    </div>
+                </div>
+            );
+        });
+    };
+
     return (
         <main className="m-[50px]">
             <a
@@ -28,48 +69,7 @@ export default async function Home() {
                 href="/new-article">
                 New Article
             </a>
-            <div className="flex flex-wrap gap-[10px]">
-                {/* {allArticles.data.map((data: any) => {
-                    return (
-                        <div className="border-2 border-teal w-[300px] rounded-md my-[10px] pb-[5px]">
-                            <div
-                                className="w-[100%] h-[150px] bg-cover bg-center rounded-[8px_8px_0_0]"
-                                style={{
-                                    backgroundImage: `url(${
-                                        data.finalImage || "/images/bobtail.png"
-                                    })`,
-                                }}></div>
-
-                            <div className="mx-[5px]">
-                                <div className="text-[18px]">
-                                    {data.heading === "" || data.heading === "<p><br></p>" ? (
-                                        <p>Heading</p>
-                                    ) : (
-                                        parse(data.heading)
-                                    )}
-                                </div>
-                                <div className="text-[16px]">
-                                    {data.subheading === "" || data.subheading === "<p><br></p>" ? (
-                                        <p>Subheading</p>
-                                    ) : (
-                                        parse(data.subheading)
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap gap-x-[5px] gap-y-[2px] text-[13px] mx-[5px]">
-                                <p>
-                                    {data.mediaType} |{" "}
-                                    {data.mediaType === "Article" ? data.articleType + " | " : ""}
-                                </p>
-                                {articleTags(data.topics)}
-                                {articleTags(data.subtopics)}
-                                {articleTags(data.subjects)}
-                            </div>
-                        </div>
-                    );
-                })} */}
-            </div>
+            <div className="flex flex-wrap gap-[10px]">{displayArticles()}</div>
         </main>
     );
 }
