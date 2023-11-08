@@ -32,12 +32,16 @@ export async function POST(request: Request) {
         if (!body.urlSlug) {
             return createErrorResponse("Article must have a url slug", 400);
         }
+        if (!body.date) {
+            return createErrorResponse("Article must have a public date", 400);
+        }
 
         const article = await Article.create({
             heading: body.heading,
             subheading: body.subheading,
             finalImage: body.finalImage,
             urlSlug: body.urlSlug,
+            date: body.date,
             mediaType: body.mediaType,
             articleType: body.articleType,
             topics: body.topics,

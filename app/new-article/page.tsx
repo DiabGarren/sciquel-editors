@@ -22,6 +22,15 @@ export default function NewPage() {
     const [subheading, setSubheading] = useState("");
 
     const [urlSlug, setUrlSlug] = useState("");
+    const today = new Date();
+    const [date, setDate] = useState(
+        `${today.getFullYear()}/${
+            (today.getMonth() + 1).toString().length === 1
+                ? "0" + today.getMonth() + 1
+                : today.getMonth() + 1
+        }/${today.getDate().toString().length === 1 ? "0" + today.getDate() : today.getDate()}`
+    );
+
     const [mediaType, setMediaType] = useState("Article");
     const mediaTypes = [
         { key: "article", name: "Article" },
@@ -102,43 +111,45 @@ export default function NewPage() {
     const [section, setSection] = useState([]);
 
     const headingProps = {
-        heading: heading,
-        setHeading: setHeading,
-        subheading: subheading,
-        setSubheading: setSubheading,
+        heading,
+        setHeading,
+        subheading,
+        setSubheading,
     };
 
     const imageProps = {
-        image: image,
-        setImage: setImage,
-        finalImage: finalImage,
-        setFinalImage: setFinalImage,
+        image,
+        setImage,
+        finalImage,
+        setFinalImage,
         headingProps,
     };
 
     const topSectionProps = {
-        urlSlug: urlSlug,
-        setUrlSlug: setUrlSlug,
-        mediaType: mediaType,
-        setMediaType: setMediaType,
-        mediaTypes: mediaTypes,
-        articleType: articleType,
-        setArticleType: setArticleType,
-        articleTypes: articleTypes,
-        topics: topics,
-        setTopics: setTopics,
-        subtopics: subtopics,
-        setSubtopics: setSubtopics,
-        subjects: subjects,
-        setSubjects: setSubjects,
-        tagName: tagName,
-        setTagName: setTagName,
-        tagColor: tagColor,
-        setTagColor: setTagColor,
-        allContributors: allContributors,
-        setAllContributors: setAllContributors,
-        contributors: contributors,
-        setContributors: setContributors,
+        urlSlug,
+        setUrlSlug,
+        date,
+        setDate,
+        mediaType,
+        setMediaType,
+        mediaTypes,
+        articleType,
+        setArticleType,
+        articleTypes,
+        topics,
+        setTopics,
+        subtopics,
+        setSubtopics,
+        subjects,
+        setSubjects,
+        tagName,
+        setTagName,
+        tagColor,
+        setTagColor,
+        allContributors,
+        setAllContributors,
+        contributors,
+        setContributors,
     };
 
     const generalProps = {
@@ -146,18 +157,18 @@ export default function NewPage() {
     };
 
     const triviaProps = {
-        trivia: trivia,
-        setTrivia: setTrivia,
+        trivia,
+        setTrivia,
     };
 
     const sectionContainerProps = {
-        section: section,
-        setSection: setSection,
+        section,
+        setSection,
     };
 
     const acknowldgeProps = {
-        contributors: contributors,
-        setContributors: setContributors,
+        contributors,
+        setContributors,
     };
 
     const createArticle = () => {
@@ -170,6 +181,7 @@ export default function NewPage() {
                     subheading: subheading,
                     finalImage: finalImage,
                     urlSlug: urlSlug,
+                    date: date,
                     mediaType: mediaType,
                     articleType: articleType,
                     topics: topics,

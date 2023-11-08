@@ -5,6 +5,7 @@ const articleSchema = new Schema({
     subheading: String,
     finalImage: String,
     urlSlug: String,
+    date: String,
     mediaType: String,
     articleType: String,
     topics: Array,

@@ -74,7 +74,7 @@ export default function TopSection(props: any) {
                     <span className="text-red text-[15px]">*only letters and numbers</span>
                 </h3>
                 <input
-                    className="border rounded px-[5px] w-[250px]"
+                    className="border border-grey-light rounded px-[5px] w-[250px]"
                     placeholder="certain-key-words"
                     value={props.urlSlug}
                     onChange={(event) =>
@@ -86,9 +86,18 @@ export default function TopSection(props: any) {
                     }
                 />
                 <p className="text-grey-light text-[12px]">
-                    sciquel.org/stories/yyyy/mm/dd/
+                    sciquel.org/stories/{props.date || "yyyy/mm/dd"}/
                     {props.urlSlug || "certain-key-words"}
                 </p>
+            </div>
+            <div className="mb-[30px]">
+                <h3>Publish Date</h3>
+                <input
+                    className="border border-grey-light rounded px-[5px] w-[250px]"
+                    type="date"
+                    value={props.date.replaceAll("/", "-")}
+                    onChange={(event) => props.setDate(event.target.value.replaceAll("-", "/"))}
+                />
             </div>
             <div className="media-type mb-[30px]">
                 {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
