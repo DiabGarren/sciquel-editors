@@ -90,7 +90,7 @@ export default async function Home() {
                             {data.mediaType === "Article" ? data.articleType : ""}
                         </p>
                     </div>
-                    <div className="col-[1/4] flex flex-wrap text-[14px] mt-[5px]">
+                    <div className="col-[1/4] flex flex-wrap text-[14px] mt-[10px]">
                         {articleTags(data.topics)}
                         {articleTags(data.subtopics)}
                         {articleTags(data.subjects)}
