@@ -20,6 +20,7 @@ const config: Config = {
 			},
 		},
 		colors: {
+			transparent: 'transparent',
 			blue: {
 				DEFAULT: '#57adde',
 				light: '#8ecaec',
