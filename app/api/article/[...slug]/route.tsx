@@ -3,7 +3,7 @@ import { createErrorResponse } from "@/lib/utils";
 import Article from "@/models/article";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Response, { params }: { params: { slug: string[] } }) {
+export async function GET(request: Request, { params }: { params: { slug: string[] } }) {
     try {
         await connectDb();
 
@@ -23,7 +23,7 @@ export async function GET(request: Response, { params }: { params: { slug: strin
     }
 }
 
-export async function PUT(request: Response, { params }: { params: { slug: string[] } }) {
+export async function PUT(request: Request, { params }: { params: { slug: string[] } }) {
     try {
         await connectDb();
 
