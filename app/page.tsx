@@ -28,8 +28,6 @@ export default async function Home() {
 
     const displayArticles = () => {
         return allArticles.data.map((data: any) => {
-            console.log(data.date);
-
             return (
                 <a
                     className="dashboard border-4 border-teal rounded-lr p-[10px] my-[15px] mx-auto grid grid-cols-[150px_1fr_150px]"

@@ -76,9 +76,9 @@ export default function TopSection(props: any) {
                 <input
                     className="border border-grey-light rounded px-[5px] w-[250px]"
                     placeholder="certain-key-words"
-                    value={props.urlSlug}
+                    value={props.keywords}
                     onChange={(event) =>
-                        props.setUrlSlug(
+                        props.setKeywords(
                             event.target.value
                                 .replace(" ", "-")
                                 .replace(/[,./\\!@#$%^&*()_+=<>?`~;:'"|]/g, "")
@@ -87,7 +87,7 @@ export default function TopSection(props: any) {
                 />
                 <p className="text-grey-light text-[12px]">
                     sciquel.org/stories/{props.date || "yyyy/mm/dd"}/
-                    {props.urlSlug || "certain-key-words"}
+                    {props.keywords || "certain-key-words"}
                 </p>
             </div>
             <div className="mb-[30px]">

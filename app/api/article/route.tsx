@@ -29,8 +29,8 @@ export async function POST(request: Request) {
 
         const body = await request.json();
 
-        if (!body.urlSlug) {
-            return createErrorResponse("Article must have a url slug", 400);
+        if (!body.keywords) {
+            return createErrorResponse("Article must have key words", 400);
         }
         if (!body.date) {
             return createErrorResponse("Article must have a public date", 400);
@@ -40,8 +40,9 @@ export async function POST(request: Request) {
             heading: body.heading,
             subheading: body.subheading,
             finalImage: body.finalImage,
-            urlSlug: body.urlSlug,
+            keywords: body.keywords,
             date: body.date,
+            urlSlug: body.date + "/" + body.keywords,
             mediaType: body.mediaType,
             articleType: body.articleType,
             topics: body.topics,
@@ -49,6 +50,7 @@ export async function POST(request: Request) {
             subjects: body.subjects,
             contributors: body.contributors,
             trivia: body.trivia,
+            section: body.section,
         });
 
         let json_response = {

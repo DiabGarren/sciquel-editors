@@ -28,8 +28,8 @@ export default function Article(props: any) {
     };
 
     const topSectionProps = {
-        urlSlug: props.urlSlug,
-        setUrlSlug: props.setUrlSlug,
+        keywords: props.keywords,
+        setKeywords: props.setKeywords,
         date: props.date,
         setDate: props.setDate,
         mediaType: props.mediaType,
@@ -97,7 +97,7 @@ export default function Article(props: any) {
                 <div className="mb-[30px]">
                     <AcknowledgementsEditor {...acknowldgeProps} />
                 </div>
-                <Button onClick={props.createArticle}>Create Article</Button>
+                <Button onClick={props.submit}>{props.method} Article</Button>
             </div>
             <div className="relative">
                 <CoverImagePreview {...imageProps} />

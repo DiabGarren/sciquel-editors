@@ -9,7 +9,7 @@ export default function NewPage() {
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
 
-    const [urlSlug, setUrlSlug] = useState("");
+    const [keywords, setKeywords] = useState("");
     const today = new Date();
     const [date, setDate] = useState(
         `${today.getFullYear()}/${
@@ -107,7 +107,7 @@ export default function NewPage() {
                     heading: heading,
                     subheading: subheading,
                     finalImage: finalImage,
-                    urlSlug: `${date}/${urlSlug}`,
+                    keywords: keywords,
                     date: date,
                     mediaType: mediaType,
                     articleType: articleType,
@@ -116,6 +116,7 @@ export default function NewPage() {
                     subjects: subjects,
                     contributors: contributors,
                     trivia: trivia,
+                    section: section,
                 }),
             })
                 .then((response) => response.json())
@@ -134,8 +135,8 @@ export default function NewPage() {
         setImage,
         finalImage,
         setFinalImage,
-        urlSlug,
-        setUrlSlug,
+        keywords,
+        setKeywords,
         date,
         setDate,
         mediaType,
@@ -162,8 +163,13 @@ export default function NewPage() {
         setTrivia,
         section,
         setSection,
-        createArticle,
     };
 
-    return <Article {...articleProps} />;
+    return (
+        <Article
+            {...articleProps}
+            submit={createArticle}
+            method="Create"
+        />
+    );
 }

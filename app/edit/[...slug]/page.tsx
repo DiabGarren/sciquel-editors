@@ -10,7 +10,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
     const [heading, setHeading] = useState("");
     const [subheading, setSubheading] = useState("");
 
-    const [urlSlug, setUrlSlug] = useState("");
+    const [keywords, setKeywords] = useState("");
     const [date, setDate] = useState("");
 
     const [mediaType, setMediaType] = useState("");
@@ -54,7 +54,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         (heading && heading === "") ||
         (subheading && subheading === "") ||
         (finalImage && finalImage === null) ||
-        (urlSlug && urlSlug === "") ||
+        (keywords && keywords === "") ||
         (date && date === "") ||
         (mediaType && mediaType === "") ||
         (articleType && articleType === "") ||
@@ -78,8 +78,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 if (finalImage === null && finalImage != data.data.finalImage) {
                     setFinalImage(data.data.finalImage);
                 }
-                if (urlSlug === "" && urlSlug !== data.data.urlSlug) {
-                    setUrlSlug(data.data.urlSlug);
+                if (keywords === "" && keywords !== data.data.keywords) {
+                    setKeywords(data.data.keywords);
                 }
                 if (date === "" && date !== data.data.date) {
                     setDate(data.data.date);
@@ -113,6 +113,32 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 // }
             });
     }
+    const updateArticle = () => {
+        try {
+            fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + date + "/" + keywords, {
+                method: "Put",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify({
+                    heading: heading,
+                    subheading: subheading,
+                    finalImage: finalImage,
+                    urlSlug: keywords,
+                    date: date,
+                    mediaType: mediaType,
+                    articleType: articleType,
+                    topics: topics,
+                    subtopics: subtopics,
+                    subjects: subjects,
+                    contributors: contributors,
+                    trivia: trivia,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log(data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const articleProps = {
         heading,
@@ -123,8 +149,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         setImage,
         finalImage,
         setFinalImage,
-        urlSlug,
-        setUrlSlug,
+        keywords,
+        setKeywords,
         date,
         setDate,
         mediaType,
@@ -153,5 +179,11 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         setSection,
     };
 
-    return <Article {...articleProps} />;
+    return (
+        <Article
+            {...articleProps}
+            submit={updateArticle}
+            method="Update"
+        />
+    );
 }
