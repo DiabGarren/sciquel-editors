@@ -95,6 +95,11 @@ main.article>div:last-child {
     stroke: black;
 }
 
+.dashboard a:last-child:hover path {
+    stroke: white;
+    stroke-width: 4px;
+}
+
 @media only screen and (min-width: 576px) {
     main.article>div:first-child {
         width: 85%;

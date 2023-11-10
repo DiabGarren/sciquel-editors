@@ -113,7 +113,7 @@ export default async function Home() {
                     </a>
                     <a
                         href={`edit/${data.urlSlug}`}
-                        className="self-end p-[5px] w-[35px] h-[35px] ml-[-45px] mb-[10px] rounded hover:bg-teal [&_*]:hover:stroke-white [&_*]:stroke-transparent">
+                        className="self-end p-[5px] w-[35px] h-[35px] ml-[-45px] mb-[10px] rounded hover:bg-teal [&_*]:stroke-transparent">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="25"
