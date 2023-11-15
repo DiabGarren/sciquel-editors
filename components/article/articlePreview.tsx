@@ -75,7 +75,7 @@ export default function ArticlePreview(props: any) {
                     triviaPosition="pre"
                 />
             </div>
-            <div className="mx-auto max-w-[800px]">
+            <div className="sections-preview mx-auto max-w-[800px]">
                 <SectionContainerPreview {...sectionContainerProps} />
             </div>
             <div className="preview">

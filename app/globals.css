@@ -80,6 +80,7 @@ main.article>div:last-child {
     border-radius: 0 0 5px 5px;
 }
 
+
 .preview {
     width: 85%;
     max-width: 500px;
@@ -100,6 +101,10 @@ main.article>div:last-child {
     stroke-width: 4px;
 }
 
+.sections-preview {
+    width: 95%;
+}
+
 @media only screen and (min-width: 576px) {
     main.article>div:first-child {
         width: 85%;
@@ -109,6 +114,10 @@ main.article>div:last-child {
     .cover-image {
         width: 98%;
         height: 375px;
+    }
+
+    .sections-preview {
+        width: 85%;
     }
 }
 

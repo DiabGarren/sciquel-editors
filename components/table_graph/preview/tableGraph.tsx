@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import { BarChart, XAxis, YAxis, Bar, Tooltip, Legend } from "recharts";
+import { BarChart, XAxis, YAxis, Bar, Tooltip, Legend, Line, ResponsiveContainer } from "recharts";
 
 export default function TableGraphPreview(props: any) {
     return props.section.map((section: any, index: number) => {
@@ -58,11 +58,10 @@ export default function TableGraphPreview(props: any) {
                     });
 
                     const graph = (
-                        <div>
-                            <BarChart
-                                width={800}
-                                height={250}
-                                data={graphData}>
+                        <ResponsiveContainer
+                            width="100%"
+                            height={250}>
+                            <BarChart data={graphData}>
                                 <XAxis dataKey={section.table.headings.axis.x} />
                                 <YAxis />
                                 <Tooltip />
@@ -75,8 +74,16 @@ export default function TableGraphPreview(props: any) {
                                         />
                                     );
                                 })}
+                                {section.table.headings.cols.map((col: any, index: number) => {
+                                    return (
+                                        <Line
+                                            dataKey={col}
+                                            fill={section.table.colors[index]}
+                                        />
+                                    );
+                                })}
                             </BarChart>
-                        </div>
+                        </ResponsiveContainer>
                     );
 
                     return (
