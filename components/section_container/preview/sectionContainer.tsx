@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import TableGraphPreview from "@/components/table_graph/preview/tableGraph";
 import ImageContainerPreview from "../image_container/preview/imageContainer";
 import TextContainerPreview from "../text_container/preview/textContainer";
 
@@ -11,10 +12,14 @@ export default function SectionContainerPreview(props: any) {
                     setSection: props.setSection,
                     index: index,
                 };
-
-                if (section.type === "text" || section.type === "sectionHeader")
-                    return <TextContainerPreview {...containerProps} />;
-                if (section.type === "image") return <ImageContainerPreview {...containerProps} />;
+                switch (section.type) {
+                    case "image":
+                        return <ImageContainerPreview {...containerProps} />;
+                    case "tableGraph":
+                        return <TableGraphPreview {...containerProps} />;
+                    default:
+                        return <TextContainerPreview {...containerProps} />;
+                }
             })}
         </div>
     );
