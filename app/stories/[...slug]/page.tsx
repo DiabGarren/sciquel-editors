@@ -70,6 +70,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + params.slug.join("/"))
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 if (heading === "" && heading !== data.data.heading) {
                     setHeading(data.data.heading);
                 }
@@ -100,18 +101,18 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 if (subjects.length === 0 && subjects !== data.data.subjects) {
                     setSubjects(data.data.subjects);
                 }
-                // if (contributors.length === 0) {
-                //     setContributors(data.data.contributors);
-                // }
+                if (contributors.length === 0) {
+                    setContributors(data.data.contributors);
+                }
                 if (allContributors.length === 0 && allContributors !== data.data.allContributors) {
                     setAllContributors(data.data.contributors);
                 }
                 if (trivia.length === 0 && trivia !== data.data.trivia) {
                     setTrivia(data.data.trivia);
                 }
-                // if (section.length === 0 && section !== data.data.section) {
-                //     setSection(data.data.section);
-                // }
+                if (section.length === 0 && section !== data.data.section) {
+                    setSection(data.data.section);
+                }
             });
     }
     const updateArticle = () => {

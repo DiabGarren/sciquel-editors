@@ -389,7 +389,11 @@ export default function TableGraphEditor(props: any) {
                                                             value={
                                                                 section.table.data[rowIndex][
                                                                     colIndex
-                                                                ]
+                                                                ] === 0
+                                                                    ? ""
+                                                                    : section.table.data[rowIndex][
+                                                                          colIndex
+                                                                      ]
                                                             }
                                                             onChange={(event) => {
                                                                 props.setSection(
