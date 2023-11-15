@@ -1,12 +1,29 @@
 /* eslint-disable react/jsx-key */
-import { BarChart, XAxis, YAxis, Bar, Tooltip, Legend, Line, ResponsiveContainer } from "recharts";
+import {
+    BarChart,
+    XAxis,
+    YAxis,
+    Bar,
+    Tooltip,
+    Legend,
+    Line,
+    ResponsiveContainer,
+    LineChart,
+    AreaChart,
+    Area,
+    ScatterChart,
+    Scatter,
+    ReferenceLine,
+    ReferenceDot,
+} from "recharts";
 
 export default function TableGraphPreview(props: any) {
+    let table: any, graphData: any, graph;
     return props.section.map((section: any, index: number) => {
         if (index === props.index) {
             switch (section.table.type) {
                 case "Bar":
-                    const table = (
+                    table = (
                         <div className="max-w-[800px] w-fit m-auto">
                             <div className="flex mb-[5px]">
                                 <div className="w-[75px] mr-[5px]"></div>
@@ -45,7 +62,7 @@ export default function TableGraphPreview(props: any) {
                             })}
                         </div>
                     );
-                    const graphData = section.table.data.map((data: any, index: number) => {
+                    graphData = section.table.data.map((data: any, index: number) => {
                         return {
                             [section.table.headings.axis.x]: section.table.headings.rows[index],
                         };
@@ -57,15 +74,45 @@ export default function TableGraphPreview(props: any) {
                         });
                     });
 
-                    const graph = (
+                    graph = (
                         <ResponsiveContainer
                             width="100%"
-                            height={250}>
-                            <BarChart data={graphData}>
+                            height={350}>
+                            <BarChart
+                                data={graphData}
+                                height={350}>
                                 <XAxis dataKey={section.table.headings.axis.x} />
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
+                                {section.table.references.map((ref: any) => {
+                                    if (ref.y && ref.y != 0 && !ref.x) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                y={ref.y}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.x != 0 && !ref.y) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                x={ref.x}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.y) {
+                                        <ReferenceDot
+                                            x={ref.x}
+                                            y={ref.y}
+                                            r={5}
+                                            fill={ref.color}
+                                        />;
+                                    }
+                                })}
                                 {section.table.headings.cols.map((col: any, index: number) => {
                                     return (
                                         <Bar
@@ -85,16 +132,255 @@ export default function TableGraphPreview(props: any) {
                             </BarChart>
                         </ResponsiveContainer>
                     );
+                    break;
 
-                    return (
-                        <div>
-                            {section.table.display.table === "true" ? table : <></>}
-                            {section.table.display.graph === "true" ? graph : <></>}
+                case "Line":
+                    table = (
+                        <div className="max-w-[800px] w-fit m-auto">
+                            <div className="flex mb-[5px]">
+                                <div className="w-[75px] mr-[5px]"></div>
+                                {section.table.headings.cols.map((colHeading: any) => {
+                                    return (
+                                        <input
+                                            type="text"
+                                            className="border border-grey-light rounded w-[75px] cursor-default"
+                                            value={colHeading}
+                                            readOnly
+                                        />
+                                    );
+                                })}
+                            </div>
+                            {section.table.data.map((row: any, index: number) => {
+                                return (
+                                    <div className="flex">
+                                        <input
+                                            type="text"
+                                            className="border border-grey-light rounded mr-[5px] w-[75px] cursor-default"
+                                            value={section.table.headings.rows[index]}
+                                            readOnly
+                                        />
+                                        {row.map((col: number, index: number) => {
+                                            return (
+                                                <input
+                                                    type="text"
+                                                    className="border border-grey-light rounded w-[75px] cursor-default"
+                                                    value={col}
+                                                    readOnly
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
                         </div>
                     );
+                    graphData = section.table.data.map((data: any, index: number) => {
+                        return {
+                            [section.table.headings.axis.x]: section.table.headings.rows[index],
+                        };
+                    });
+
+                    section.table.data.forEach((row: any, rowIndex: number) => {
+                        row.forEach((col: any, colIndex: number) => {
+                            graphData[rowIndex][section.table.headings.cols[colIndex]] = col;
+                        });
+                    });
+
+                    graph = (
+                        <ResponsiveContainer
+                            width="100%"
+                            height={350}>
+                            <LineChart
+                                data={graphData}
+                                height={350}>
+                                <XAxis dataKey={section.table.headings.axis.x} />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                {section.table.references.map((ref: any) => {
+                                    if (ref.y && ref.y != 0 && !ref.x) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                y={ref.y}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.x != 0 && !ref.y) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                x={ref.x}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.y) {
+                                        <ReferenceDot
+                                            x={ref.x}
+                                            y={ref.y}
+                                            r={5}
+                                            fill={ref.color}
+                                        />;
+                                    }
+                                })}
+                                {section.table.headings.cols.map((col: any, index: number) => {
+                                    return (
+                                        <Line
+                                            type="monotone"
+                                            dataKey={col}
+                                            stroke={section.table.colors[index]}
+                                            strokeWidth={2}
+                                        />
+                                    );
+                                })}
+                            </LineChart>
+                        </ResponsiveContainer>
+                    );
+                    break;
+
+                case "Area":
+                    table = (
+                        <div className="max-w-[800px] w-fit m-auto">
+                            <div className="flex mb-[5px]">
+                                <div className="w-[75px] mr-[5px]"></div>
+                                {section.table.headings.cols.map((colHeading: any) => {
+                                    return (
+                                        <input
+                                            type="text"
+                                            className="border border-grey-light rounded w-[75px] cursor-default"
+                                            value={colHeading}
+                                            readOnly
+                                        />
+                                    );
+                                })}
+                            </div>
+                            {section.table.data.map((row: any, index: number) => {
+                                return (
+                                    <div className="flex">
+                                        <input
+                                            type="text"
+                                            className="border border-grey-light rounded mr-[5px] w-[75px] cursor-default"
+                                            value={section.table.headings.rows[index]}
+                                            readOnly
+                                        />
+                                        {row.map((col: number, index: number) => {
+                                            return (
+                                                <input
+                                                    type="text"
+                                                    className="border border-grey-light rounded w-[75px] cursor-default"
+                                                    value={col}
+                                                    readOnly
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                    graphData = section.table.data.map((data: any, index: number) => {
+                        return {
+                            [section.table.headings.axis.x]: section.table.headings.rows[index],
+                        };
+                    });
+
+                    section.table.data.forEach((row: any, rowIndex: number) => {
+                        row.forEach((col: any, colIndex: number) => {
+                            graphData[rowIndex][section.table.headings.cols[colIndex]] = col;
+                        });
+                    });
+
+                    graph = (
+                        <ResponsiveContainer
+                            width="100%"
+                            height={350}>
+                            <AreaChart
+                                data={graphData}
+                                height={350}>
+                                <defs>
+                                    {section.table.colors.map((color: any, index: number) => {
+                                        return (
+                                            <linearGradient
+                                                id={`${color}-${index}`}
+                                                x1="0"
+                                                y1="0"
+                                                x2="1"
+                                                y2="1">
+                                                <stop
+                                                    offset="5%"
+                                                    stopColor={color}
+                                                    stopOpacity={0.8}
+                                                />
+                                                <stop
+                                                    offset="95%"
+                                                    stopColor={color}
+                                                    stopOpacity={0}
+                                                />
+                                            </linearGradient>
+                                        );
+                                    })}
+                                </defs>
+                                <XAxis dataKey={section.table.headings.axis.x} />
+                                <YAxis />
+                                <Tooltip />
+                                <Legend />
+                                {section.table.references.map((ref: any) => {
+                                    if (ref.y && ref.y != 0 && !ref.x) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                y={ref.y}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.x != 0 && !ref.y) {
+                                        return (
+                                            <ReferenceLine
+                                                label={ref.label}
+                                                x={ref.x}
+                                                stroke={ref.color}
+                                            />
+                                        );
+                                    }
+                                    if (ref.x && ref.y) {
+                                        <ReferenceDot
+                                            x={ref.x}
+                                            y={ref.y}
+                                            r={5}
+                                            fill={ref.color}
+                                        />;
+                                    }
+                                })}
+                                {section.table.headings.cols.map((col: any, index: number) => {
+                                    return (
+                                        <Area
+                                            type="monotone"
+                                            dataKey={col}
+                                            stroke={section.table.colors[index]}
+                                            fill={`url(#${section.table.colors[index]}-${index})`}
+                                            fillOpacity={1}
+                                        />
+                                    );
+                                })}
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    );
+                    break;
+
                 default:
-                    return <></>;
+                    table = <></>;
+                    graph = <></>;
+                    break;
             }
+            return (
+                <div>
+                    {section.table.display.table === "true" ? table : <></>}
+                    {section.table.display.graph === "true" ? graph : <></>}
+                </div>
+            );
         }
         return <></>;
     });

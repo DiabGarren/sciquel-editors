@@ -64,6 +64,14 @@ export default function SectionContainerEditor(props: any) {
                                                 [0, 0],
                                                 [0, 0],
                                             ],
+                                            references: [
+                                                {
+                                                    label: "Ref 1",
+                                                    y: 0,
+                                                    x: null,
+                                                    color: "#109191",
+                                                },
+                                            ],
                                             display: { table: "true", graph: "true" },
                                         },
                                     };
