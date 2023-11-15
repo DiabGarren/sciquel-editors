@@ -4,8 +4,6 @@ import ImageContainerPreview from "../image_container/preview/imageContainer";
 import TextContainerPreview from "../text_container/preview/textContainer";
 
 export default function SectionContainerPreview(props: any) {
-    console.log(props);
-
     return (
         <div>
             {props.section.map((section: any, index: number) => {
