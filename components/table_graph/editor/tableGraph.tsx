@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-key */
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
+import { ChromePicker } from "react-color";
+import Popup from "reactjs-popup";
 
 const graphTypes = [{ name: "Bar" }, { name: "Line" }];
 export default function TableGraphEditor(props: any) {
@@ -81,7 +83,6 @@ export default function TableGraphEditor(props: any) {
                                                     return {
                                                         type: section.type,
                                                         table: section.table,
-                                                        graph: section.graph,
                                                     };
                                                 }
                                                 return section;
@@ -103,7 +104,6 @@ export default function TableGraphEditor(props: any) {
                                                     return {
                                                         type: section.type,
                                                         table: section.table,
-                                                        graph: section.graph,
                                                     };
                                                 }
                                                 return section;
@@ -153,7 +153,6 @@ export default function TableGraphEditor(props: any) {
                                                     return {
                                                         type: sect.type,
                                                         table: sect.table,
-                                                        graph: sect.graph,
                                                     };
                                                 }
                                                 return sect;
@@ -181,7 +180,7 @@ export default function TableGraphEditor(props: any) {
                                                         sect.table.headings.cols.push(
                                                             `Col ${sect.table.data[0].length}`
                                                         );
-                                                        sect.table.colors.push("#000000");
+                                                        sect.table.colors.push("#109191");
                                                     } else {
                                                         if (section.table.data[0].length != 1) {
                                                             sect.table.data.map((row: any) => {
@@ -205,7 +204,6 @@ export default function TableGraphEditor(props: any) {
                                                     return {
                                                         type: sect.type,
                                                         table: sect.table,
-                                                        graph: sect.graph,
                                                     };
                                                 }
                                                 return sect;
@@ -234,7 +232,6 @@ export default function TableGraphEditor(props: any) {
                                                                     return {
                                                                         type: section.type,
                                                                         table: section.table,
-                                                                        graph: section.graph,
                                                                     };
                                                                 }
                                                                 return section;
@@ -260,7 +257,6 @@ export default function TableGraphEditor(props: any) {
                                                                     return {
                                                                         type: section.type,
                                                                         table: section.table,
-                                                                        graph: section.graph,
                                                                     };
                                                                 }
                                                                 return section;
@@ -314,7 +310,6 @@ export default function TableGraphEditor(props: any) {
                                                                             return {
                                                                                 type: section.type,
                                                                                 table: section.table,
-                                                                                graph: section.graph,
                                                                             };
                                                                         }
                                                                         return section;
@@ -329,13 +324,63 @@ export default function TableGraphEditor(props: any) {
                                     </div>
                                     <div className="flex mb-[5px]">
                                         <div className="w-[75px] mr-[5px]"></div>
-                                        {section.table.colors.map((color: string) => {
-                                            return (
-                                                <button
-                                                    className="rounded w-[75px] h-[26px] border-none"
-                                                    style={{ backgroundColor: color }}></button>
-                                            );
-                                        })}
+                                        {section.table.colors.map(
+                                            (color: string, colorIndex: number) => {
+                                                return (
+                                                    <Popup
+                                                        trigger={
+                                                            <button
+                                                                className="rounded w-[75px] h-[26px] border-none"
+                                                                style={{
+                                                                    backgroundColor: color,
+                                                                }}></button>
+                                                        }
+                                                        position="center center">
+                                                        <ChromePicker
+                                                            color={color}
+                                                            onChange={(event) => {
+                                                                props.setSection(
+                                                                    props.section.map(
+                                                                        (
+                                                                            section: any,
+                                                                            index: number
+                                                                        ) => {
+                                                                            if (
+                                                                                index ===
+                                                                                props.index
+                                                                            ) {
+                                                                                const colors =
+                                                                                    section.table.colors.map(
+                                                                                        (
+                                                                                            color: string,
+                                                                                            cIndex: number
+                                                                                        ) => {
+                                                                                            if (
+                                                                                                cIndex ===
+                                                                                                colorIndex
+                                                                                            ) {
+                                                                                                return event.hex;
+                                                                                            } else
+                                                                                                return color;
+                                                                                        }
+                                                                                    );
+                                                                                section.table.colors =
+                                                                                    colors;
+                                                                                return {
+                                                                                    type: section.type,
+                                                                                    table: section.table,
+                                                                                };
+                                                                            }
+                                                                            return section;
+                                                                        }
+                                                                    )
+                                                                );
+                                                            }}
+                                                        />
+                                                    </Popup>
+                                                );
+                                            }
+                                        )}
                                     </div>
                                     {section.table.data.map((row: any, rowIndex: number) => {
                                         return (
@@ -372,7 +417,6 @@ export default function TableGraphEditor(props: any) {
                                                                         return {
                                                                             type: section.type,
                                                                             table: section.table,
-                                                                            graph: section.graph,
                                                                         };
                                                                     }
                                                                     return section;
@@ -414,7 +458,6 @@ export default function TableGraphEditor(props: any) {
                                                                                 return {
                                                                                     type: sect.type,
                                                                                     table: sect.table,
-                                                                                    graph: sect.graph,
                                                                                 };
                                                                             }
                                                                             return sect;
