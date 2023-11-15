@@ -115,32 +115,6 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 }
             });
     }
-    const updateArticle = () => {
-        try {
-            fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + date + "/" + keywords, {
-                method: "Put",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify({
-                    heading: heading,
-                    subheading: subheading,
-                    finalImage: finalImage,
-                    urlSlug: keywords,
-                    date: date,
-                    mediaType: mediaType,
-                    articleType: articleType,
-                    topics: topics,
-                    subtopics: subtopics,
-                    subjects: subjects,
-                    contributors: contributors,
-                    trivia: trivia,
-                }),
-            })
-                .then((response) => response.json())
-                .then((data) => console.log(data));
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const articleProps = {
         heading,
