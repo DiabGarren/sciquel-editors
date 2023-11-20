@@ -4,7 +4,7 @@ import { Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
 import { ChromePicker } from "react-color";
 import Popup from "reactjs-popup";
 
-const graphTypes = [{ name: "Bar" }, { name: "Line" }, { name: "Area" }];
+const graphTypes = [{ name: "Bar" }, { name: "Line" }, { name: "Area" }, { name: "Pie" }];
 export default function TableGraphEditor(props: any) {
     const renderTable = (section: any) => {
         switch (section.table.type) {
@@ -13,6 +13,58 @@ export default function TableGraphEditor(props: any) {
             case "Area":
                 return (
                     <>
+                        <div className="mb-[8px]">
+                            <h3>Axis headings</h3>
+                            <div className="grid grid-cols-2 gap-[5px]">
+                                <div className="grid grid-cols-[60px_1fr]">
+                                    <h4>X-Axis</h4>
+                                    <input
+                                        className="border border-grey-light rounded w-[100%]"
+                                        type="text"
+                                        value={section.table.headings.axis.x}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.table.headings.axis.x =
+                                                            event.target.value;
+                                                        return {
+                                                            type: section.type,
+                                                            table: section.table,
+                                                        };
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-[60px_1fr]">
+                                    <h4>Y-Axis</h4>
+                                    <input
+                                        className="border border-grey-light rounded w-[100%]"
+                                        type="text"
+                                        value={section.table.headings.axis.y}
+                                        onChange={(event) => {
+                                            props.setSection(
+                                                props.section.map((section: any, index: number) => {
+                                                    if (index === props.index) {
+                                                        section.table.headings.axis.y =
+                                                            event.target.value;
+                                                        return {
+                                                            type: section.type,
+                                                            table: section.table,
+                                                        };
+                                                    }
+                                                    return section;
+                                                })
+                                            );
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Data</h3>
                         <div className="border border-grey-light-1 rounded mb-[15px]">
                             <div className="flex mb-[2px]">
                                 <div className="w-[75px] mr-[5px]"></div>
@@ -334,6 +386,149 @@ export default function TableGraphEditor(props: any) {
                         </div>
                     </>
                 );
+            case "Pie":
+                return (
+                    <>
+                        <h3>Data</h3>
+                        <div className="border border-grey-light-1 rounded mb-[15px]">
+                            <div className="flex mb-[2px]">
+                                {section.table.headings.cols.map(
+                                    (heading: string, colIndex: number) => {
+                                        return (
+                                            <input
+                                                className="border border-grey-light rounded w-[75px]"
+                                                type="text"
+                                                value={heading}
+                                                onChange={(event) => {
+                                                    props.setSection(
+                                                        props.section.map(
+                                                            (section: any, index: number) => {
+                                                                if (index === props.index) {
+                                                                    const cols =
+                                                                        section.table.headings.cols.map(
+                                                                            (
+                                                                                heading: string,
+                                                                                cIndex: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    cIndex ===
+                                                                                    colIndex
+                                                                                ) {
+                                                                                    return event
+                                                                                        .target
+                                                                                        .value;
+                                                                                }
+                                                                                return heading;
+                                                                            }
+                                                                        );
+
+                                                                    section.table.headings.cols =
+                                                                        cols;
+                                                                    return {
+                                                                        type: section.type,
+                                                                        table: section.table,
+                                                                    };
+                                                                }
+                                                                return section;
+                                                            }
+                                                        )
+                                                    );
+                                                }}
+                                            />
+                                        );
+                                    }
+                                )}
+                            </div>
+                            <div className="flex mb-[5px]">
+                                {section.table.colors.map((color: string, colorIndex: number) => {
+                                    return (
+                                        <Popup
+                                            trigger={
+                                                <button
+                                                    className="rounded w-[75px] h-[26px] border-none"
+                                                    style={{
+                                                        backgroundColor: color,
+                                                    }}></button>
+                                            }
+                                            position="center center">
+                                            <ChromePicker
+                                                color={color}
+                                                onChange={(event) => {
+                                                    props.setSection(
+                                                        props.section.map(
+                                                            (section: any, index: number) => {
+                                                                if (index === props.index) {
+                                                                    const colors =
+                                                                        section.table.colors.map(
+                                                                            (
+                                                                                color: string,
+                                                                                cIndex: number
+                                                                            ) => {
+                                                                                if (
+                                                                                    cIndex ===
+                                                                                    colorIndex
+                                                                                ) {
+                                                                                    return event.hex;
+                                                                                } else return color;
+                                                                            }
+                                                                        );
+                                                                    section.table.colors = colors;
+                                                                    return {
+                                                                        type: section.type,
+                                                                        table: section.table,
+                                                                    };
+                                                                }
+                                                                return section;
+                                                            }
+                                                        )
+                                                    );
+                                                }}
+                                            />
+                                        </Popup>
+                                    );
+                                })}
+                            </div>
+                            {section.table.data.map((row: any, rowIndex: number) => {
+                                return (
+                                    <div className="flex">
+                                        {row.map((column: any, colIndex: number) => {
+                                            return (
+                                                <input
+                                                    className="border border-grey-light rounded w-[75px]"
+                                                    type="number"
+                                                    value={
+                                                        section.table.data[rowIndex][colIndex] === 0
+                                                            ? ""
+                                                            : section.table.data[rowIndex][colIndex]
+                                                    }
+                                                    onChange={(event) => {
+                                                        props.setSection(
+                                                            props.section.map(
+                                                                (sect: any, sectIndex: number) => {
+                                                                    if (sectIndex === props.index) {
+                                                                        sect.table.data[rowIndex][
+                                                                            colIndex
+                                                                        ] = event.target.value;
+
+                                                                        return {
+                                                                            type: sect.type,
+                                                                            table: sect.table,
+                                                                        };
+                                                                    }
+                                                                    return sect;
+                                                                }
+                                                            )
+                                                        );
+                                                    }}
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </>
+                );
         }
     };
 
@@ -454,6 +649,25 @@ export default function TableGraphEditor(props: any) {
                                                             ];
                                                         }
                                                         break;
+                                                    case "Pie":
+                                                        section.table.headings = {
+                                                            axis: { x: "X", y: "Y" },
+                                                            rows: [],
+                                                            cols: ["Col 1", "Col 2"],
+                                                        };
+                                                        section.table.colors = [
+                                                            "#109191",
+                                                            "#57adde",
+                                                        ];
+                                                        section.table.data = [[0, 0]];
+                                                        section.table.references = [
+                                                            {
+                                                                label: "Ref 1",
+                                                                y: 0,
+                                                                x: null,
+                                                                color: "#109191",
+                                                            },
+                                                        ];
                                                 }
                                                 section.table.type = event.target.value;
                                             }
@@ -516,50 +730,66 @@ export default function TableGraphEditor(props: any) {
                             </div>
                             <h3>Table</h3>
                             <div className="flex mb-[15px]">
-                                <h4>Rows</h4>
-                                <input
-                                    className="w-fit max-w-[70px] border border-grey-light rounded ml-[5px]"
-                                    type="number"
-                                    value={section.table.data.length}
-                                    onChange={(event) => {
-                                        props.setSection(
-                                            props.section.map((sect: any, index: number) => {
-                                                if (index === props.index) {
-                                                    if (
-                                                        event.target.value >
-                                                        section.table.data.length
-                                                    ) {
-                                                        sect.table.data.push(
-                                                            section.table.data[0].map(() => {
-                                                                return 0;
-                                                            })
-                                                        );
-                                                        sect.table.headings.rows.push(
-                                                            `Row ${sect.table.data.length}`
-                                                        );
-                                                    } else {
-                                                        if (section.table.data.length != 1) {
-                                                            sect.table.data.splice(
-                                                                sect.table.data.length - 1,
-                                                                1
-                                                            );
-                                                            sect.table.headings.rows.splice(
-                                                                sect.table.headings.rows.length - 1,
-                                                                1
-                                                            );
-                                                        }
-                                                    }
+                                {section.table.type === "Pie" ? (
+                                    <></>
+                                ) : (
+                                    <>
+                                        <h4>Rows</h4>
+                                        <input
+                                            className="w-fit max-w-[70px] border border-grey-light rounded ml-[5px]"
+                                            type="number"
+                                            value={section.table.data.length}
+                                            onChange={(event) => {
+                                                props.setSection(
+                                                    props.section.map(
+                                                        (sect: any, index: number) => {
+                                                            if (index === props.index) {
+                                                                if (
+                                                                    event.target.value >
+                                                                    section.table.data.length
+                                                                ) {
+                                                                    sect.table.data.push(
+                                                                        section.table.data[0].map(
+                                                                            () => {
+                                                                                return 0;
+                                                                            }
+                                                                        )
+                                                                    );
+                                                                    sect.table.headings.rows.push(
+                                                                        `Row ${sect.table.data.length}`
+                                                                    );
+                                                                } else {
+                                                                    if (
+                                                                        section.table.data.length !=
+                                                                        1
+                                                                    ) {
+                                                                        sect.table.data.splice(
+                                                                            sect.table.data.length -
+                                                                                1,
+                                                                            1
+                                                                        );
+                                                                        sect.table.headings.rows.splice(
+                                                                            sect.table.headings.rows
+                                                                                .length - 1,
+                                                                            1
+                                                                        );
+                                                                    }
+                                                                }
 
-                                                    return {
-                                                        type: sect.type,
-                                                        table: sect.table,
-                                                    };
-                                                }
-                                                return sect;
-                                            })
-                                        );
-                                    }}
-                                />
+                                                                return {
+                                                                    type: sect.type,
+                                                                    table: sect.table,
+                                                                };
+                                                            }
+                                                            return sect;
+                                                        }
+                                                    )
+                                                );
+                                            }}
+                                        />
+                                    </>
+                                )}
+
                                 <h4>Columns</h4>
                                 <input
                                     className="w-fit max-w-[70px] border border-grey-light rounded ml-[5px]"
@@ -612,65 +842,7 @@ export default function TableGraphEditor(props: any) {
                                     }}
                                 />
                             </div>
-                            <div className="overflow-x-auto mb-[15px]">
-                                <div className="mb-[8px]">
-                                    <h3>Axis headings</h3>
-                                    <div className="grid grid-cols-2 gap-[5px]">
-                                        <div className="grid grid-cols-[60px_1fr]">
-                                            <h4>X-Axis</h4>
-                                            <input
-                                                className="border border-grey-light rounded w-[100%]"
-                                                type="text"
-                                                value={section.table.headings.axis.x}
-                                                onChange={(event) => {
-                                                    props.setSection(
-                                                        props.section.map(
-                                                            (section: any, index: number) => {
-                                                                if (index === props.index) {
-                                                                    section.table.headings.axis.x =
-                                                                        event.target.value;
-                                                                    return {
-                                                                        type: section.type,
-                                                                        table: section.table,
-                                                                    };
-                                                                }
-                                                                return section;
-                                                            }
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-[60px_1fr]">
-                                            <h4>Y-Axis</h4>
-                                            <input
-                                                className="border border-grey-light rounded w-[100%]"
-                                                type="text"
-                                                value={section.table.headings.axis.y}
-                                                onChange={(event) => {
-                                                    props.setSection(
-                                                        props.section.map(
-                                                            (section: any, index: number) => {
-                                                                if (index === props.index) {
-                                                                    section.table.headings.axis.y =
-                                                                        event.target.value;
-                                                                    return {
-                                                                        type: section.type,
-                                                                        table: section.table,
-                                                                    };
-                                                                }
-                                                                return section;
-                                                            }
-                                                        )
-                                                    );
-                                                }}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3>Data</h3>
-                                {renderTable(section)}
-                            </div>
+                            <div className="overflow-x-auto mb-[15px]">{renderTable(section)}</div>
                         </>
                     );
                 }

@@ -15,6 +15,9 @@ import {
     Scatter,
     ReferenceLine,
     ReferenceDot,
+    PieChart,
+    Pie,
+    Cell,
 } from "recharts";
 
 export default function TableGraphPreview(props: any) {
@@ -366,6 +369,72 @@ export default function TableGraphPreview(props: any) {
                                     );
                                 })}
                             </AreaChart>
+                        </ResponsiveContainer>
+                    );
+                    break;
+                case "Pie":
+                    table = (
+                        <div className="max-w-[800px] w-fit m-auto">
+                            <div className="flex mb-[5px]">
+                                {section.table.headings.cols.map((colHeading: any) => {
+                                    return (
+                                        <input
+                                            type="text"
+                                            className="border border-grey-light rounded w-[75px] cursor-default"
+                                            value={colHeading}
+                                            readOnly
+                                        />
+                                    );
+                                })}
+                            </div>
+                            {section.table.data.map((row: any, index: number) => {
+                                return (
+                                    <div className="flex">
+                                        {row.map((col: number, index: number) => {
+                                            return (
+                                                <input
+                                                    type="text"
+                                                    className="border border-grey-light rounded w-[75px] cursor-default"
+                                                    value={col}
+                                                    readOnly
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                    graphData = section.table.data[0].map((col: any, index: number) => {
+                        return {
+                            name: section.table.headings.cols[index],
+                            value: parseInt(col),
+                        };
+                    });
+                    console.log(graphData);
+
+                    graph = (
+                        <ResponsiveContainer
+                            width="100%"
+                            height={350}>
+                            <PieChart height={350}>
+                                <Pie
+                                    data={graphData}
+                                    dataKey="value"
+                                    nameKey="name"
+                                    cx="50%"
+                                    cy="50%"
+                                    outerRadius={100}
+                                    fill={section.table.colors[0]}
+                                    label>
+                                    {graphData.map((col: any, index: number) => (
+                                        <Cell
+                                            key={`cell-${index}`}
+                                            fill={section.table.colors[index]}
+                                        />
+                                    ))}
+                                </Pie>
+                            </PieChart>
                         </ResponsiveContainer>
                     );
                     break;
