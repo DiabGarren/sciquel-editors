@@ -243,18 +243,7 @@ main.article>div:last-child {
         padding: 0 5px 0 5px;
     }
 
-    Button {
-        border: 2px solid var(--sciquel-primary);
-        background: var(--sciquel-primary);
-        color: white;
-    }
-
-    Button:hover,
-    .button {
-        color: var(--sciquel-primary);
-        background: #fff;
-    }
-
+    Button,
     .button {
         color: white;
         background-color: var(--sciquel-primary);
@@ -264,9 +253,10 @@ main.article>div:last-child {
         padding: 5px 12px;
     }
 
+    Button:hover,
     .button:hover {
         color: var(--sciquel-primary);
-        background-color: white;
+        background: #fff;
     }
 
     input {
