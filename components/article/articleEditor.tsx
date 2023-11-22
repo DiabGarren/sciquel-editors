@@ -5,6 +5,7 @@ import HeadingContainerEditor from "../heading/editor/headingContainer";
 import SectionContainerEditor from "../section_container/editor/sectionContainer";
 import TopSection from "../top_section/topSection";
 import TriviaContainerEditor from "../trivia/editor/triviaContainer";
+import DictionaryContainerEditor from "../section_container/dictionary_container/editor/dictionaryContainer";
 
 export default function ArticleEditor(props: any) {
     const headingProps = {
@@ -59,10 +60,16 @@ export default function ArticleEditor(props: any) {
         setSection: props.setSection,
     };
 
+    const dictionaryProps = {
+        dictionary: props.dictionary,
+        setDictionary: props.setDictionary,
+    };
+
     const acknowldgeProps = {
         contributors: props.contributors,
         setContributors: props.setContributors,
     };
+
     return (
         <div className="p-[15px] pb-[50px]">
             <div className="mb-[30px]">
@@ -82,6 +89,9 @@ export default function ArticleEditor(props: any) {
             </div>
             <div className="mb-[30px]">
                 <SectionContainerEditor {...sectionContainerProps} />
+            </div>
+            <div className="mb-[30px]">
+                <DictionaryContainerEditor {...dictionaryProps} />
             </div>
             <div className="mb-[30px]">
                 <AcknowledgementsEditor {...acknowldgeProps} />

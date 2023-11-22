@@ -55,6 +55,7 @@ const config: Config = {
 				light: {
 					DEFAULT: '#16c4c4',
 					1: '#4eeded',
+					2: '#e0edf7'
 				},
 			}
 		},

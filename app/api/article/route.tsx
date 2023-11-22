@@ -51,6 +51,7 @@ export async function POST(request: Request) {
             contributors: body.contributors,
             trivia: body.trivia,
             section: body.section,
+            dictionary: body.dictionary,
         });
 
         let json_response = {

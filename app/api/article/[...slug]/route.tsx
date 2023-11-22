@@ -47,6 +47,7 @@ export async function PUT(request: Request, { params }: { params: { slug: string
                 contributors: body.contributors,
                 trivia: body.trivia,
                 section: body.section,
+                dictionary: body.dictionary,
             }
         );
 

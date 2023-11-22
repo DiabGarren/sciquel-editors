@@ -85,18 +85,14 @@ export default function NewPage() {
         },
     ]);
 
-    const [manual, setManual] = useState(false);
-    const [rows, setRows] = useState(3);
-    const [cols, setCols] = useState(2);
-    let [cell, setCell] = useState([]);
-    const [graphType, setGraphType] = useState("bar");
-
     const [trivia, setTrivia] = useState([
         { name: "pre", questions: [] },
         { name: "post", questions: [] },
     ]);
 
     const [section, setSection] = useState([]);
+
+    const [dictionary, setDictionary] = useState([]);
 
     const createArticle = () => {
         try {
@@ -117,6 +113,7 @@ export default function NewPage() {
                     contributors: contributors,
                     trivia: trivia,
                     section: section,
+                    dictionary: dictionary,
                 }),
             })
                 .then((response) => response.json())
@@ -163,6 +160,8 @@ export default function NewPage() {
         setTrivia,
         section,
         setSection,
+        dictionary,
+        setDictionary,
     };
 
     return (

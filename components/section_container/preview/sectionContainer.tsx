@@ -10,6 +10,7 @@ export default function SectionContainerPreview(props: any) {
                 const containerProps = {
                     section: props.section,
                     setSection: props.setSection,
+                    dictionary: props.dictionary,
                     index: index,
                 };
                 switch (section.type) {

@@ -40,15 +40,11 @@ export default function Page({ params }: { params: { slug: string[] } }) {
 
     const [contributors, setContributors] = useState([]);
 
-    const [manual, setManual] = useState(false);
-    const [rows, setRows] = useState(3);
-    const [cols, setCols] = useState(2);
-    let [cell, setCell] = useState([]);
-    const [graphType, setGraphType] = useState("bar");
-
     const [trivia, setTrivia] = useState([]);
 
     const [section, setSection] = useState([]);
+
+    const [dictionary, setDictionary] = useState([]);
 
     if (
         (heading && heading === "") ||
@@ -111,6 +107,9 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                 // if (section.length === 0 && section !== data.data.section) {
                 //     setSection(data.data.section);
                 // }
+                // if (dictionary.length === 0 && dictionary !== data.data.dictionary) {
+                //     setDictionary(data.data.dictionary);
+                // }
             });
     }
     const updateArticle = () => {
@@ -131,6 +130,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                     subjects: subjects,
                     contributors: contributors,
                     trivia: trivia,
+                    section: section,
+                    dictionary: dictionary,
                 }),
             })
                 .then((response) => response.json())
@@ -177,6 +178,8 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         setTrivia,
         section,
         setSection,
+        dictionary,
+        setDictionary,
     };
 
     return (

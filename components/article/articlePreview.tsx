@@ -57,6 +57,7 @@ export default function ArticlePreview(props: any) {
     const sectionContainerProps = {
         section: props.section,
         setSection: props.setSection,
+        dictionary: props.dictionary,
     };
 
     const acknowldgeProps = {
