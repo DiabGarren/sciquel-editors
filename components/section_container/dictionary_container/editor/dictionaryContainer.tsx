@@ -3,14 +3,14 @@ import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Select, SelectItem } from "@nextui-org/react";
 
 const partsOfSpeech = [
-    { name: "noun" },
-    { name: "adjective" },
-    { name: "verb" },
-    { name: "adverb" },
-    { name: "pronoun" },
-    { name: "preposition" },
-    { name: "conjunction" },
-    { name: "interjection" },
+    { name: "noun", abbr: "n." },
+    { name: "adjective", abbr: "adj." },
+    { name: "verb", abbr: "v." },
+    { name: "adverb", abbr: "adv." },
+    { name: "pronoun", abbr: "pron." },
+    { name: "preposition", abbr: "prep." },
+    { name: "conjunction", abbr: "conj." },
+    { name: "interjection", abbr: "interj." },
 ];
 export default function DictionaryContainerEditor(props: any) {
     return (
@@ -41,11 +41,25 @@ export default function DictionaryContainerEditor(props: any) {
                             className="col-[2] row-[1/3]"
                             color="primary"
                             label="Part of speech"
-                            selectedKeys={[def.partOfSpeech]}>
+                            selectedKeys={[def.partOfSpeech.name]}
+                            onChange={(event: any) => {
+                                props.setDictionary(
+                                    props.dictionary.map((def: any, defIndex: number) => {
+                                        if (defIndex === index) {
+                                            const pos = partsOfSpeech.findIndex(
+                                                (i) => i.name === event.target.value
+                                            );
+                                            def.partOfSpeech.name = partsOfSpeech[pos].name;
+                                            def.partOfSpeech.abbr = partsOfSpeech[pos].abbr;
+                                        }
+                                        return def;
+                                    })
+                                );
+                            }}>
                             {partsOfSpeech.map((part) => (
                                 <SelectItem
                                     key={part.name}
-                                    value={part.name}>
+                                    value={part.abbr}>
                                     {part.name}
                                 </SelectItem>
                             ))}
@@ -61,10 +75,35 @@ export default function DictionaryContainerEditor(props: any) {
                             }}
                         />
                         <h4>Definition</h4>
-                        <textarea
-                            className="col-[1/4] border border-grey-light rounded min-h-[100px] h-[100px]"
-                            cols={30}
-                            rows={10}></textarea>
+                        <input
+                            className="col-[1/4] border border-grey-light rounded"
+                            value={def.definition}
+                            onChange={(event) => {
+                                props.setDictionary(
+                                    props.dictionary.map((def: any, defIndex: number) => {
+                                        if (defIndex === index) {
+                                            def.definition = event.target.value;
+                                        }
+                                        return def;
+                                    })
+                                );
+                            }}
+                        />
+                        <h4>Example</h4>
+                        <input
+                            className="col-[1/4] border border-grey-light rounded"
+                            value={def.example}
+                            onChange={(event) => {
+                                props.setDictionary(
+                                    props.dictionary.map((def: any, defIndex: number) => {
+                                        if (defIndex === index) {
+                                            def.example = event.target.value;
+                                        }
+                                        return def;
+                                    })
+                                );
+                            }}
+                        />
                     </div>
                 );
             })}
@@ -77,8 +116,9 @@ export default function DictionaryContainerEditor(props: any) {
                             ...props.dictionary,
                             {
                                 word: "",
-                                partOfSpeech: "noun",
+                                partOfSpeech: { name: "noun", abbr: "n." },
                                 definition: "",
+                                example: "",
                             },
                         ]);
                     }}>
