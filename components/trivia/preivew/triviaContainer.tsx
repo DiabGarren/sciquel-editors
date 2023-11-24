@@ -758,7 +758,7 @@ export default function TriviaContainerPreview(props: any) {
                             content = "";
                     }
                     return (
-                        <div className="border border-grey-light-1 rounded-md p-[12px]">
+                        <div className="border border-grey-light-1 rounded-md p-[7px]">
                             <h3 className="text-center">Question {questionIndex + 1}</h3>
                             {content}
                         </div>
@@ -767,7 +767,7 @@ export default function TriviaContainerPreview(props: any) {
 
                 return (
                     <div className="border border-grey-light-1 rounded-lr p-[7px]">
-                        <div className="border border-grey-light-1 rounded-md p-[12px] mb-[5px]">
+                        <div className="border border-grey-light-1 rounded-md p-[15px] mb-[10px]">
                             <h3>
                                 {trivia.name[0].toUpperCase()}
                                 {trivia.name.substring(1)}-read Trivia

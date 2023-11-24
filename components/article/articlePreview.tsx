@@ -1,6 +1,7 @@
 import AcknowledgementsPreview from "../acknowledgements/preview/acknowledgements";
 import CoverImagePreview from "../cover_image/preview/coverImage";
 import GeneralByline from "../general_byline/generalByline";
+import DictionaryContainerPreview from "../section_container/dictionary_container/preview/dictionaryContainer";
 import SectionContainerPreview from "../section_container/preview/sectionContainer";
 import TriviaContainerPreview from "../trivia/preivew/triviaContainer";
 
@@ -60,6 +61,11 @@ export default function ArticlePreview(props: any) {
         dictionary: props.dictionary,
     };
 
+    const dictionaryProps = {
+        dictionary: props.dictionary,
+        setDictionary: props.setDictionary,
+    };
+
     const acknowldgeProps = {
         contributors: props.contributors,
         setContributors: props.setContributors,
@@ -88,6 +94,9 @@ export default function ArticlePreview(props: any) {
             <div className="preview">
                 <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                 <AcknowledgementsPreview {...acknowldgeProps} />
+            </div>
+            <div className="preview">
+                <DictionaryContainerPreview {...dictionaryProps} />
             </div>
         </div>
     );
