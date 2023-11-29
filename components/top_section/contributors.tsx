@@ -3,14 +3,12 @@
 "use client";
 
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import { useState } from "react";
 import Popup from "reactjs-popup";
 
 export default function Contributors(props: any) {
-    console.log(props.contributors);
-
     const [selectedTypes, setSelectedTypes] = useState(new Set(["text"]));
     const selections = props.contributors.map(() => {
         const [selectedCons, setSelectedCons] = useState(new Set(["text"]));
