@@ -3,6 +3,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@
 import Contributors from "./contributors";
 import Tags from "./tags";
 import { Dispatch, SetStateAction } from "react";
+import Popup from "reactjs-popup";
 
 export default function TopSection(props: any) {
     const tagsProps = {
@@ -39,29 +40,43 @@ export default function TopSection(props: any) {
                 className="grid w-[250px] mr-[20px] mb-[10px]"
                 style={{ gridTemplateColumns: "125px 125px" }}>
                 <h3 className="inline">{title}</h3>
-                <Dropdown>
-                    <DropdownTrigger>
-                        <Button
-                            variant="solid"
-                            color="primary">
-                            {typeProp}
-                        </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu
-                        aria-label="Dymanic Actions"
-                        items={allTypesArray}
-                        variant="solid"
-                        color="primary">
-                        {(item: any) => (
-                            <DropdownItem
-                                key={item.key}
-                                className={"px-[5px] hover:bg-blue hover:text-white"}
-                                onClick={() => setTypeProp(item.name)}>
-                                {item.name}
-                            </DropdownItem>
-                        )}
-                    </DropdownMenu>
-                </Dropdown>
+                <Popup
+                    trigger={<Button color="primary">{typeProp}</Button>}
+                    position={"bottom center"}>
+                    <div className="popup">
+                        {allTypesArray.map((type: any, index: number) => {
+                            return (
+                                <div
+                                    className="grid grid-cols-[1fr_15px] p-[4px] cursor-pointer rounded items-center hover:bg-grey-light-1"
+                                    onClick={(event) => {
+                                        setTypeProp(type.name);
+                                    }}>
+                                    <input
+                                        type="checkbox"
+                                        className="switch"
+                                        checked={type.name === typeProp}
+                                    />
+                                    <p className="inline pl-[4px]">{type.name}</p>
+                                    <svg
+                                        className="check ml-[8px] justify-self-end"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="12"
+                                        height="8"
+                                        viewBox="0 0 11 7"
+                                        fill="none">
+                                        <path
+                                            d="M1 3.5L4 6.5L10 0.5"
+                                            stroke="#0a5757"
+                                            strokeWidth="1"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </Popup>
             </div>
         );
     };
@@ -74,7 +89,7 @@ export default function TopSection(props: any) {
                     <span className="text-red text-[15px]">*only letters and numbers</span>
                 </h3>
                 <input
-                    className="border border-grey-light rounded px-[5px] w-[250px]"
+                    className="border border-grey-light rounded px-[5px] w-[100%]"
                     placeholder="certain-key-words"
                     value={props.keywords}
                     onChange={(event) =>
@@ -93,7 +108,7 @@ export default function TopSection(props: any) {
             <div className="mb-[30px]">
                 <h3>Publish Date</h3>
                 <input
-                    className="border border-grey-light rounded px-[5px] w-[250px]"
+                    className="border border-grey-light rounded px-[5px] w-[100%]"
                     type="date"
                     value={props.date.replaceAll("/", "-")}
                     onChange={(event) => props.setDate(event.target.value.replaceAll("-", "/"))}

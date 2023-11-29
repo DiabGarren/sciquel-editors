@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-key */
-"use client";
 
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { ChromePicker } from "react-color";
+import Popup from "reactjs-popup";
 
 interface Tag {
     name: string;
@@ -13,17 +13,10 @@ interface Tag {
 }
 
 export default function Tags(props: any) {
-    const [selectedTopics, setSelectedTopics] = useState(new Set<string>());
-
-    const [selectedSubtopics, setSelectedSubtopics] = useState(new Set<string>());
-    const [selectedSubjects, setSelectedSubjects] = useState(new Set<string>());
-
     const displayTagHolder = (
         title: string,
         tagArray: never[] | Tag[],
-        setTagArray: Dispatch<SetStateAction<never[]>> | any,
-        selectedArray: Set<string>,
-        setSelectedArray: Dispatch<SetStateAction<Set<string>>> | any
+        setTagArray: Dispatch<SetStateAction<never[]>> | any
     ) => {
         return (
             <div className="mb-[15px]">
@@ -31,46 +24,54 @@ export default function Tags(props: any) {
                     className="grid w-[150px] items-center"
                     style={{ gridTemplateColumns: "125px 1fr" }}>
                     <h3 className="inline-block">{title}</h3>
-                    <Dropdown>
-                        <DropdownTrigger>
-                            <Button
-                                variant="solid"
-                                color="primary">
-                                +
-                            </Button>
-                        </DropdownTrigger>
-                        <DropdownMenu
-                            aria-label="Dymanic Actions"
-                            variant="solid"
-                            color="primary"
-                            closeOnSelect={false}
-                            selectionMode="multiple"
-                            selectedKeys={selectedArray}
-                            onSelectionChange={setSelectedArray}
-                            items={tagArray}>
-                            {(item: Tag | any) => (
-                                <DropdownItem
-                                    key={item.name}
-                                    onClick={() => {
-                                        setTagArray(
-                                            tagArray.map((tag: any) => {
-                                                if (tag.name === item.name) {
-                                                    if (tag.checked) tag.checked = false;
-                                                    else tag.checked = true;
-                                                }
-                                                return tag;
-                                            })
-                                        );
-                                    }}>
-                                    {item.name}
-                                </DropdownItem>
-                            )}
-                        </DropdownMenu>
-                    </Dropdown>
+                    <Popup
+                        trigger={<Button color="primary">+</Button>}
+                        position={"bottom center"}>
+                        <div className="popup">
+                            {tagArray.map((tag: any, index: number) => {
+                                return (
+                                    <div
+                                        className="grid grid-cols-[1fr_15px] p-[4px] cursor-pointer rounded items-center hover:bg-grey-light-1"
+                                        onClick={(event) => {
+                                            setTagArray(
+                                                tagArray.map((tag: any, tagIndex: number) => {
+                                                    if (tagIndex === index) {
+                                                        if (tag.checked) {
+                                                            tag.checked = false;
+                                                        } else tag.checked = true;
+                                                    }
+                                                    return tag;
+                                                })
+                                            );
+                                        }}>
+                                        <input
+                                            type="checkbox"
+                                            className="switch"
+                                            checked={tag.checked}
+                                        />
+                                        <p className="inline pl-[4px]">{tag.name}</p>
+                                        <svg
+                                            className="check ml-[8px] justify-self-end"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="12"
+                                            height="8"
+                                            viewBox="0 0 11 7"
+                                            fill="none">
+                                            <path
+                                                d="M1 3.5L4 6.5L10 0.5"
+                                                stroke="#0a5757"
+                                                strokeWidth="1"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Popup>
                 </div>
-                <div className="tag-container my-[5px]">
-                    {displayTags(tagArray, setTagArray, selectedArray)}
-                </div>
+                <div className="tag-container my-[5px]">{displayTags(tagArray, setTagArray)}</div>
             </div>
         );
     };
@@ -136,7 +137,7 @@ export default function Tags(props: any) {
         );
     };
 
-    const displayTags = (tagArray: any[], setTagArray: any, selectedArray: Set<string>) => {
+    const displayTags = (tagArray: any[], setTagArray: any) => {
         let tags = tagArray.map((tag: any, index: number) => {
             if (tag.checked) {
                 return (
@@ -152,7 +153,6 @@ export default function Tags(props: any) {
                                     tagArray.map((t: Tag, i: number) => {
                                         if (i === index) {
                                             t.checked = false;
-                                            selectedArray.delete(t.name);
                                             return t;
                                         } else return t;
                                     })
@@ -167,27 +167,9 @@ export default function Tags(props: any) {
     };
     return (
         <div className="mb-[30px]">
-            {displayTagHolder(
-                "Topics",
-                props.topics,
-                props.setTopics,
-                selectedTopics,
-                setSelectedTopics
-            )}
-            {displayTagHolder(
-                "Subtopics",
-                props.subtopics,
-                props.setSubtopics,
-                selectedSubtopics,
-                setSelectedSubtopics
-            )}
-            {displayTagHolder(
-                "Subjects",
-                props.subjects,
-                props.setSubjects,
-                selectedSubjects,
-                setSelectedSubjects
-            )}
+            {displayTagHolder("Topics", props.topics, props.setTopics)}
+            {displayTagHolder("Subtopics", props.subtopics, props.setSubtopics)}
+            {displayTagHolder("Subjects", props.subjects, props.setSubjects)}
         </div>
     );
 }
