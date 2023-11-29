@@ -65,6 +65,14 @@ const config: Config = {
 			lr: '15px',
 			md: '10px'
 		},
+		screens: {
+			'xsm': '375px',
+			'sm': '425px',
+			'md': '768px',
+			'lr': '1024px',
+			'xl': '1440px',
+			'2xl': '2560px'
+		}
 	},
 	plugins: [nextui({
 		layout: {
