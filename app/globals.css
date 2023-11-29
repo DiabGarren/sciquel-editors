@@ -419,21 +419,35 @@ main.article>div:last-child {
         background-color: var(--teal-light-2);
     }
 
-    .popup::-webkit-scrollbar {
+    .popup::-webkit-scrollbar,
+    .trivia-questions::-webkit-scrollbar {
         width: 5px;
     }
 
-    .popup::-webkit-scrollbar-track {
+    .popup::-webkit-scrollbar-track,
+    .trivia-questions::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 0 5px 5px 0;
     }
 
-    .popup::-webkit-scrollbar-thumb {
+    .popup::-webkit-scrollbar-thumb,
+    .trivia-questions::-webkit-scrollbar-thumb {
         background: var(--sciquel-primary);
         border-radius: 2px;
     }
 
-    .popup::-webkit-scrollbar-thumb:hover {
+    .popup::-webkit-scrollbar-thumb:hover,
+    .trivia-questions::-webkit-scrollbar-thumb:hover {
         background: #16c4c4;
+    }
+
+    .trivia-questions>div {
+        border-bottom-width: 1px;
+        border-color: var(--grey-light-1);
+        padding: 10px;
+    }
+
+    .trivia-questions>div:last-of-type {
+        border-bottom-width: 0;
     }
 }
