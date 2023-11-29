@@ -395,6 +395,16 @@ main.article>div:last-child {
         box-shadow: 0 0 5px #6f6f6f;
     }
 
+    .popup-select {
+        padding: 8px;
+        border-radius: 10px;
+        border: 2px solid var(--teal);
+    }
+
+    .popup-select:hover {
+        background-color: var(--teal-light-2);
+    }
+
     .popup-item {
         padding: 4px;
         cursor: pointer;
