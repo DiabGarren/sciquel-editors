@@ -61,9 +61,10 @@ const config: Config = {
 		},
 		borderRadius: {
 			DEFAULT: '5px',
-			tag: '12px',
-			md: '10px',
-			lr: '15px',
+			'md': '10px',
+			'box': '10px',
+			'tag': '12px',
+			'lr': '15px',
 		},
 		screens: {
 			'xsm': '375px',

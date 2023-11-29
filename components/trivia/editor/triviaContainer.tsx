@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import { TrashIcon } from "@heroicons/react/20/solid";
 import { Button, Radio, RadioGroup, Select, SelectItem } from "@nextui-org/react";
+import Popup from "reactjs-popup";
 
 const questionTypes = [
     { name: "True/False" },
@@ -13,7 +14,7 @@ export default function TriviaContainerEditor(props: any) {
     const questionContainer = (question: any, index: number) => {
         return (
             <div>
-                <Select
+                {/* <Select
                     color="primary"
                     label="Question Type"
                     placeholder="Select a question type"
@@ -87,7 +88,16 @@ export default function TriviaContainerEditor(props: any) {
                             {quest.name}
                         </SelectItem>
                     ))}
-                </Select>
+                </Select> */}
+                <Popup
+                    trigger={
+                        <div className="cursor-pointer">
+                            <p>Question Type</p>
+                            <p>{question.type}</p>
+                        </div>
+                    }>
+                    <div></div>
+                </Popup>
             </div>
         );
     };
@@ -98,9 +108,9 @@ export default function TriviaContainerEditor(props: any) {
             case "True/False":
                 content = question.content.map((content: any, index: number) => {
                     return (
-                        <div className="grid grid-cols-[2fr_1fr_25px] border border-grey-light-1 p-[10px] rounded-md">
+                        <div className="grid grid-cols-[1fr_25px] border border-grey-light-1 p-[10px] rounded-box">
                             <input
-                                className="border-grey-light border-b-2 pl-[3px] w-[90%]"
+                                className="col-[1] border-grey-light border-b-2 pl-[3px] w-[90%]"
                                 placeholder="True or false statement"
                                 value={content.statement}
                                 onChange={(event) => {
@@ -132,6 +142,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}
                             />
                             <RadioGroup
+                                className="col-[1] justify-self-center mt-[5px]"
                                 orientation="horizontal"
                                 value={content.value}
                                 onValueChange={(event) => {
@@ -164,7 +175,7 @@ export default function TriviaContainerEditor(props: any) {
                                 <Radio value="false">False</Radio>
                             </RadioGroup>
                             <TrashIcon
-                                className="trash-icon"
+                                className="trash-icon col-[2] row-[1/3] self-center"
                                 onClick={() => {
                                     props.setTrivia(
                                         props.trivia.map((trivia: any) => {
@@ -760,23 +771,132 @@ export default function TriviaContainerEditor(props: any) {
         if (triviaIndex === 0) {
             const questions = trivia.questions.map((question: any, index: number) => {
                 return (
-                    <div className="trivia-question grid border border-grey-light-1 rounded-md p-[7px] my-[7px] items-center">
-                        {questionContainer(question, index)}
-                        <h3 className="text-center">Question {index + 1}</h3>{" "}
-                        <TrashIcon
-                            className="trash-icon w-[30px] h-[27px] ml-auto"
-                            onClick={() =>
-                                props.setTrivia(
-                                    props.trivia.map((trivia: any) => {
-                                        trivia.questions.splice(index, 1);
-                                        return trivia;
-                                    })
-                                )
+                    <div className="border border-grey-light-1 rounded-box p-[7px] my-[7px]">
+                        <div className="flex p-[10px]">
+                            <h3 className="text-center">Question {index + 1}</h3>
+                            <TrashIcon
+                                className="trash-icon w-[30px] h-[27px] ml-auto"
+                                onClick={() =>
+                                    props.setTrivia(
+                                        props.trivia.map((trivia: any) => {
+                                            trivia.questions.splice(index, 1);
+                                            return trivia;
+                                        })
+                                    )
+                                }
+                            />
+                        </div>
+
+                        <Popup
+                            trigger={
+                                <div className="popup-select">
+                                    <p className="text-[16px]">Question Type</p>
+                                    <div className="flex">
+                                        <p className="text-teal">{question.type}</p>
+                                        <svg
+                                            className="text-teal ml-auto mr-[5px]"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="15"
+                                            height="9"
+                                            viewBox="0 0 14 8"
+                                            fill="none">
+                                            <path
+                                                d="M1 1L7 7L13 1"
+                                                stroke="#109191"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
                             }
-                        />
+                            position="bottom left">
+                            <div className="popup w-[262px] xsm:w-[317px] sm:mx-[11%] sm:w-[300px]">
+                                {questionTypes.map((type: any) => {
+                                    return (
+                                        <div
+                                            className="popup-item"
+                                            onClick={() => {
+                                                props.setTrivia(
+                                                    props.trivia.map((trivia: any) => {
+                                                        const questions = trivia.questions.map(
+                                                            (q: any, questionIndex: number) => {
+                                                                if (questionIndex === index) {
+                                                                    q.type = type.name;
+                                                                    switch (q.type) {
+                                                                        case "True/False":
+                                                                            q.content = [
+                                                                                {
+                                                                                    statement: "",
+                                                                                    value: "true",
+                                                                                    guess: "",
+                                                                                },
+                                                                            ];
+                                                                            break;
+                                                                        case "Multiple Choice":
+                                                                            q.content = [
+                                                                                {
+                                                                                    question: "",
+                                                                                    answers: [
+                                                                                        "",
+                                                                                        "",
+                                                                                        "",
+                                                                                        "",
+                                                                                    ],
+                                                                                    value: "",
+                                                                                    guess: "",
+                                                                                },
+                                                                            ];
+                                                                            break;
+                                                                        case "Single Matching":
+                                                                            q.content = [
+                                                                                {
+                                                                                    question: "",
+                                                                                    answer: "",
+                                                                                    guess: "",
+                                                                                    key: "item-1",
+                                                                                },
+                                                                            ];
+                                                                            break;
+                                                                        case "Multiple Matching":
+                                                                            q.content = [
+                                                                                {
+                                                                                    category: "",
+                                                                                    answers: [""],
+                                                                                    guesses: [
+                                                                                        {
+                                                                                            guess: "",
+                                                                                            key: "item-1-1",
+                                                                                        },
+                                                                                    ],
+                                                                                },
+                                                                            ];
+                                                                            break;
+                                                                        default:
+                                                                            q.content = [];
+                                                                            break;
+                                                                    }
+                                                                }
+                                                                return q;
+                                                            }
+                                                        );
+                                                        return {
+                                                            name: trivia.name,
+                                                            questions: questions,
+                                                        };
+                                                    })
+                                                );
+                                            }}>
+                                            {type.name}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </Popup>
                         {content(question, index)}
                         <Button
-                            className="col-[1/4] mx-auto mt-[7px]"
+                            className="block mx-auto mt-[7px]"
                             variant="solid"
                             color="primary"
                             onClick={() => {

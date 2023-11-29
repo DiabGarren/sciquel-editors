@@ -71,7 +71,7 @@ export default function ArticleEditor(props: any) {
     };
 
     return (
-        <div className="p-[15px] pb-[50px]">
+        <div className="p-[10px] pb-[50px]">
             <div className="mb-[30px]">
                 <CoverImageEditor {...imageProps} />
             </div>
