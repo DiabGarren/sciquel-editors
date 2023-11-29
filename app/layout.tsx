@@ -14,8 +14,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="en">
             <body className={inter.className}>
-                <header className="grid grid-cols-3 bg-teal px-[15px]">
-                    <div className="flex h-[100%] items-center">
+                <header className="grid md:grid-cols-3 bg-teal px-[15px]">
+                    <div className="hidden md:flex h-[100%] items-center">
                         <svg
                             className="h-[45%] mr-[25px]"
                             style={{ overflow: "visible" }}
@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                             />
                         </svg>
                         <input
-                            className="bg-[transparent] text-white h-[50%] text-[1.2em] border-b-2 placeholder:text-white"
+                            className="bg-[transparent] text-white h-[50%] text-[1.2em] border-b-2 w-[150px] lr:w-[260px] placeholder:text-white"
                             placeholder="Search"
                         />
                     </div>
