@@ -11,6 +11,11 @@
     --teal-light: #16c4c4;
     --grey-light: #898c8a;
     --grey-light-1: #dbdbdb;
+    --teal: #109191;
+    --teal-light: #16c4c4;
+    --teal-light-1: #4eeded;
+    --teal-light-2: #e0edf7;
+    --teal-dark: #0a5757;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -388,6 +393,20 @@ main.article>div:last-child {
         animation: anvil 0.2s linear;
         -webkit-animation: anvil 0.2s linear;
         box-shadow: 0 0 5px #6f6f6f;
+    }
+
+    .popup-item {
+        padding: 4px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .popup-item:hover {
+        background-color: var(--grey-light-1);
+    }
+
+    .popup-item:active {
+        background-color: var(--teal-light-2);
     }
 
     .popup::-webkit-scrollbar {

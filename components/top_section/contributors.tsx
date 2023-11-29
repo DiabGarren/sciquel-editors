@@ -63,7 +63,7 @@ export default function Contributors(props: any) {
                                     {props.allContributors.map((con: any, conIndex: number) => {
                                         return (
                                             <div
-                                                className="grid grid-cols-[1fr_15px] p-[4px] cursor-pointer rounded items-center hover:bg-grey-light-1"
+                                                className="popup-item grid grid-cols-[1fr_15px] items-center"
                                                 onClick={(event) => {
                                                     props.setContributors(
                                                         props.contributors.map(
@@ -174,7 +174,7 @@ export default function Contributors(props: any) {
                             {props.contributors.map((type: any, index: number) => {
                                 return (
                                     <div
-                                        className="grid grid-cols-[1fr_15px] p-[4px] cursor-pointer rounded items-center hover:bg-grey-light-1"
+                                        className="popup-item grid grid-cols-[1fr_15px] items-center"
                                         onClick={(event) => {
                                             props.setContributors(
                                                 props.contributors.map(

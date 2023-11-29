@@ -31,7 +31,7 @@ export default function Tags(props: any) {
                             {tagArray.map((tag: any, index: number) => {
                                 return (
                                     <div
-                                        className="grid grid-cols-[1fr_15px] p-[4px] cursor-pointer rounded items-center hover:bg-grey-light-1"
+                                        className="popup-item grid grid-cols-[1fr_15px] items-center"
                                         onClick={(event) => {
                                             setTagArray(
                                                 tagArray.map((tag: any, tagIndex: number) => {
