@@ -73,7 +73,7 @@ export default function ArticleEditor(props: any) {
     };
 
     return (
-        <div className="p-[10px] pb-[50px] md:col-[1] md:max-h-[calc(100vh-65px)] md:overflow-y-auto">
+        <div className="p-[10px] pb-[50px] lr:col-[1] lr:max-h-[calc(100vh-65px)] lr:overflow-y-auto">
             <a
                 href="/"
                 className="flex items-center gap-[2px] w-fit p-[2px_5px] hover:text-teal hover:underline [&_path]:hover:fill-white">
