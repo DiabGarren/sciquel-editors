@@ -46,7 +46,7 @@ export default function Article(props: any) {
     return (
         <main className="article grid">
             <ArticleEditor {...articleProps} />
-            <ArticlePreview {...articleProps} />
+            {/* <ArticlePreview {...articleProps} /> */}
         </main>
     );
 }
