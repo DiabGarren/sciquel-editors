@@ -7,11 +7,11 @@ import "react-quill/dist/quill.snow.css";
 
 export default function ImageContainerEditor(props: any) {
     return (
-        <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
-            <div className="flex">
+        <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px]">
+            <div className="flex p-[10px]">
                 <h3>Image</h3>
                 <TrashIcon
-                    className="trash-icon ml-[10px]"
+                    className="trash-icon ml-auto"
                     onClick={() => {
                         const sections: any[] = [];
                         props.section.forEach((section: any, index: number) => {
@@ -21,7 +21,7 @@ export default function ImageContainerEditor(props: any) {
                     }}
                 />
             </div>
-            <div className="flex space-x-3 mb-[7px]">
+            <div className="flex space-x-3 mb-[7px] justify-center">
                 <button
                     className={`p-[5px] rounded ${
                         props.section[props.index].pos === "left" ? "bg-white" : "bg-teal"
@@ -148,9 +148,9 @@ export default function ImageContainerEditor(props: any) {
                 switch (props.section[props.index].pos) {
                     case "left":
                         return (
-                            <div className="grid grid-cols-2 gap-[5px]">
-                                <div className="border border-grey-light-1 rounded p-[5px]">
-                                    <h4>Image</h4>
+                            <div className="md:grid md:grid-cols-2 md:gap-[7px]">
+                                <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px] md:mb-0">
+                                    <h4 className="text-[18px] w-[100%] p-[10px]">Image</h4>
                                     <UploadButton
                                         appearance={{
                                             button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
@@ -180,7 +180,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Alt text</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         placeholder="Image Alt Text"
                                         value={props.section[props.index].altText}
                                         onChange={(event) => {
@@ -196,7 +196,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Width</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         type="number"
                                         placeholder="300"
                                         value={props.section[props.index].width || ""}
@@ -213,7 +213,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Credit</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%]"
                                         placeholder="Image Credit"
                                         value={props.section[props.index].credit}
                                         onChange={(event) => {
@@ -228,10 +228,10 @@ export default function ImageContainerEditor(props: any) {
                                         }}
                                     />
                                 </div>
-                                <div className="border border-grey-light-1 rounded p-[5px]">
-                                    <h4>Caption</h4>
+                                <div className="border border-grey-light-1 rounded-box p-[7px]">
+                                    <h4 className="text-[18px] w-[100%] p-[10px]">Caption</h4>
                                     <ReactQuill
-                                        className="text-editor image-text-editor w-[100%]"
+                                        className="text-editor image-text-editor mb-[2px]"
                                         theme="snow"
                                         value={props.section[props.index].caption}
                                         onChange={(event) => {
@@ -279,7 +279,7 @@ export default function ImageContainerEditor(props: any) {
                         );
                     case "center":
                         return (
-                            <div className="border border-grey-light-1 rounded p-[7px]">
+                            <div className="border border-grey-light-1 rounded-box p-[7px]">
                                 <UploadButton
                                     appearance={{
                                         button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
@@ -307,7 +307,7 @@ export default function ImageContainerEditor(props: any) {
                                 />
                                 <h4>Alt text</h4>
                                 <input
-                                    className="border border-grey-light rounded w-[100%]"
+                                    className="border border-grey-light rounded w-[100%] mb-[2px]"
                                     placeholder="Image Alt Text"
                                     value={props.section[props.index].altText}
                                     onChange={(event) => {
@@ -323,7 +323,7 @@ export default function ImageContainerEditor(props: any) {
                                 />
                                 <h4>Caption</h4>
                                 <ReactQuill
-                                    className="text-editor w-[100%]"
+                                    className="text-editor mb-[2px]"
                                     theme="snow"
                                     value={props.section[props.index].caption}
                                     onChange={(event) => {
@@ -367,11 +367,11 @@ export default function ImageContainerEditor(props: any) {
                         );
                     case "right":
                         return (
-                            <div className="grid grid-cols-2 gap-[5px]">
-                                <div className="border border-grey-light-1 rounded p-[5px]">
-                                    <h4>Caption</h4>
+                            <div className="md:grid md:grid-cols-2 md:gap-[7px]">
+                                <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px] md:mb-0">
+                                    <h4 className="text-[18px] w-[100%] p-[10px]">Caption</h4>
                                     <ReactQuill
-                                        className="text-editor image-text-editor w-[100%]"
+                                        className="text-editor image-text-editor mb-[2px]"
                                         theme="snow"
                                         value={props.section[props.index].caption}
                                         onChange={(event) => {
@@ -415,8 +415,8 @@ export default function ImageContainerEditor(props: any) {
                                         <Radio value={"false"}>False</Radio>
                                     </RadioGroup>
                                 </div>
-                                <div className="border border-grey-light-1 rounded p-[5px]">
-                                    <h4>Image</h4>
+                                <div className="border border-grey-light-1 rounded-box p-[7px]">
+                                    <h4 className="text-[18px] w-[100%] p-[10px]">Image</h4>
                                     <UploadButton
                                         appearance={{
                                             button: "border-2 border-teal bg-teal rounded-[10px] hover:bg-white hover:text-teal",
@@ -446,7 +446,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Alt text</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         placeholder="Image Alt Text"
                                         value={props.section[props.index].altText}
                                         onChange={(event) => {
@@ -462,7 +462,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Width</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         type="number"
                                         placeholder="300"
                                         value={props.section[props.index].width || ""}
@@ -479,7 +479,7 @@ export default function ImageContainerEditor(props: any) {
                                     />
                                     <h4>Credit</h4>
                                     <input
-                                        className="border border-grey-light rounded"
+                                        className="border border-grey-light rounded w-[100%]"
                                         placeholder="Image Credit"
                                         value={props.section[props.index].credit}
                                         onChange={(event) => {
