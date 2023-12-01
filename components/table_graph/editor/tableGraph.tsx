@@ -65,7 +65,7 @@ export default function TableGraphEditor(props: any) {
                             </div>
                         </div>
                         <h3>Data</h3>
-                        <div className="border border-grey-light-1 rounded-box p-[2px] mx-auto max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box p-[2px] mx-auto w-[100%] max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
                             <div className="flex mb-[2px]">
                                 <div className="w-[75px] min-w-[75px] mr-[5px]"></div>
                                 {section.table.headings.cols.map(
@@ -390,7 +390,7 @@ export default function TableGraphEditor(props: any) {
                 return (
                     <>
                         <h3>Data</h3>
-                        <div className="border border-grey-light-1 rounded-box p-[2px] mx-auto max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box p-[2px] mx-auto max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
                             <div className="flex mb-[2px]">
                                 {section.table.headings.cols.map(
                                     (heading: string, colIndex: number) => {
