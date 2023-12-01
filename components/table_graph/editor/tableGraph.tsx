@@ -13,7 +13,7 @@ export default function TableGraphEditor(props: any) {
             case "Area":
                 return (
                     <>
-                        <div className="mb-[8px]">
+                        <div className="mb-[7px]">
                             <h3>Axis headings</h3>
                             <div className="grid grid-cols-2 gap-[5px]">
                                 <div className="grid grid-cols-[60px_1fr]">
@@ -65,9 +65,9 @@ export default function TableGraphEditor(props: any) {
                             </div>
                         </div>
                         <h3>Data</h3>
-                        <div className="border border-grey-light-1 rounded mb-[15px]">
+                        <div className="border border-grey-light-1 rounded-box p-[2px] mx-auto max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
                             <div className="flex mb-[2px]">
-                                <div className="w-[75px] mr-[5px]"></div>
+                                <div className="w-[75px] min-w-[75px] mr-[5px]"></div>
                                 {section.table.headings.cols.map(
                                     (heading: string, colIndex: number) => {
                                         return (
@@ -116,13 +116,13 @@ export default function TableGraphEditor(props: any) {
                                 )}
                             </div>
                             <div className="flex mb-[5px]">
-                                <div className="w-[75px] mr-[5px]"></div>
+                                <div className="w-[75px] min-w-[75px] mr-[5px]"></div>
                                 {section.table.colors.map((color: string, colorIndex: number) => {
                                     return (
                                         <Popup
                                             trigger={
                                                 <button
-                                                    className="rounded w-[75px] h-[26px] border-none"
+                                                    className="rounded w-[75px] min-w-[75px] h-[26px] border-none"
                                                     style={{
                                                         backgroundColor: color,
                                                     }}></button>
@@ -390,7 +390,7 @@ export default function TableGraphEditor(props: any) {
                 return (
                     <>
                         <h3>Data</h3>
-                        <div className="border border-grey-light-1 rounded mb-[15px]">
+                        <div className="border border-grey-light-1 rounded-box p-[2px] mx-auto max-w-[268px] xsm:max-w-[323px] sm:max-w-[373px] md:max-w-none overflow-x-auto">
                             <div className="flex mb-[2px]">
                                 {section.table.headings.cols.map(
                                     (heading: string, colIndex: number) => {
@@ -445,7 +445,7 @@ export default function TableGraphEditor(props: any) {
                                         <Popup
                                             trigger={
                                                 <button
-                                                    className="rounded w-[75px] h-[26px] border-none"
+                                                    className="rounded w-[75px] min-w-[75px] h-[26px] border-none"
                                                     style={{
                                                         backgroundColor: color,
                                                     }}></button>
@@ -533,7 +533,7 @@ export default function TableGraphEditor(props: any) {
     };
 
     return (
-        <div className="border border-grey-light-1 rounded p-[10px]">
+        <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px]">
             {props.section.map((section: any, index: number) => {
                 if (index === props.index) {
                     return (
@@ -551,138 +551,223 @@ export default function TableGraphEditor(props: any) {
                                     }}
                                 />
                             </div>
-                            <Select
-                                className="w-[150px] mb-[15px]"
-                                color="primary"
-                                label="Graph Type"
-                                placeholder="Select a graph type"
-                                selectedKeys={[section.table.type]}
-                                onChange={(event) => {
-                                    props.setSection(
-                                        props.section.map((section: any, index: number) => {
-                                            if (index === props.index) {
-                                                switch (event.target.value) {
-                                                    case "Bar":
-                                                        if (
-                                                            section.table.type !== "Line" &&
-                                                            section.table.type !== "Area"
-                                                        ) {
-                                                            section.table.headings = {
-                                                                axis: { x: "X", y: "Y" },
-                                                                rows: ["Row 1", "Row 2", "Row 3"],
-                                                                cols: ["Col 1", "Col 2"],
-                                                            };
-                                                            section.table.colors = [
-                                                                "#109191",
-                                                                "#57adde",
-                                                            ];
-                                                            section.table.data = [
-                                                                [0, 0],
-                                                                [0, 0],
-                                                                [0, 0],
-                                                            ];
-                                                            section.table.references = [
-                                                                {
-                                                                    label: "Ref 1",
-                                                                    y: 0,
-                                                                    x: null,
-                                                                    color: "#109191",
-                                                                },
-                                                            ];
-                                                        }
-                                                        break;
-                                                    case "Line":
-                                                        if (
-                                                            section.table.type !== "Bar" &&
-                                                            section.table.type !== "Area"
-                                                        ) {
-                                                            section.table.headings = {
-                                                                axis: { x: "X", y: "Y" },
-                                                                rows: ["Row 1", "Row 2", "Row 3"],
-                                                                cols: ["Line 1", "Line 2"],
-                                                            };
-                                                            section.table.colors = [
-                                                                "#109191",
-                                                                "#57adde",
-                                                            ];
-                                                            section.table.data = [
-                                                                [0, 0],
-                                                                [0, 0],
-                                                                [0, 0],
-                                                            ];
-                                                            section.table.references = [
-                                                                {
-                                                                    label: "Ref 1",
-                                                                    y: 0,
-                                                                    x: null,
-                                                                    color: "#109191",
-                                                                },
-                                                            ];
-                                                        }
-                                                        break;
-                                                    case "Area":
-                                                        if (
-                                                            section.table.type !== "Bar" &&
-                                                            section.table.type !== "Line"
-                                                        ) {
-                                                            section.table.headings = {
-                                                                axis: { x: "X", y: "Y" },
-                                                                rows: ["Row 1", "Row 2", "Row 3"],
-                                                                cols: ["Line 1", "Line 2"],
-                                                            };
-                                                            section.table.colors = [
-                                                                "#109191",
-                                                                "#57adde",
-                                                            ];
-                                                            section.table.data = [
-                                                                [0, 0],
-                                                                [0, 0],
-                                                                [0, 0],
-                                                            ];
-                                                            section.table.references = [
-                                                                {
-                                                                    label: "Ref 1",
-                                                                    y: 0,
-                                                                    x: null,
-                                                                    color: "#109191",
-                                                                },
-                                                            ];
-                                                        }
-                                                        break;
-                                                    case "Pie":
-                                                        section.table.headings = {
-                                                            axis: { x: "X", y: "Y" },
-                                                            rows: [],
-                                                            cols: ["Col 1", "Col 2"],
-                                                        };
-                                                        section.table.colors = [
-                                                            "#109191",
-                                                            "#57adde",
-                                                        ];
-                                                        section.table.data = [[0, 0]];
-                                                        section.table.references = [
-                                                            {
-                                                                label: "Ref 1",
-                                                                y: 0,
-                                                                x: null,
-                                                                color: "#109191",
-                                                            },
-                                                        ];
-                                                }
-                                                section.table.type = event.target.value;
-                                            }
-                                            return section;
-                                        })
-                                    );
-                                }}>
-                                {graphTypes.map((type) => (
-                                    <SelectItem
-                                        key={type.name}
-                                        value={type.name}>
-                                        {type.name}
-                                    </SelectItem>
-                                ))}
-                            </Select>
+                            <Popup
+                                trigger={
+                                    <div className="popup-select">
+                                        <p className="text-[16px]">Graph Type</p>
+                                        <div className="flex">
+                                            <p className="text-teal">{section.table.type}</p>
+                                            <svg
+                                                className="text-teal ml-auto mr-[5px]"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="15"
+                                                height="9"
+                                                viewBox="0 0 14 8"
+                                                fill="none">
+                                                <path
+                                                    d="M1 1L7 7L13 1"
+                                                    stroke="#109191"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                }
+                                position="bottom left">
+                                <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px]">
+                                    {graphTypes.map((type: any) => {
+                                        return (
+                                            <div
+                                                className="popup-item"
+                                                onClick={() => {
+                                                    props.setSection(
+                                                        props.section.map(
+                                                            (section: any, secIndex: number) => {
+                                                                if (secIndex === index) {
+                                                                    switch (type.name) {
+                                                                        case "Bar":
+                                                                            if (
+                                                                                section.table
+                                                                                    .type !==
+                                                                                    "Line" &&
+                                                                                section.table
+                                                                                    .type !== "Area"
+                                                                            ) {
+                                                                                section.table.headings =
+                                                                                    {
+                                                                                        axis: {
+                                                                                            x: "X",
+                                                                                            y: "Y",
+                                                                                        },
+                                                                                        rows: [
+                                                                                            "Row 1",
+                                                                                            "Row 2",
+                                                                                            "Row 3",
+                                                                                        ],
+                                                                                        cols: [
+                                                                                            "Col 1",
+                                                                                            "Col 2",
+                                                                                        ],
+                                                                                    };
+                                                                                section.table.colors =
+                                                                                    [
+                                                                                        "#109191",
+                                                                                        "#57adde",
+                                                                                    ];
+                                                                                section.table.data =
+                                                                                    [
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                    ];
+                                                                                section.table.references =
+                                                                                    [
+                                                                                        {
+                                                                                            label: "Ref 1",
+                                                                                            y: 0,
+                                                                                            x: null,
+                                                                                            color: "#109191",
+                                                                                        },
+                                                                                    ];
+                                                                            }
+                                                                            break;
+                                                                        case "Line":
+                                                                            if (
+                                                                                section.table
+                                                                                    .type !==
+                                                                                    "Bar" &&
+                                                                                section.table
+                                                                                    .type !== "Area"
+                                                                            ) {
+                                                                                section.table.headings =
+                                                                                    {
+                                                                                        axis: {
+                                                                                            x: "X",
+                                                                                            y: "Y",
+                                                                                        },
+                                                                                        rows: [
+                                                                                            "Row 1",
+                                                                                            "Row 2",
+                                                                                            "Row 3",
+                                                                                        ],
+                                                                                        cols: [
+                                                                                            "Line 1",
+                                                                                            "Line 2",
+                                                                                        ],
+                                                                                    };
+                                                                                section.table.colors =
+                                                                                    [
+                                                                                        "#109191",
+                                                                                        "#57adde",
+                                                                                    ];
+                                                                                section.table.data =
+                                                                                    [
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                    ];
+                                                                                section.table.references =
+                                                                                    [
+                                                                                        {
+                                                                                            label: "Ref 1",
+                                                                                            y: 0,
+                                                                                            x: null,
+                                                                                            color: "#109191",
+                                                                                        },
+                                                                                    ];
+                                                                            }
+                                                                            break;
+                                                                        case "Area":
+                                                                            if (
+                                                                                section.table
+                                                                                    .type !==
+                                                                                    "Bar" &&
+                                                                                section.table
+                                                                                    .type !== "Line"
+                                                                            ) {
+                                                                                section.table.headings =
+                                                                                    {
+                                                                                        axis: {
+                                                                                            x: "X",
+                                                                                            y: "Y",
+                                                                                        },
+                                                                                        rows: [
+                                                                                            "Row 1",
+                                                                                            "Row 2",
+                                                                                            "Row 3",
+                                                                                        ],
+                                                                                        cols: [
+                                                                                            "Line 1",
+                                                                                            "Line 2",
+                                                                                        ],
+                                                                                    };
+                                                                                section.table.colors =
+                                                                                    [
+                                                                                        "#109191",
+                                                                                        "#57adde",
+                                                                                    ];
+                                                                                section.table.data =
+                                                                                    [
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                        [0, 0],
+                                                                                    ];
+                                                                                section.table.references =
+                                                                                    [
+                                                                                        {
+                                                                                            label: "Ref 1",
+                                                                                            y: 0,
+                                                                                            x: null,
+                                                                                            color: "#109191",
+                                                                                        },
+                                                                                    ];
+                                                                            }
+                                                                            break;
+                                                                        case "Pie":
+                                                                            section.table.headings =
+                                                                                {
+                                                                                    axis: {
+                                                                                        x: "X",
+                                                                                        y: "Y",
+                                                                                    },
+                                                                                    rows: [],
+                                                                                    cols: [
+                                                                                        "Col 1",
+                                                                                        "Col 2",
+                                                                                    ],
+                                                                                };
+                                                                            section.table.colors = [
+                                                                                "#109191",
+                                                                                "#57adde",
+                                                                            ];
+                                                                            section.table.data = [
+                                                                                [0, 0],
+                                                                            ];
+                                                                            section.table.references =
+                                                                                [
+                                                                                    {
+                                                                                        label: "Ref 1",
+                                                                                        y: 0,
+                                                                                        x: null,
+                                                                                        color: "#109191",
+                                                                                    },
+                                                                                ];
+                                                                    }
+                                                                    section.table.type = type.name;
+                                                                }
+                                                                return section;
+                                                            }
+                                                        )
+                                                    );
+                                                }}>
+                                                {type.name}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </Popup>
                             <h3>Visibility</h3>
                             <div className="grid grid-cols-2 mb-[15px]">
                                 <RadioGroup
@@ -842,7 +927,7 @@ export default function TableGraphEditor(props: any) {
                                     }}
                                 />
                             </div>
-                            <div className="overflow-x-auto mb-[15px]">{renderTable(section)}</div>
+                            {renderTable(section)}
                         </>
                     );
                 }
