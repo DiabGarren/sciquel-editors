@@ -19,7 +19,7 @@ export default function TriviaContainerEditor(props: any) {
                     return (
                         <div className="grid grid-cols-[1fr_25px]">
                             <input
-                                className="col-[1] border-grey-light border-b-2 pl-[3px] w-[90%]"
+                                className="col-[1] border-grey-light border-b-2 pl-[3px] w-[95%]"
                                 placeholder="True or false statement"
                                 value={content.statement}
                                 onChange={(event) => {
@@ -119,7 +119,7 @@ export default function TriviaContainerEditor(props: any) {
                     return (
                         <div className="grid grid-cols-[1fr_25px]">
                             <input
-                                className="col-[1] border-b-2 border-grey-light w-[100%] bg-[transparent] mb-[10px]"
+                                className="col-[1] border-b-2 border-grey-light w-[95%] bg-[transparent] mb-[10px]"
                                 placeholder="Multiple choice question"
                                 value={content.question}
                                 onChange={(event) => {
@@ -183,7 +183,7 @@ export default function TriviaContainerEditor(props: any) {
                                         <div className="grid grid-cols-[36px_1fr] mt-[2px]">
                                             <Radio value={answer}></Radio>
                                             <input
-                                                className="border-b-2 border-grey-light bg-[transparent] w-[100%]"
+                                                className="border-b-2 border-grey-light bg-[transparent] w-[95%]"
                                                 placeholder={`Answer ${answerIndex + 1}`}
                                                 value={answer}
                                                 onChange={(event) => {
@@ -291,11 +291,11 @@ export default function TriviaContainerEditor(props: any) {
             case "Single Matching":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
-                        <div className="grid grid-cols-[1fr_1fr_25px] my-[8px] items-center">
-                            <div>
-                                <p className="inline-block mr-[5px]">{contentIndex + 1}.</p>
+                        <div className="grid grid-cols-[1fr_25px] my-[8px] items-center">
+                            <div className="col-[1] flex">
+                                <p className="w-[7%]">{contentIndex + 1}.</p>
                                 <input
-                                    className="border-b-2 border-grey-light"
+                                    className="col-[1] border-b-2 border-grey-light w-[88%]"
                                     placeholder="Question/Statement"
                                     value={content.question}
                                     onChange={(event) => {
@@ -326,9 +326,10 @@ export default function TriviaContainerEditor(props: any) {
                                     }}
                                 />
                             </div>
+
                             <input
-                                className="border-b-2 border-grey-light ml-[10px]"
-                                placeholder="Matching answer/statement"
+                                className="col-[1] border-b-2 border-grey-light w-[95%] mt-[8px]"
+                                placeholder="Matching answer"
                                 value={content.answer}
                                 onChange={(event) => {
                                     props.setTrivia(
@@ -358,7 +359,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}
                             />
                             <TrashIcon
-                                className="trash-icon"
+                                className="trash-icon col-[2] row-[1/4]"
                                 onClick={() => {
                                     props.setTrivia(
                                         props.trivia.map((trivia: any) => {
@@ -388,17 +389,14 @@ export default function TriviaContainerEditor(props: any) {
                         </div>
                     );
                 });
-                content = (
-                    <div className="border border-grey-light-1 p-[10px] rounded-md">{content}</div>
-                );
                 break;
             case "Multiple Matching":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
                         <div className="flex flex-col my-[8px] items-center">
-                            <div className="my-[2px]">
+                            <div className="grid grid-cols-[1fr_25px]">
                                 <input
-                                    className="border-b-2 border-grey-light"
+                                    className="border-b-2 border-grey-light w-[95%]"
                                     placeholder="Category name"
                                     value={content.category}
                                     onChange={(event) => {
@@ -459,9 +457,9 @@ export default function TriviaContainerEditor(props: any) {
                             </div>
                             {content.answers.map((answer: string, index: number) => {
                                 return (
-                                    <div className="flex w-[80%] items-center">
+                                    <div className="flex w-[80%] items-center mt-[8px]">
                                         <input
-                                            className="border-b-2 border-grey-light-1 w-[80%]"
+                                            className="border-b-2 border-grey-light-1 w-[95%]"
                                             placeholder={`Answer ${index + 1}`}
                                             value={answer}
                                             onChange={(event) => {
