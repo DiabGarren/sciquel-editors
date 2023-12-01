@@ -58,6 +58,8 @@ export default function ArticleEditor(props: any) {
     const sectionContainerProps = {
         section: props.section,
         setSection: props.setSection,
+        mediaType: props.mediaType,
+        articleType: props.articleType,
     };
 
     const dictionaryProps = {
