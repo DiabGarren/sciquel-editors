@@ -44,29 +44,9 @@ export default function Article(props: any) {
     };
 
     return (
-        <main className="article grid">
-            <a
-                href="/"
-                className="flex items-center gap-[2px] w-fit p-[2px_5px] hover:text-teal hover:underline [&_path]:hover:fill-white">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="9"
-                    height="12"
-                    viewBox="0 0 11 14"
-                    fill="none">
-                    <path
-                        d="M10 13L1 7L10 1V13Z"
-                        fill="#109191"
-                        stroke="#109191"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-                Back
-            </a>
-
+        <main className="article grid md:grid-cols-2">
             <ArticleEditor {...articleProps} />
-            {/* <ArticlePreview {...articleProps} /> */}
+            <ArticlePreview {...articleProps} />
         </main>
     );
 }

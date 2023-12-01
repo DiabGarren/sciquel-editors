@@ -73,7 +73,26 @@ export default function ArticleEditor(props: any) {
     };
 
     return (
-        <div className="p-[10px] pb-[50px]">
+        <div className="p-[10px] pb-[50px] md:col-[1] md:max-h-[calc(100vh-65px)] md:overflow-y-auto">
+            <a
+                href="/"
+                className="flex items-center gap-[2px] w-fit p-[2px_5px] hover:text-teal hover:underline [&_path]:hover:fill-white">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="9"
+                    height="12"
+                    viewBox="0 0 11 14"
+                    fill="none">
+                    <path
+                        d="M10 13L1 7L10 1V13Z"
+                        fill="#109191"
+                        stroke="#109191"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+                Back
+            </a>
             <div className="mb-[30px]">
                 <CoverImageEditor {...imageProps} />
             </div>
