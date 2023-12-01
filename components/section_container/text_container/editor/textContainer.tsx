@@ -7,11 +7,11 @@ import "react-quill/dist/quill.snow.css";
 export default function TextContainerEditor(props: any) {
     if (props.section[props.index].type === "sectionHeader") {
         return (
-            <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
-                <div className="flex">
+            <div className="border border-grey-light-1 rounded-box p-[7px] my-[7px]">
+                <div className="flex p-[10px]">
                     <h3>Section Header</h3>
                     <TrashIcon
-                        className="trash-icon ml-[10px]"
+                        className="trash-icon ml-auto"
                         onClick={() => {
                             const sections: any[] = [];
                             props.section.forEach((section: any, index: number) => {
@@ -22,7 +22,7 @@ export default function TextContainerEditor(props: any) {
                     />
                 </div>
                 <ReactQuill
-                    className="text-editor w-[100%]"
+                    className="text-editor"
                     theme="snow"
                     value={props.section[props.index].text}
                     onChange={(event) => {
@@ -50,11 +50,11 @@ export default function TextContainerEditor(props: any) {
         );
     } else {
         return (
-            <div className="border border-grey-light-1 rounded-md p-[10px] mb-[7px]">
-                <div className="flex">
+            <div className="border border-grey-light-1 rounded-box p-[7px] my-[7px]">
+                <div className="flex p-[10px]">
                     <h3>Text</h3>
                     <TrashIcon
-                        className="trash-icon ml-[10px]"
+                        className="trash-icon ml-auto"
                         onClick={() => {
                             const sections: any[] = [];
                             props.section.forEach((section: any, index: number) => {
@@ -65,7 +65,7 @@ export default function TextContainerEditor(props: any) {
                     />
                 </div>
                 <ReactQuill
-                    className="text-editor w-[100%]"
+                    className="text-editor"
                     theme="snow"
                     value={props.section[props.index].text}
                     onChange={(event) => {
