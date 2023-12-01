@@ -882,7 +882,7 @@ export default function TriviaContainerEditor(props: any) {
             });
             return (
                 <>
-                    <div className="border border-grey-light-1 rounded-md p-[15px] mb-[10px]">
+                    <div className="border border-grey-light-1 rounded-box p-[15px] mb-[10px]">
                         <h3>Trivia</h3>
                         <p className="text-grey-light">
                             {trivia.questions.length} question
