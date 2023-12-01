@@ -41,12 +41,13 @@ export default function Article(props: any) {
         setSection: props.setSection,
         dictionary: props.dictionary,
         setDictionary: props.setDictionary,
+        method: props.method,
     };
 
     return (
         <main className="article grid lr:grid-cols-2">
             <ArticleEditor {...articleProps} />
-            <ArticlePreview {...articleProps} />
+            {/* <ArticlePreview {...articleProps} /> */}
         </main>
     );
 }

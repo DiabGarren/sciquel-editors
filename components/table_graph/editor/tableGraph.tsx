@@ -541,7 +541,7 @@ export default function TableGraphEditor(props: any) {
                             <div className="flex">
                                 <h3>Table and Graph</h3>
                                 <TrashIcon
-                                    className="trash-icon ml-[10px]"
+                                    className="trash-icon ml-auto md:ml-[15px]"
                                     onClick={() => {
                                         const sections: any[] = [];
                                         props.section.forEach((section: any, index: number) => {
@@ -553,7 +553,7 @@ export default function TableGraphEditor(props: any) {
                             </div>
                             <Popup
                                 trigger={
-                                    <div className="popup-select">
+                                    <div className="popup-select md:w-[250px]">
                                         <p className="text-[16px]">Graph Type</p>
                                         <div className="flex">
                                             <p className="text-teal">{section.table.type}</p>
@@ -576,7 +576,7 @@ export default function TableGraphEditor(props: any) {
                                     </div>
                                 }
                                 position="bottom left">
-                                <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px]">
+                                <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px] md:w-[250px] md:mx-0">
                                     {graphTypes.map((type: any) => {
                                         return (
                                             <div

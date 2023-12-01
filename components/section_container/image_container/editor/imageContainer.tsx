@@ -11,7 +11,7 @@ export default function ImageContainerEditor(props: any) {
             <div className="flex p-[10px]">
                 <h3>Image</h3>
                 <TrashIcon
-                    className="trash-icon ml-auto"
+                    className="trash-icon ml-auto md:ml-[15px]"
                     onClick={() => {
                         const sections: any[] = [];
                         props.section.forEach((section: any, index: number) => {

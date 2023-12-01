@@ -73,7 +73,7 @@ export default function ArticleEditor(props: any) {
     };
 
     return (
-        <div className="p-[10px] pb-[50px] lr:col-[1] lr:max-h-[calc(100vh-65px)] lr:overflow-y-auto">
+        <div className="p-[10px] pb-[50px] md:w-[80%] md:mx-auto lr:col-[1] lr:max-h-[calc(100vh-65px)] lr:overflow-y-auto">
             <a
                 href="/"
                 className="flex items-center gap-[2px] w-fit p-[2px_5px] hover:text-teal hover:underline [&_path]:hover:fill-white">
@@ -117,7 +117,13 @@ export default function ArticleEditor(props: any) {
             <div className="mb-[30px]">
                 <AcknowledgementsEditor {...acknowldgeProps} />
             </div>
-            <Button onClick={props.submit}>{props.method} Article</Button>
+            <div className="flex justify-end">
+                <Button
+                    color="primary"
+                    onClick={props.submit}>
+                    {props.method} Article
+                </Button>
+            </div>
         </div>
     );
 }
