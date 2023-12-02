@@ -17,7 +17,7 @@ export default function TriviaContainerEditor(props: any) {
             case "True/False":
                 content = question.content.map((content: any, index: number) => {
                     return (
-                        <div className="grid grid-cols-[1fr_25px]">
+                        <div className="grid grid-cols-[1fr_25px] md:grid-cols-[1fr_1fr_25px]">
                             <input
                                 className="col-[1] border-grey-light border-b-2 pl-[3px] w-[95%]"
                                 placeholder="True or false statement"
@@ -51,7 +51,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}
                             />
                             <RadioGroup
-                                className="col-[1] justify-self-center mt-[5px]"
+                                className="col-[1] md:col-[2] justify-self-center mt-[5px]"
                                 orientation="horizontal"
                                 value={content.value}
                                 onValueChange={(event) => {
@@ -84,7 +84,7 @@ export default function TriviaContainerEditor(props: any) {
                                 <Radio value="false">False</Radio>
                             </RadioGroup>
                             <TrashIcon
-                                className="trash-icon col-[2] row-[1/3] self-center"
+                                className="trash-icon col-[2] md:col-[3] row-[1/3] self-center"
                                 onClick={() => {
                                     props.setTrivia(
                                         props.trivia.map((trivia: any) => {
@@ -119,7 +119,7 @@ export default function TriviaContainerEditor(props: any) {
                     return (
                         <div className="grid grid-cols-[1fr_25px]">
                             <input
-                                className="col-[1] border-b-2 border-grey-light w-[95%] bg-[transparent] mb-[10px]"
+                                className="col-[1] border-b-2 border-grey-light w-[95%] md:w-[70%] md:mx-[10%] bg-[transparent] mb-[10px]"
                                 placeholder="Multiple choice question"
                                 value={content.question}
                                 onChange={(event) => {
@@ -180,10 +180,10 @@ export default function TriviaContainerEditor(props: any) {
                                 }}>
                                 {content.answers.map((answer: any, answerIndex: number) => {
                                     return (
-                                        <div className="grid grid-cols-[36px_1fr] mt-[2px]">
+                                        <div className="grid grid-cols-[36px_1fr] mt-[2px] md:mx-[10%]">
                                             <Radio value={answer}></Radio>
                                             <input
-                                                className="border-b-2 border-grey-light bg-[transparent] w-[95%]"
+                                                className="border-b-2 border-grey-light bg-[transparent] w-[95%] md:w-[85%]"
                                                 placeholder={`Answer ${answerIndex + 1}`}
                                                 value={answer}
                                                 onChange={(event) => {
@@ -292,10 +292,10 @@ export default function TriviaContainerEditor(props: any) {
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
                         <div className="grid grid-cols-[1fr_25px] my-[8px] items-center">
-                            <div className="col-[1] flex">
-                                <p className="w-[7%]">{contentIndex + 1}.</p>
+                            <div className="col-[1] flex md:mx-[10%]">
+                                <p className="w-fit">{contentIndex + 1}.</p>
                                 <input
-                                    className="col-[1] border-b-2 border-grey-light w-[88%]"
+                                    className="col-[1] border-b-2 border-grey-light w-[88%] md:w-[80%]"
                                     placeholder="Question/Statement"
                                     value={content.question}
                                     onChange={(event) => {
@@ -328,7 +328,7 @@ export default function TriviaContainerEditor(props: any) {
                             </div>
 
                             <input
-                                className="col-[1] border-b-2 border-grey-light w-[95%] mt-[8px]"
+                                className="col-[1] border-b-2 border-grey-light w-[95%] md:w-[65%] md:mx-[10%] mt-[8px]"
                                 placeholder="Matching answer"
                                 value={content.answer}
                                 onChange={(event) => {
@@ -603,35 +603,6 @@ export default function TriviaContainerEditor(props: any) {
                                     </div>
                                 );
                             })}
-                            {/* <input
-                                className="border-b-1 border-grey-light-1"
-                                placeholder="Add answer"
-                                onClick={() => {
-                                    props.setTrivia(
-                                        props.trivia.map((trivia: any) => {
-                                            const questions = trivia.questions.map(
-                                                (question: any, questIndex: number) => {
-                                                    if (questIndex === questionIndex) {
-                                                        const content = question.content.map(
-                                                            (content: any, cIndex: number) => {
-                                                                if (cIndex === contentIndex) {
-                                                                    content.answers.push("");
-                                                                }
-                                                                return content;
-                                                            }
-                                                        );
-                                                        return {
-                                                            type: question.type,
-                                                            content: content,
-                                                        };
-                                                    } else return question;
-                                                }
-                                            );
-                                            return { name: trivia.name, questions: questions };
-                                        })
-                                    );
-                                }}
-                            /> */}
                             <Button
                                 className="mt-[7px]"
                                 variant="solid"
@@ -707,7 +678,7 @@ export default function TriviaContainerEditor(props: any) {
 
                         <Popup
                             trigger={
-                                <div className="popup-select">
+                                <div className="popup-select md:w-[250px]">
                                     <p className="text-[16px]">Question Type</p>
                                     <div className="flex">
                                         <p className="text-teal">{question.type}</p>
@@ -730,7 +701,7 @@ export default function TriviaContainerEditor(props: any) {
                                 </div>
                             }
                             position="bottom left">
-                            <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px]">
+                            <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px] md:w-[250px] md:mx-0">
                                 {questionTypes.map((type: any) => {
                                     return (
                                         <div
