@@ -16,7 +16,7 @@ const partsOfSpeech = [
 export default function DictionaryContainerEditor(props: any) {
     return (
         <div className="border border-grey-light-1 rounded-lr p-[7px]">
-            <h3 className="border border-grey-light-1 rounded-md p-[15px]">Dictionary</h3>
+            <h3 className="border border-grey-light-1 rounded-box p-[15px]">Dictionary</h3>
 
             {props.dictionary.map((def: any, index: number) => {
                 return (

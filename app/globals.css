@@ -434,13 +434,15 @@ main.article>div:last-child {
         border-radius: 0 5px 5px 0;
     }
 
-    .trivia-questions>div {
+    .trivia-questions>div,
+    .acknowledgements {
         border-bottom-width: 1px;
         border-color: var(--grey-light-1);
         padding: 10px;
     }
 
-    .trivia-questions>div:last-of-type {
+    .trivia-questions>div:last-of-type,
+    .acknowledgements:last-of-type {
         border-bottom-width: 0;
     }
 

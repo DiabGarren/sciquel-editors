@@ -19,8 +19,8 @@ export default function AcknowledgementsEditor(props: any) {
                         let imageSrc = "default_profile.svg";
                         if (con.image !== "") imageSrc = con.image;
                         types.push(
-                            <div className="mb-[10px] ml-[10px]">
-                                <div className="flex items-center my-[2px]">
+                            <div className="acknowledgements">
+                                <div className="flex items-center mb-[2px]">
                                     <Image
                                         src={`/images/${imageSrc}`}
                                         alt={`${con.name} profile picture`}
@@ -64,10 +64,12 @@ export default function AcknowledgementsEditor(props: any) {
         });
         if (types.length > 0) {
             return (
-                <>
-                    <h3>Acknowledgements</h3>
-                    {types}
-                </>
+                <div className="border border-grey-light-1 p-[7px] rounded-box">
+                    <h3 className="border border-grey-light-1 p-[15px] rounded-box mb-[10px]">
+                        Acknowledgements
+                    </h3>
+                    <div className="border border-grey-light-1 rounded-box">{types}</div>
+                </div>
             );
         } else return <></>;
     };
