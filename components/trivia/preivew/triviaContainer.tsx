@@ -16,15 +16,16 @@ export default function TriviaContainerPreview(props: any) {
                         case "True/False":
                             content = question.content.map((content: any, index: number) => {
                                 return (
-                                    <div className="grid grid-cols-[2fr_1fr] mt-[10px]">
+                                    <div className="grid md:grid-cols-2 items-center">
                                         <input
-                                            className="border-grey-light border-b-2 pl-[3px] w-[90%] bg-[transparent]"
+                                            className="border-grey-light border-b-2 pl-[3px] w-[95%] bg-[transparent] mx-auto"
                                             placeholder="True or false statement"
                                             value={content.statement}
                                             disabled
                                             readOnly
                                         />
                                         <RadioGroup
+                                            className="mx-auto mt-[5px] md:mt-0"
                                             color={
                                                 content.guess === content.value
                                                     ? "primary"
@@ -84,7 +85,7 @@ export default function TriviaContainerPreview(props: any) {
                                     return (
                                         <Radio value={answer}>
                                             <input
-                                                className="border-b-2 border-grey-light bg-[transparent]"
+                                                className="border-b-2 border-grey-light w-[90%] xsm:w-[100%]"
                                                 value={answer}
                                                 placeholder={`Answer ${index + 1}`}
                                                 disabled
@@ -94,9 +95,9 @@ export default function TriviaContainerPreview(props: any) {
                                     );
                                 });
                                 return (
-                                    <div className="mt-[10px]">
+                                    <div className="grid xsm:justify-items-center">
                                         <input
-                                            className="border-grey-light border-b-2 pl-[3px] w-[90%] mb-[10px] bg-[transparent] "
+                                            className="border-grey-light border-b-2 pl-[3px] mb-[10px] w-[90%] sm:w-[80%] md:w-[350px]"
                                             placeholder="Multiple choice question"
                                             value={content.question}
                                             disabled
@@ -167,7 +168,7 @@ export default function TriviaContainerPreview(props: any) {
                                                 {contentIndex + 1}.
                                             </p>
                                             <input
-                                                className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
+                                                className="border-b-2 border-grey-light w-[80%]"
                                                 value={content.question}
                                                 disabled
                                                 readOnly
@@ -242,7 +243,7 @@ export default function TriviaContainerPreview(props: any) {
                             };
 
                             content = (
-                                <div className="grid grid-cols-2 border border-grey-light-1 rounded-md p-[7px]">
+                                <div className="grid grid-cols-2">
                                     <div>{content}</div>
                                     <DragDropContext
                                         onDragEnd={(event) => {
@@ -277,7 +278,7 @@ export default function TriviaContainerPreview(props: any) {
                                                                         )}>
                                                                         <div className="flex items-center">
                                                                             <svg
-                                                                                className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl"
+                                                                                className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl w-[20px] sm:w-[30px]"
                                                                                 xmlns="http://www.w3.org/2000/svg"
                                                                                 width="29"
                                                                                 height="30"
@@ -341,19 +342,15 @@ export default function TriviaContainerPreview(props: any) {
 
                             content = question.content.map((content: any, contentIndex: number) => {
                                 return (
-                                    <>
-                                        <div className="my-[5px] h-[30px]">
-                                            <p className="inline-block mr-[5px]">
-                                                {contentIndex + 1}.
-                                            </p>
-                                            <input
-                                                className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
-                                                value={content.question}
-                                                disabled
-                                                readOnly
-                                            />
-                                        </div>
-                                    </>
+                                    <div className="my-[5px] h-[30px]">
+                                        <p className="mr-[5px]">{contentIndex + 1}.</p>
+                                        <input
+                                            className="border-b-2 border-grey-light w-[80%] bg-[transparent]"
+                                            value={content.question}
+                                            disabled
+                                            readOnly
+                                        />
+                                    </div>
                                 );
                             });
                             const reorderLists = (source: any, destination: any) => {
@@ -601,135 +598,125 @@ export default function TriviaContainerPreview(props: any) {
                                 );
                             };
                             content = (
-                                <>
-                                    <DragDropContext
-                                        onDragEnd={(event) => {
-                                            const { source, destination } = event;
-                                            if (event.destination) {
-                                                reorderLists(source, destination);
-                                            }
-                                        }}>
-                                        <div className="grid grid-cols-2 justify-items-center">
-                                            {question.content.map(
-                                                (content: any, cIndex: number) => {
-                                                    return (
-                                                        <div className="w-[80%]">
-                                                            <h3 className="text-center">
-                                                                {content.category == ""
-                                                                    ? `Category ${cIndex + 1}`
-                                                                    : content.category}
-                                                            </h3>
-                                                            <Droppable droppableId={`${cIndex}`}>
-                                                                {(provided, snapshot) => (
-                                                                    <div
-                                                                        {...provided.droppableProps}
-                                                                        ref={provided.innerRef}
-                                                                        style={getListStyle(
-                                                                            snapshot.isDraggingOver
-                                                                        )}>
-                                                                        {question.content[
-                                                                            cIndex
-                                                                        ].guesses.map(
-                                                                            (
-                                                                                guess: any,
-                                                                                index: number
-                                                                            ) => {
-                                                                                randomPos++;
-                                                                                let text =
-                                                                                    guess.guess ===
-                                                                                    ""
-                                                                                        ? randomiseAnswers[
-                                                                                              randomPos
-                                                                                          ]
-                                                                                        : guess.guess;
+                                <DragDropContext
+                                    onDragEnd={(event) => {
+                                        const { source, destination } = event;
+                                        if (event.destination) {
+                                            reorderLists(source, destination);
+                                        }
+                                    }}>
+                                    <div className="grid md:grid-cols-2 justify-items-center">
+                                        {question.content.map((content: any, cIndex: number) => {
+                                            return (
+                                                <div className="w-[80%]">
+                                                    <h3 className="text-center">
+                                                        {content.category == ""
+                                                            ? `Category ${cIndex + 1}`
+                                                            : content.category}
+                                                    </h3>
+                                                    <Droppable droppableId={`${cIndex}`}>
+                                                        {(provided, snapshot) => (
+                                                            <div
+                                                                {...provided.droppableProps}
+                                                                ref={provided.innerRef}
+                                                                style={getListStyle(
+                                                                    snapshot.isDraggingOver
+                                                                )}>
+                                                                {question.content[
+                                                                    cIndex
+                                                                ].guesses.map(
+                                                                    (guess: any, index: number) => {
+                                                                        randomPos++;
+                                                                        let text =
+                                                                            guess.guess === ""
+                                                                                ? randomiseAnswers[
+                                                                                      randomPos
+                                                                                  ]
+                                                                                : guess.guess;
 
-                                                                                return (
-                                                                                    <Draggable
-                                                                                        key={
-                                                                                            guess.key
+                                                                        return (
+                                                                            <Draggable
+                                                                                key={guess.key}
+                                                                                draggableId={
+                                                                                    guess.key
+                                                                                }
+                                                                                index={index}>
+                                                                                {(
+                                                                                    provided,
+                                                                                    snapshot
+                                                                                ) => (
+                                                                                    <div
+                                                                                        ref={
+                                                                                            provided.innerRef
                                                                                         }
-                                                                                        draggableId={
-                                                                                            guess.key
-                                                                                        }
-                                                                                        index={
-                                                                                            index
-                                                                                        }>
-                                                                                        {(
-                                                                                            provided,
-                                                                                            snapshot
-                                                                                        ) => (
-                                                                                            <div
-                                                                                                ref={
-                                                                                                    provided.innerRef
-                                                                                                }
-                                                                                                {...provided.draggableProps}
-                                                                                                {...provided.dragHandleProps}
-                                                                                                style={getItemStyle(
-                                                                                                    snapshot.isDragging,
-                                                                                                    provided
-                                                                                                        .draggableProps
-                                                                                                        .style,
-                                                                                                    guess.guess ===
-                                                                                                        question
-                                                                                                            .content[
-                                                                                                            cIndex
-                                                                                                        ]
-                                                                                                            .answers[
-                                                                                                            index
-                                                                                                        ],
-                                                                                                    trivia.name ==
-                                                                                                        "post"
-                                                                                                )}>
-                                                                                                <div className="flex items-center">
-                                                                                                    <svg
-                                                                                                        className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl"
-                                                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                                                        width="29"
-                                                                                                        height="30"
-                                                                                                        viewBox="0 0 40 27"
-                                                                                                        fill="none">
-                                                                                                        <rect
-                                                                                                            width="40"
-                                                                                                            height="4"
-                                                                                                            rx="1.5"
-                                                                                                            fill="#7B6D6D"
-                                                                                                        />
-                                                                                                        <rect
-                                                                                                            y="12"
-                                                                                                            width="40"
-                                                                                                            height="4"
-                                                                                                            rx="1.5"
-                                                                                                            fill="#7B6D6D"
-                                                                                                        />
-                                                                                                        <rect
-                                                                                                            y="24"
-                                                                                                            width="40"
-                                                                                                            height="4"
-                                                                                                            rx="1.5"
-                                                                                                            fill="#7B6D6D"
-                                                                                                        />
-                                                                                                    </svg>
-                                                                                                    <p className="px-[5px]">
-                                                                                                        {guess.guess ===
-                                                                                                        ""
-                                                                                                            ? question
-                                                                                                                  .content[
-                                                                                                                  cIndex
-                                                                                                              ]
-                                                                                                                  .answers[
-                                                                                                                  index
-                                                                                                              ]
-                                                                                                            : guess.guess}
-                                                                                                    </p>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        )}
-                                                                                    </Draggable>
-                                                                                );
-                                                                            }
-                                                                        )}
-                                                                        {provided.placeholder}
-                                                                        {/* {question.content[cIndex]
+                                                                                        {...provided.draggableProps}
+                                                                                        {...provided.dragHandleProps}
+                                                                                        style={getItemStyle(
+                                                                                            snapshot.isDragging,
+                                                                                            provided
+                                                                                                .draggableProps
+                                                                                                .style,
+                                                                                            guess.guess ===
+                                                                                                question
+                                                                                                    .content[
+                                                                                                    cIndex
+                                                                                                ]
+                                                                                                    .answers[
+                                                                                                    index
+                                                                                                ],
+                                                                                            trivia.name ==
+                                                                                                "post"
+                                                                                        )}>
+                                                                                        <div className="flex items-center">
+                                                                                            <svg
+                                                                                                className="bg-teal-light-1 p-[5px] rounded-tl rounded-bl w-[20px] sm:w-[30px]"
+                                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                                width="29"
+                                                                                                height="30"
+                                                                                                viewBox="0 0 40 27"
+                                                                                                fill="none">
+                                                                                                <rect
+                                                                                                    width="40"
+                                                                                                    height="4"
+                                                                                                    rx="1.5"
+                                                                                                    fill="#7B6D6D"
+                                                                                                />
+                                                                                                <rect
+                                                                                                    y="12"
+                                                                                                    width="40"
+                                                                                                    height="4"
+                                                                                                    rx="1.5"
+                                                                                                    fill="#7B6D6D"
+                                                                                                />
+                                                                                                <rect
+                                                                                                    y="24"
+                                                                                                    width="40"
+                                                                                                    height="4"
+                                                                                                    rx="1.5"
+                                                                                                    fill="#7B6D6D"
+                                                                                                />
+                                                                                            </svg>
+                                                                                            <p className="px-[5px]">
+                                                                                                {guess.guess ===
+                                                                                                ""
+                                                                                                    ? question
+                                                                                                          .content[
+                                                                                                          cIndex
+                                                                                                      ]
+                                                                                                          .answers[
+                                                                                                          index
+                                                                                                      ]
+                                                                                                    : guess.guess}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                )}
+                                                                            </Draggable>
+                                                                        );
+                                                                    }
+                                                                )}
+                                                                {provided.placeholder}
+                                                                {/* {question.content[cIndex]
                                                                             .answers.length <=
                                                                         question.content[cIndex]
                                                                             .guesses.length ? (
@@ -739,36 +726,80 @@ export default function TriviaContainerPreview(props: any) {
                                                                                 <br />
                                                                             </div>
                                                                         )} */}
-                                                                        <div className="w-[95%] border-2 border-dashed text-center rounded mx-auto mb-[5px]">
-                                                                            <br />
-                                                                        </div>
-                                                                    </div>
-                                                                )}
-                                                            </Droppable>
-                                                        </div>
-                                                    );
-                                                }
-                                            )}
-                                        </div>
-                                    </DragDropContext>
-                                </>
+                                                                <div className="w-[95%] border-2 border-dashed text-center rounded mx-auto mb-[5px]">
+                                                                    <br />
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </Droppable>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </DragDropContext>
                             );
                             break;
                         default:
                             content = "";
                     }
                     return (
-                        <div className="border border-grey-light-1 rounded-md p-[7px]">
-                            <h3 className="text-center">Question {questionIndex + 1}</h3>
-                            {content}
+                        <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px]">
+                            <div
+                                className="question-con grid grid-cols-2 items-center  cursor-pointer [&_path]:hover:stroke-teal"
+                                onClick={(event: any) => {
+                                    let parent = event.target;
+                                    if (parent.classList.contains("question-con")) {
+                                        if (parent.childNodes[2].classList.contains("hidden"))
+                                            parent.childNodes[2].classList.remove("hidden");
+                                        else parent.childNodes[2].classList.add("hidden");
+                                    } else {
+                                        parent = event.target.parentNode;
+                                        if (parent.classList.contains("question-con")) {
+                                            if (parent.childNodes[2].classList.contains("hidden"))
+                                                parent.childNodes[2].classList.remove("hidden");
+                                            else parent.childNodes[2].classList.add("hidden");
+                                        } else {
+                                            parent = event.target.parentNode.parentNode;
+                                            if (parent.classList.contains("question-con")) {
+                                                if (
+                                                    parent.childNodes[2].classList.contains(
+                                                        "hidden"
+                                                    )
+                                                )
+                                                    parent.childNodes[2].classList.remove("hidden");
+                                                else parent.childNodes[2].classList.add("hidden");
+                                            }
+                                        }
+                                    }
+                                }}>
+                                <h3 className="p-[10px]">Question {questionIndex + 1}</h3>
+                                <svg
+                                    className="ml-auto mr-[10px]"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="15"
+                                    height="9"
+                                    viewBox="0 0 14 8"
+                                    fill="none">
+                                    <path
+                                        d="M1 1L7 7L13 1"
+                                        stroke="#000"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                    />
+                                </svg>
+                                <div className="trivia-questions col-[1/3] border border-grey-light-1 rounded-box max-h-[350px] overflow-auto hidden">
+                                    {content}
+                                </div>
+                            </div>
                         </div>
                     );
                 });
 
                 return (
                     <div className="border border-grey-light-1 rounded-lr p-[7px]">
-                        <div className="border border-grey-light-1 rounded-md p-[15px] mb-[10px]">
-                            <h3>
+                        <div className="border border-grey-light-1 rounded-box p-[15px] mb-[10px]">
+                            <h3 className="">
                                 {trivia.name[0].toUpperCase()}
                                 {trivia.name.substring(1)}-read Trivia
                             </h3>

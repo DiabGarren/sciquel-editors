@@ -17,9 +17,9 @@ export default function TriviaContainerEditor(props: any) {
             case "True/False":
                 content = question.content.map((content: any, index: number) => {
                     return (
-                        <div className="grid grid-cols-[1fr_25px] md:grid-cols-[1fr_1fr_25px]">
+                        <div className="grid grid-cols-[1fr_25px] md:grid-cols-[1fr_1fr_25px] items-center">
                             <input
-                                className="col-[1] border-grey-light border-b-2 pl-[3px] w-[95%]"
+                                className="col-[1] border-grey-light border-b-2 pl-[3px] w-[95%] mx-auto"
                                 placeholder="True or false statement"
                                 value={content.statement}
                                 onChange={(event) => {
@@ -51,7 +51,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}
                             />
                             <RadioGroup
-                                className="col-[1] md:col-[2] justify-self-center mt-[5px]"
+                                className="col-[1] md:col-[2] justify-self-center mt-[5px] md:mt-0"
                                 orientation="horizontal"
                                 value={content.value}
                                 onValueChange={(event) => {
@@ -117,9 +117,9 @@ export default function TriviaContainerEditor(props: any) {
             case "Multiple Choice":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
-                        <div className="grid grid-cols-[1fr_25px]">
+                        <div className="grid grid-cols-[1fr_25px] xsm:justify-items-center">
                             <input
-                                className="col-[1] border-b-2 border-grey-light w-[95%] md:w-[70%] md:mx-[10%] bg-[transparent] mb-[10px]"
+                                className="col-[1] border-b-2 border-grey-light w-[95%] sm:[80%] md:w-[350px] bg-[transparent] mb-[10px]"
                                 placeholder="Multiple choice question"
                                 value={content.question}
                                 onChange={(event) => {
@@ -180,8 +180,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}>
                                 {content.answers.map((answer: any, answerIndex: number) => {
                                     return (
-                                        <div className="grid grid-cols-[36px_1fr] mt-[2px] md:mx-[10%]">
-                                            <Radio value={answer}></Radio>
+                                        <Radio value={answer}>
                                             <input
                                                 className="border-b-2 border-grey-light bg-[transparent] w-[95%] md:w-[85%]"
                                                 placeholder={`Answer ${answerIndex + 1}`}
@@ -252,7 +251,7 @@ export default function TriviaContainerEditor(props: any) {
                                                     );
                                                 }}
                                             />
-                                        </div>
+                                        </Radio>
                                     );
                                 })}
                             </RadioGroup>
@@ -291,11 +290,11 @@ export default function TriviaContainerEditor(props: any) {
             case "Single Matching":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
-                        <div className="grid grid-cols-[1fr_25px] my-[8px] items-center">
-                            <div className="col-[1] flex md:mx-[10%]">
-                                <p className="w-fit">{contentIndex + 1}.</p>
+                        <div className="grid grid-cols-[1fr_25px] md:grid-cols-[1fr_1fr_25px] my-[8px] items-center justify-items-center md:justify-items-start">
+                            <div className="col-[1] flex">
+                                <p className="w-fit md:w-[20px]">{contentIndex + 1}.</p>
                                 <input
-                                    className="col-[1] border-b-2 border-grey-light w-[88%] md:w-[80%]"
+                                    className="col-[1] border-b-2 border-grey-light w-[90%] md:w-[90%]"
                                     placeholder="Question/Statement"
                                     value={content.question}
                                     onChange={(event) => {
@@ -328,7 +327,7 @@ export default function TriviaContainerEditor(props: any) {
                             </div>
 
                             <input
-                                className="col-[1] border-b-2 border-grey-light w-[95%] md:w-[65%] md:mx-[10%] mt-[8px]"
+                                className="col-[1] md:col-[2] border-b-2 border-grey-light w-[95%] xsm:w-[80%] sm:w-[65%] md:w-[90%] mt-[7px] md:mt-0"
                                 placeholder="Matching answer"
                                 value={content.answer}
                                 onChange={(event) => {
@@ -359,7 +358,7 @@ export default function TriviaContainerEditor(props: any) {
                                 }}
                             />
                             <TrashIcon
-                                className="trash-icon col-[2] row-[1/4]"
+                                className="trash-icon col-[2] md:col-[3] row-[1/4]"
                                 onClick={() => {
                                     props.setTrivia(
                                         props.trivia.map((trivia: any) => {
@@ -393,10 +392,10 @@ export default function TriviaContainerEditor(props: any) {
             case "Multiple Matching":
                 content = question.content.map((content: any, contentIndex: number) => {
                     return (
-                        <div className="flex flex-col my-[8px] items-center">
-                            <div className="grid grid-cols-[1fr_25px]">
+                        <div className="flex flex-col my-[8px] items-center justify-items-center">
+                            <div className="grid grid-cols-[1fr_25px] justify-items-center w-[100%] xsm:w-[90%] md:w-[400px]">
                                 <input
-                                    className="border-b-2 border-grey-light w-[95%]"
+                                    className="border-b-2 border-grey-light w-[90%]"
                                     placeholder="Category name"
                                     value={content.category}
                                     onChange={(event) => {
@@ -457,9 +456,9 @@ export default function TriviaContainerEditor(props: any) {
                             </div>
                             {content.answers.map((answer: string, index: number) => {
                                 return (
-                                    <div className="flex w-[80%] items-center mt-[8px]">
+                                    <div className="grid grid-cols-[1fr_25px] md:grid-cols-[250px_25px] w-[80%] md:w-[275px] mt-[7px] items-center">
                                         <input
-                                            className="border-b-2 border-grey-light-1 w-[95%]"
+                                            className="border-b-2 border-grey-light-1 w-[95%] md:w-[250px]"
                                             placeholder={`Answer ${index + 1}`}
                                             value={answer}
                                             onChange={(event) => {
@@ -650,7 +649,7 @@ export default function TriviaContainerEditor(props: any) {
         }
 
         return (
-            <div className="trivia-questions col-[1/4] max-h-[250px] overflow-y-auto rounded-box border border-grey-light-1">
+            <div className="trivia-questions col-[1/4] max-h-[350px] overflow-y-auto rounded-box border border-grey-light-1">
                 {content}
             </div>
         );
@@ -683,7 +682,7 @@ export default function TriviaContainerEditor(props: any) {
                                     <div className="flex">
                                         <p className="text-teal">{question.type}</p>
                                         <svg
-                                            className="text-teal ml-auto mr-[5px]"
+                                            className="ml-auto mr-[5px]"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="15"
                                             height="9"
