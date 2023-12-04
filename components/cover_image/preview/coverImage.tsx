@@ -3,7 +3,7 @@ import HeadingContainerPreview from "@/components/heading/preview/headingContain
 export default function CoverImagePreview(props: any) {
     return (
         <div
-            className="cover-image mx-[auto] h-[500px] bg-center bg-cover bg-no-repeat flex flex-row items-end"
+            className="mx-[auto] h-[250px] md:h-[450px] bg-center bg-cover bg-no-repeat flex flex-row items-end"
             style={{
                 backgroundImage: props.finalImage
                     ? `url('${props.finalImage}')`

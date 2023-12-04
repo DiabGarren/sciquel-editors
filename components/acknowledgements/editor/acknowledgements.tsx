@@ -64,7 +64,7 @@ export default function AcknowledgementsEditor(props: any) {
         });
         if (types.length > 0) {
             return (
-                <div className="border border-grey-light-1 p-[7px] rounded-box">
+                <div className="border border-grey-light-1 p-[7px] rounded-lr">
                     <h3 className="border border-grey-light-1 p-[15px] rounded-box mb-[10px]">
                         Acknowledgements
                     </h3>

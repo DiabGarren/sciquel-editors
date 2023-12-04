@@ -73,10 +73,10 @@ export default function ArticlePreview(props: any) {
     return (
         <div className="relative">
             <CoverImagePreview {...imageProps} />
-            <div className="preview ">
+            <div className="mx-[10px]">
                 <GeneralByline {...generalProps} />
             </div>
-            <div className="preview">
+            <div className="mx-[10px]">
                 <TriviaContainerPreview
                     {...triviaProps}
                     triviaPosition="pre"
@@ -85,17 +85,17 @@ export default function ArticlePreview(props: any) {
             <div className="sections-preview mx-auto max-w-[800px]">
                 <SectionContainerPreview {...sectionContainerProps} />
             </div>
-            <div className="preview">
+            <div className="mx-[10px]">
                 <TriviaContainerPreview
                     {...triviaProps}
                     triviaPosition="post"
                 />
             </div>
-            <div className="preview">
+            <div className="mx-[10px]">
                 <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
                 <AcknowledgementsPreview {...acknowldgeProps} />
             </div>
-            <div className="preview">
+            <div className="mx-[10px]">
                 <DictionaryContainerPreview {...dictionaryProps} />
             </div>
         </div>

@@ -24,12 +24,12 @@ export default function HeadingContainerPreview(props: any) {
     return (
         <>
             <h1
-                className="text-[4rem] h-[70px]"
+                className="text-[3rem] md:text-[4rem] h-[50px] md:h-[70px]"
                 style={style}>
                 {heading}
             </h1>
             <h2
-                className="text-[2.25rem]"
+                className="text-[1.75rem] md:text-[2.25rem]"
                 style={style}>
                 {subheading}
             </h2>

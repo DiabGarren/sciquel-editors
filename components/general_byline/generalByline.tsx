@@ -66,10 +66,10 @@ export default function GeneralByline(props: any) {
 
     return (
         <>
-            <p>
+            <div className="mb-[7px]">
                 {type} {tags(props.topSection.topics)} {tags(props.topSection.subtopics)}{" "}
                 {tags(props.topSection.subjects)}
-            </p>
+            </div>
             <div>{contributors()}</div>
         </>
     );

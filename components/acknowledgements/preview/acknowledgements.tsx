@@ -21,14 +21,14 @@ export default function AcknowledgementsPreview(props: any) {
                         } else message = parse(con.message);
 
                         types.push(
-                            <div className="border border-grey-light-1 rounded-[15px] p-[20px] mb-[15px]">
+                            <div className="border border-grey-light-1 rounded-[15px] p-[10px] md:p-[20px] mb-[7px] md:mb-[15px]">
                                 <div
-                                    className="flex mb-[15px] items-center"
+                                    className="flex mb-[7px] md:mb-[15px] items-center"
                                     style={{
                                         fontFamily: alegreya_sans_sc.style.fontFamily,
                                         fontWeight: "700",
                                     }}>
-                                    <h2 className="text-teal-dark text-[35px] font-[600] leading-[35px] mr-[10px]">
+                                    <h2 className="text-teal-dark text-[1.5rem] md:text-[2rem] font-[600] mr-[10px]">
                                         {con.name}
                                     </h2>
                                     <Image
@@ -36,7 +36,7 @@ export default function AcknowledgementsPreview(props: any) {
                                         alt={`${con.name} profile picture`}
                                         height={60}
                                         width={60}
-                                        className="rounded-[50%]"
+                                        className="rounded-[50%] w-[45px] md:w-[60px]"
                                     />
                                 </div>
                                 <div>
