@@ -18,10 +18,11 @@ export default function ImageContainerPreview(props: any) {
         case "left":
             if (props.section[props.index].wrap === "true") {
                 return (
-                    <div className="w-[500px] mx-auto mb-[18px]">
+                    <div className="my-[10px] md:w-[500px] md:mx-auto">
                         <div
-                            className="float float-left mr-[5px] align-center"
-                            style={{ width: `${props.section[props.index].width || 300}px` }}>
+                            className="float float-left mr-[5px] mt-[5px] align-center w-[50%]"
+                            // style={{ width: `${props.section[props.index].width || 300}px` }}
+                        >
                             {image}
                             <p className="break-words text-grey text-[12px]">{credit}</p>
                         </div>
@@ -30,8 +31,8 @@ export default function ImageContainerPreview(props: any) {
                 );
             } else {
                 return (
-                    <div className="grid grid-cols-[407px_1fr] w-[650px] items-center mb-[18px]">
-                        <div className="w-[400px]">
+                    <div className="grid grid-cols-2 md:grid-cols-[407px_1fr] md:w-[500px] items-center my-[10px]">
+                        <div className="w-[90%] md:w-[400px]">
                             {image}
                             <p className="break-words text-grey text-[12px]">{credit}</p>
                         </div>
@@ -41,23 +42,24 @@ export default function ImageContainerPreview(props: any) {
             }
         case "center":
             return (
-                <div className="w-[650px] mx-auto my-[35px]">
+                <div className="my-[35px] md:w-[650px]">
                     {image}
                     <p
                         className="image-credit break-words mr-[7px] inline text-[13px]"
                         style={{ lineHeight: "3px" }}>
                         {caption}
                     </p>
-                    <p className="break-words mx-auto text-grey inline text-[13px]">{credit}</p>
+                    <p className="break-words text-grey inline text-[13px]">{credit}</p>
                 </div>
             );
         case "right": {
             if (props.section[props.index].wrap === "true") {
                 return (
-                    <div className="w-[500px] mx-auto mb-[18px]">
+                    <div className="md:w-[500px] my-[10px]">
                         <div
-                            className="float float-right ml-[5px] align-center"
-                            style={{ width: `${props.section[props.index].width || 300}px` }}>
+                            className="float float-right ml-[5px] mt-[5px] align-center w-[50%]"
+                            // style={{ width: `${props.section[props.index].width || 300}px` }}
+                        >
                             {image}
                             <p className="break-words text-grey text-[12px]">{credit}</p>
                         </div>
@@ -66,9 +68,9 @@ export default function ImageContainerPreview(props: any) {
                 );
             } else {
                 return (
-                    <div className="grid grid-cols-[250px_250px] w-[500px] mx-auto items-center mb-[18px]">
+                    <div className="grid grid-cols-2 md:grid-cols-[250px_250px] md:w-[500px] items-center my-[10px]">
                         <p className="break-words">{caption}</p>
-                        <div className="w-[400px]">
+                        <div className="w-[90%] w-[400px]">
                             {image}
                             <p className="break-words text-grey text-[12px]">{credit}</p>
                         </div>

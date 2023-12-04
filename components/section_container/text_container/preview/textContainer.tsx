@@ -3,7 +3,9 @@ import parse from "html-react-parser";
 export default function TextContainerPreview(props: any) {
     if (props.section[props.index].type === "sectionHeader") {
         return (
-            <h3 className="text-container break-words">{parse(props.section[props.index].text)}</h3>
+            <h3 className="text-container break-words md:w-[500px] md:mx-auto">
+                {parse(props.section[props.index].text)}
+            </h3>
         );
     } else {
         if (props.dictionary.length > 0) {
@@ -44,13 +46,13 @@ export default function TextContainerPreview(props: any) {
             });
 
             return (
-                <div className="text-container break-words w-[500px] mx-auto ">
+                <div className="text-container break-words md:w-[500px] md:mx-auto ">
                     {parse(plainText)}
                 </div>
             );
         }
         return (
-            <div className="text-container break-words w-[500px] mx-auto">
+            <div className="text-container break-words md:w-[500px] md:mx-auto">
                 {parse(props.section[props.index].text)}
             </div>
         );

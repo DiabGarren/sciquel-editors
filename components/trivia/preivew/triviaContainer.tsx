@@ -743,7 +743,7 @@ export default function TriviaContainerPreview(props: any) {
                             content = "";
                     }
                     return (
-                        <div className="border border-grey-light-1 rounded-box p-[7px] mb-[7px]">
+                        <div className="border border-grey-light-1 rounded-box p-[7px] mt-[7px]">
                             <div
                                 className="question-con grid grid-cols-2 items-center  cursor-pointer [&_path]:hover:stroke-teal"
                                 onClick={(event: any) => {

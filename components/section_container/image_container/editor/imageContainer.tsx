@@ -194,7 +194,7 @@ export default function ImageContainerEditor(props: any) {
                                             );
                                         }}
                                     />
-                                    <h4>Width</h4>
+                                    {/* <h4>Width</h4>
                                     <input
                                         className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         type="number"
@@ -210,7 +210,7 @@ export default function ImageContainerEditor(props: any) {
                                                 })
                                             );
                                         }}
-                                    />
+                                    /> */}
                                     <h4>Credit</h4>
                                     <input
                                         className="border border-grey-light rounded w-[100%]"
@@ -460,7 +460,7 @@ export default function ImageContainerEditor(props: any) {
                                             );
                                         }}
                                     />
-                                    <h4>Width</h4>
+                                    {/* <h4>Width</h4>
                                     <input
                                         className="border border-grey-light rounded w-[100%] mb-[2px]"
                                         type="number"
@@ -476,7 +476,7 @@ export default function ImageContainerEditor(props: any) {
                                                 })
                                             );
                                         }}
-                                    />
+                                    /> */}
                                     <h4>Credit</h4>
                                     <input
                                         className="border border-grey-light rounded w-[100%]"
