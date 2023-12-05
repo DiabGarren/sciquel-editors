@@ -57,7 +57,13 @@ export default function Contributors(props: any) {
                         <div className="grid grid-cols-[150px_1fr] my-[15px]">
                             <h3 className="inline-block">{type.name}</h3>
                             <Popup
-                                trigger={<Button color="primary">+</Button>}
+                                trigger={
+                                    <Button
+                                        className="w-[80px] md:w-[65px] text-[1.25rem] md:text-[1.1rem]"
+                                        color="primary">
+                                        +
+                                    </Button>
+                                }
                                 position={"bottom center"}>
                                 <div className="popup">
                                     {props.allContributors.map((con: any, conIndex: number) => {
@@ -168,7 +174,13 @@ export default function Contributors(props: any) {
                 <div className="grid grid-cols-[125px_1fr] w-[150px]">
                     <h3 className="inline-block">Contributors</h3>
                     <Popup
-                        trigger={<Button color="primary">+</Button>}
+                        trigger={
+                            <Button
+                                className="w-[80px] md:w-[65px] text-[1.25rem] md:text-[1.1rem]"
+                                color="primary">
+                                +
+                            </Button>
+                        }
                         position={"bottom center"}>
                         <div className="popup">
                             {props.contributors.map((type: any, index: number) => {

@@ -25,7 +25,13 @@ export default function Tags(props: any) {
                     style={{ gridTemplateColumns: "125px 1fr" }}>
                     <h3 className="inline-block">{title}</h3>
                     <Popup
-                        trigger={<Button color="primary">+</Button>}
+                        trigger={
+                            <Button
+                                className="w-[80px] md:w-[65px] text-[1.25rem] md:text-[1.1rem]"
+                                color="primary">
+                                +
+                            </Button>
+                        }
                         position={"bottom center"}>
                         <div className="popup">
                             {tagArray.map((tag: any, index: number) => {

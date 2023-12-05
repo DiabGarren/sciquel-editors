@@ -36,12 +36,16 @@ export default function TopSection(props: any) {
             return <></>;
         }
         return (
-            <div
-                className="grid w-[250px] mr-[20px] mb-[10px]"
-                style={{ gridTemplateColumns: "125px 125px" }}>
+            <div className="grid grid-cols-[125px_1fr] xsm:grid-cols-[125px_150px] sm:grid-cols-[125px_125px] w-[100%] md:w-[250px] mr-[20px] mb-[15px]">
                 <h3 className="inline">{title}</h3>
                 <Popup
-                    trigger={<Button color="primary">{typeProp}</Button>}
+                    trigger={
+                        <Button
+                            className="w-[100%] text-[1.25rem] md:text-[1.1rem]"
+                            color="primary">
+                            {typeProp}
+                        </Button>
+                    }
                     position={"bottom center"}>
                     <div className="popup">
                         {allTypesArray.map((type: any, index: number) => {
@@ -114,7 +118,7 @@ export default function TopSection(props: any) {
                     onChange={(event) => props.setDate(event.target.value.replaceAll("-", "/"))}
                 />
             </div>
-            <div className="media-type mb-[30px]">
+            <div className="mb-[30px] md:grid md:grid-cols-2">
                 {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
                 {displayTypes(
                     "Article Type",

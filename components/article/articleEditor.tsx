@@ -117,7 +117,7 @@ export default function ArticleEditor(props: any) {
             <div className="mb-[30px]">
                 <AcknowledgementsEditor {...acknowldgeProps} />
             </div>
-            <div className="flex justify-end">
+            <div className="flex md:justify-end">
                 <Button
                     color="primary"
                     onClick={props.submit}>

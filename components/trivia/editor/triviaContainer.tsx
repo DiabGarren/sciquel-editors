@@ -860,8 +860,9 @@ export default function TriviaContainerEditor(props: any) {
                         </p>
                     </div>
                     {questions}
-                    <div className="w-[60px] mx-[auto]">
+                    <div className="md:w-[65px] mx-[auto]">
                         <Button
+                            className="w-[100%] text-[1.25rem] md:text-[1.1rem]"
                             variant="solid"
                             color="primary"
                             onClick={() => {
