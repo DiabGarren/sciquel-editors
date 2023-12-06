@@ -71,7 +71,7 @@ export default function ArticlePreview(props: any) {
         setContributors: props.setContributors,
     };
     return (
-        <div className="relative">
+        <div className="relative lr:w-[100%] lr:mx-auto lr:px-[5%] lr:max-h-[calc(100vh-65px)] lr:overflow-y-auto">
             <CoverImagePreview {...imageProps} />
             <div className="mx-[10px]">
                 <GeneralByline {...generalProps} />
@@ -82,7 +82,7 @@ export default function ArticlePreview(props: any) {
                     triviaPosition="pre"
                 />
             </div>
-            <div className="sections-preview mx-[10px] md:mx-auto md:max-w-[800px] my-[10px]">
+            <div className="sections-preview m-[10px] md:mx-auto md:max-w-[800px]">
                 <SectionContainerPreview {...sectionContainerProps} />
             </div>
             <div className="mx-[10px]">

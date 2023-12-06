@@ -118,7 +118,7 @@ export default function TopSection(props: any) {
                     onChange={(event) => props.setDate(event.target.value.replaceAll("-", "/"))}
                 />
             </div>
-            <div className="mb-[30px] md:grid md:grid-cols-2">
+            <div className="mb-[30px] md:grid md:grid-cols-2 lr:grid-cols-none xl:grid-cols-2">
                 {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
                 {displayTypes(
                     "Article Type",

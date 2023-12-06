@@ -45,7 +45,7 @@ export default function Article(props: any) {
     };
 
     return (
-        <main className="article grid lr:grid-cols-2">
+        <main className="article grid lr:grid-cols-2 xl:grid-cols-[2fr_3fr]">
             <ArticleEditor {...articleProps} />
             <ArticlePreview {...articleProps} />
         </main>
