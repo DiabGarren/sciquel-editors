@@ -1,7 +1,7 @@
 "use client";
 
 import Article from "@/components/article/article";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Page({ params }: { params: { slug: string[] } }) {
     const [image, setImage] = useState(null);
@@ -49,72 +49,35 @@ export default function Page({ params }: { params: { slug: string[] } }) {
     const [error, setError] = useState<string[]>([]);
     const [missing, setMissing] = useState<string[]>([]);
 
-    if (
-        (heading && heading === "") ||
-        (subheading && subheading === "") ||
-        (finalImage && finalImage === null) ||
-        (keywords && keywords === "") ||
-        (date && date === "") ||
-        (mediaType && mediaType === "") ||
-        (articleType && articleType === "") ||
-        (topics && topics.length === 0) ||
-        (subtopics && subtopics.length === 0) ||
-        (subjects && subjects.length === 0) ||
-        (contributors && contributors.length === 0) ||
-        (allContributors && allContributors.length === 0) ||
-        (trivia && trivia.length === 0) ||
-        (section && section.length === 0)
-    ) {
-        fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + params.slug.join("/"))
-            .then((response) => response.json())
-            .then((data) => {
-                if (heading === "" && heading !== data.data.heading) {
+    useEffect(() => {
+        async function fetchData() {
+            fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + params.slug.join("/"))
+                .then((response) => response.json())
+                .then((data) => {
                     setHeading(data.data.heading);
-                }
-                if (subheading === "" && subheading !== data.data.subheading) {
                     setSubheading(data.data.subheading);
-                }
-                if (finalImage === null && finalImage != data.data.finalImage) {
                     setFinalImage(data.data.finalImage);
-                }
-                if (keywords === "" && keywords !== data.data.keywords) {
                     setKeywords(data.data.keywords);
-                }
-                if (date === "" && date !== data.data.date) {
                     setDate(data.data.date);
-                }
-                if (mediaType === "" && mediaType !== data.data.mediaType) {
                     setMediaType(data.data.mediaType);
-                }
-                if (articleType === "" && articleType !== data.data.articleType) {
                     setArticleType(data.data.articleType);
-                }
-                if (topics.length === 0 && topics !== data.data.topics) {
                     setTopics(data.data.topics);
-                }
-                if (subtopics.length === 0 && subtopics !== data.data.subtopics) {
                     setSubtopics(data.data.subtopics);
-                }
-                if (subjects.length === 0 && subjects !== data.data.subjects) {
                     setSubjects(data.data.subjects);
-                }
-                // if (contributors.length === 0) {
-                //     setContributors(data.data.contributors);
-                // }
-                if (allContributors.length === 0 && allContributors !== data.data.allContributors) {
-                    setAllContributors(data.data.contributors);
-                }
-                if (trivia.length === 0 && trivia !== data.data.trivia) {
+                    setContributors(data.data.contributors);
                     setTrivia(data.data.trivia);
-                }
-                // if (section.length === 0 && section !== data.data.section) {
-                //     setSection(data.data.section);
-                // }
-                // if (dictionary.length === 0 && dictionary !== data.data.dictionary) {
-                //     setDictionary(data.data.dictionary);
-                // }
-            });
-    }
+                    setSection(data.data.section);
+                    setDictionary(data.data.dictionary);
+                });
+            fetch(process.env.NEXT_PUBLIC_API_URL + "/top-section")
+                .then((response) => response.json())
+                .then((data) => {
+                    setAllContributors(data.contributors);
+                });
+        }
+        fetchData();
+    }, [params.slug]);
+
     const updateArticle = () => {
         try {
             fetch(process.env.NEXT_PUBLIC_API_URL + "/article/" + date + "/" + keywords, {

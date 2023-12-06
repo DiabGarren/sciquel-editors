@@ -99,7 +99,7 @@ const config: Config = {
 					},
 					warning: {
 						foreground: 'white',
-						DEFAULT: '#ff0000',
+						DEFAULT: '#a44a3f',
 					}
 				}
 			}

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Article from "@/components/article/article";
 
 export default function NewPage() {
@@ -44,30 +44,6 @@ export default function NewPage() {
 
     const [allContributors, setAllContributors] = useState([]);
 
-    if (
-        topics.length === 0 ||
-        subtopics.length === 0 ||
-        subjects.length === 0 ||
-        allContributors.length === 0
-    ) {
-        fetch(process.env.NEXT_PUBLIC_API_URL + "/top-section")
-            .then((response) => response.json())
-            .then((data) => {
-                if (topics.length === 0) {
-                    setTopics(data.topics);
-                }
-                if (subtopics.length === 0) {
-                    setSubtopics(data.subtopics);
-                }
-                if (subjects.length === 0) {
-                    setSubjects(data.subjects);
-                }
-                if (allContributors.length === 0) {
-                    setAllContributors(data.contributors);
-                }
-            });
-    }
-
     const [contributors, setContributors] = useState([
         { name: "Author", contributors: [], checked: false },
         { name: "Animator", verb: "animated", contributors: [], checked: false },
@@ -96,6 +72,20 @@ export default function NewPage() {
 
     const [error, setError] = useState<string[]>([]);
     const [missing, setMissing] = useState<string[]>([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            fetch(process.env.NEXT_PUBLIC_API_URL + "/top-section")
+                .then((response) => response.json())
+                .then((data) => {
+                    setTopics(data.topics);
+                    setSubtopics(data.subtopics);
+                    setSubjects(data.subjects);
+                    setAllContributors(data.contributors);
+                });
+        }
+        fetchData();
+    }, []);
 
     const createArticle = () => {
         try {

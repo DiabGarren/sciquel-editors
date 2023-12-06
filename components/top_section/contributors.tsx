@@ -9,15 +9,9 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 
 export default function Contributors(props: any) {
-    const [selectedTypes, setSelectedTypes] = useState(new Set(["text"]));
-    const selections = props.contributors.map(() => {
-        const [selectedCons, setSelectedCons] = useState(new Set(["text"]));
-        return { selected: selectedCons, setSelected: setSelectedCons };
-    });
-
     const contributors = props.contributors.map((type: any, index: number) => {
         if (type.checked) {
-            const displayCons = (selected: any) => {
+            const displayCons = () => {
                 return type.contributors.map((con: any, conIndex: number) => {
                     return (
                         <div className="grid grid-cols-[45px_1fr_25px] items-center my-[5px]">
@@ -40,7 +34,6 @@ export default function Contributors(props: any) {
                                         props.contributors.map((type: any, typeIndex: number) => {
                                             if (typeIndex === index) {
                                                 type.contributors.splice(conIndex, 1);
-                                                selected.delete(con.id);
                                             }
                                             return type;
                                         })
@@ -51,7 +44,7 @@ export default function Contributors(props: any) {
                     );
                 });
             };
-            const cons = (selected: any, setSelected: any) => {
+            const cons = () => {
                 return (
                     <>
                         <div className="grid grid-cols-[150px_1fr] my-[15px]">
@@ -160,15 +153,15 @@ export default function Contributors(props: any) {
                                 </div>
                             </Popup>
                         </div>
-                        <div>{displayCons(selected)}</div>
+                        <div>{displayCons()}</div>
                     </>
                 );
             };
-            return cons(selections[index].selected, selections[index].setSelected);
+            return cons();
         }
     });
 
-    const displayDrp = (selectedTypes: any, setSelectedTypes: any) => {
+    const displayDrp = () => {
         return (
             <>
                 <div className="grid grid-cols-[125px_1fr] w-[150px]">
@@ -232,5 +225,5 @@ export default function Contributors(props: any) {
             </>
         );
     };
-    return displayDrp(selectedTypes, setSelectedTypes);
+    return displayDrp();
 }

@@ -15,9 +15,7 @@ export default function SectionContainerEditor(props: any) {
     return (
         <div className="border border-grey-light-1 rounded-lr p-[7px]">
             <div className="border border-grey-light-1 rounded-box p-[15px] mb-[10px]">
-                <h3>
-                    {props.mediaType === "Article" ? props.articleType : props.mediaType} content
-                </h3>
+                <h3>Article content</h3>
             </div>
             {props.section.map((section: any, index: number) => {
                 const containerProps = {

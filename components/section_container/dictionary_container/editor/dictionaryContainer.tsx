@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { TrashIcon } from "@heroicons/react/20/solid";
-import { Button, Select, SelectItem } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Popup from "reactjs-popup";
 
 const partsOfSpeech = [

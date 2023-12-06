@@ -13,6 +13,8 @@ const articleSchema = new Schema({
     subjects: Array,
     contributors: Array,
     trivia: Array,
+    section: Array,
+    dictionary: Array,
 });
 
 const Article = models.Article || model("Article", articleSchema);
