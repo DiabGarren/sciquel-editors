@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 import AcknowledgementsEditor from "../acknowledgements/editor/acknowledgements";
 import CoverImageEditor from "../cover_image/editor/coverImage";
 import HeadingContainerEditor from "../heading/editor/headingContainer";
@@ -6,6 +5,7 @@ import SectionContainerEditor from "../section_container/editor/sectionContainer
 import TopSection from "../top_section/topSection";
 import TriviaContainerEditor from "../trivia/editor/triviaContainer";
 import DictionaryContainerEditor from "../section_container/dictionary_container/editor/dictionaryContainer";
+import Publish from "../publish/publish";
 
 export default function ArticleEditor(props: any) {
     const headingProps = {
@@ -118,11 +118,7 @@ export default function ArticleEditor(props: any) {
                 <AcknowledgementsEditor {...acknowldgeProps} />
             </div>
             <div className="flex md:justify-end">
-                <Button
-                    color="primary"
-                    onClick={props.submit}>
-                    {props.method} Article
-                </Button>
+                <Publish {...props} />
             </div>
         </div>
     );

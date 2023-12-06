@@ -42,6 +42,11 @@ export default function Article(props: any) {
         dictionary: props.dictionary,
         setDictionary: props.setDictionary,
         method: props.method,
+        submit: props.submit,
+        error: props.error,
+        setError: props.setError,
+        missing: props.missing,
+        setMissing: props.setMissing,
     };
 
     return (

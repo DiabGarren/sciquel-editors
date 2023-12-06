@@ -94,9 +94,12 @@ export default function NewPage() {
 
     const [dictionary, setDictionary] = useState([]);
 
+    const [error, setError] = useState<string[]>([]);
+    const [missing, setMissing] = useState<string[]>([]);
+
     const createArticle = () => {
         try {
-            fetch(process.env.NEXT_PUBLIC_API_URL + "/article", {
+            return fetch(process.env.NEXT_PUBLIC_API_URL + "/article", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify({
@@ -117,7 +120,14 @@ export default function NewPage() {
                 }),
             })
                 .then((response) => response.json())
-                .then((data) => console.log(data));
+                .then((data) => {
+                    console.log(data);
+                    return data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return error;
+                });
         } catch (error) {
             console.log(error);
         }
@@ -162,6 +172,10 @@ export default function NewPage() {
         setSection,
         dictionary,
         setDictionary,
+        error,
+        setError,
+        missing,
+        setMissing,
     };
 
     return (

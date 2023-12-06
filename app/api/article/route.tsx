@@ -28,12 +28,21 @@ export async function POST(request: Request) {
         await connectDb();
 
         const body = await request.json();
+        let error = [];
 
         if (!body.keywords) {
-            return createErrorResponse("Article must have key words", 400);
+            error.push("Key words");
         }
         if (!body.date) {
-            return createErrorResponse("Article must have a public date", 400);
+            error.push("Publish date");
+        }
+
+        if (error.length > 0) {
+            // return createErrorResponse(error, 400);
+            return new NextResponse(JSON.stringify({ status: "fail", error: error }), {
+                status: 400,
+                headers: { "Content-Type": "application/json" },
+            });
         }
 
         const article = await Article.create({

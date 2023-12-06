@@ -110,7 +110,7 @@ export default function TopSection(props: any) {
                 </p>
             </div>
             <div className="mb-[30px]">
-                <h3>Publish Date</h3>
+                <h3>Publish date</h3>
                 <input
                     className="border border-grey-light rounded px-[5px] w-[100%]"
                     type="date"
@@ -119,9 +119,9 @@ export default function TopSection(props: any) {
                 />
             </div>
             <div className="mb-[30px] md:grid md:grid-cols-2 lr:grid-cols-none xl:grid-cols-2">
-                {displayTypes("Media Type", props.mediaTypes, props.mediaType, props.setMediaType)}
+                {displayTypes("Media type", props.mediaTypes, props.mediaType, props.setMediaType)}
                 {displayTypes(
-                    "Article Type",
+                    "Article type",
                     props.articleTypes,
                     props.articleType,
                     props.setArticleType

@@ -30,6 +30,7 @@ const config: Config = {
 			},
 			red: {
 				DEFAULT: '#d41515',
+				dark: '#a44a3f'
 			},
 			black: {
 				DEFAULT: '#000000',
@@ -57,7 +58,7 @@ const config: Config = {
 					1: '#4eeded',
 					2: '#e0edf7'
 				},
-			}
+			},
 		},
 		borderRadius: {
 			DEFAULT: '5px',

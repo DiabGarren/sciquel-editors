@@ -46,6 +46,9 @@ export default function Page({ params }: { params: { slug: string[] } }) {
 
     const [dictionary, setDictionary] = useState([]);
 
+    const [error, setError] = useState<string[]>([]);
+    const [missing, setMissing] = useState<string[]>([]);
+
     if (
         (heading && heading === "") ||
         (subheading && subheading === "") ||
@@ -180,6 +183,10 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         setSection,
         dictionary,
         setDictionary,
+        error,
+        setError,
+        missing,
+        setMissing,
     };
 
     return (
