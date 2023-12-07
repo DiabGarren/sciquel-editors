@@ -21,7 +21,7 @@ export default function AcknowledgementsPreview(props: any) {
                         } else message = parse(con.message);
 
                         types.push(
-                            <div className="border border-grey-light-1 rounded-[15px] p-[10px] md:p-[20px] mb-[7px] md:mb-[15px]">
+                            <div className="border border-grey-light-1 rounded-[15px] p-[10px] md:p-[20px] mb-[7px] md:mb-[15px] lr:w-[405px] xl:w-[650px] mx-auto">
                                 <div
                                     className="flex mb-[7px] md:mb-[15px] items-center"
                                     style={{

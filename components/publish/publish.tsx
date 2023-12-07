@@ -55,6 +55,7 @@ export default function Publish(props: any) {
     return (
         <>
             <Button
+                className="w-[100%] md:w-fit"
                 color="primary"
                 onClick={() => {
                     let errors = [];

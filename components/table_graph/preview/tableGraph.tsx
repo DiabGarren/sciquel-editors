@@ -27,7 +27,7 @@ export default function TableGraphPreview(props: any) {
             switch (section.table.type) {
                 case "Bar":
                     table = (
-                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto p-[2px] overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto p-[2px] overflow-x-auto">
                             <div className="w-fit m-auto">
                                 <div className="flex mb-[5px]">
                                     <div className="w-[75px] mr-[5px]"></div>
@@ -80,7 +80,7 @@ export default function TableGraphPreview(props: any) {
                     });
 
                     graph = (
-                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto">
+                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto">
                             <ResponsiveContainer
                                 width="100%"
                                 height={350}>
@@ -143,7 +143,7 @@ export default function TableGraphPreview(props: any) {
 
                 case "Line":
                     table = (
-                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto p-[2px] overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto p-[2px] overflow-x-auto">
                             <div className="w-fit m-auto">
                                 <div className="flex mb-[5px]">
                                     <div className="w-[75px] mr-[5px]"></div>
@@ -196,7 +196,7 @@ export default function TableGraphPreview(props: any) {
                     });
 
                     graph = (
-                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto">
+                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto">
                             <ResponsiveContainer
                                 width="100%"
                                 height={350}>
@@ -253,7 +253,7 @@ export default function TableGraphPreview(props: any) {
 
                 case "Area":
                     table = (
-                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto p-[2px] overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto p-[2px] overflow-x-auto">
                             <div className="w-fit m-auto">
                                 <div className="flex mb-[5px]">
                                     <div className="w-[75px] mr-[5px]"></div>
@@ -306,7 +306,7 @@ export default function TableGraphPreview(props: any) {
                     });
 
                     graph = (
-                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto">
+                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto">
                             <ResponsiveContainer
                                 width="100%"
                                 height={350}>
@@ -386,7 +386,7 @@ export default function TableGraphPreview(props: any) {
                     break;
                 case "Pie":
                     table = (
-                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto p-[2px] overflow-x-auto">
+                        <div className="table-graph border border-grey-light-1 rounded-box w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto p-[2px] overflow-x-auto">
                             <div className="w-fit m-auto">
                                 <div className="flex mb-[5px]">
                                     {section.table.headings.cols.map((colHeading: any) => {
@@ -428,7 +428,7 @@ export default function TableGraphPreview(props: any) {
                     console.log(graphData);
 
                     graph = (
-                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] mx-auto">
+                        <div className="w-[310px] xsm:w-[355px] sm:w-[405px] md:w-[650px] lr:w-[405px] xl:w-[650px] my-[10px] mx-auto">
                             <ResponsiveContainer
                                 width="100%"
                                 height={350}>

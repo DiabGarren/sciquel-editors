@@ -837,7 +837,7 @@ export default function TriviaContainerPreview(props: any) {
                 });
 
                 return (
-                    <div className="border border-grey-light-1 rounded-lr p-[7px]">
+                    <div className="border border-grey-light-1 rounded-lr p-[7px] lr:w-[405px] xl:w-[650px] mx-auto">
                         <div className="border border-grey-light-1 rounded-box p-[15px] mb-[10px]">
                             <h3 className="">
                                 {trivia.name[0].toUpperCase()}

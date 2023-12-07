@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-key */
-import Image from "next/image";
 
 export default function GeneralByline(props: any) {
     let type = props.topSection.mediaType;
@@ -65,12 +64,12 @@ export default function GeneralByline(props: any) {
     };
 
     return (
-        <>
+        <div className="mb-[30px] md:w-[650px] lr:w-[405px] xl:w-[650px] mx-auto">
             <div className="mb-[7px]">
                 {type} {tags(props.topSection.topics)} {tags(props.topSection.subtopics)}{" "}
                 {tags(props.topSection.subjects)}
             </div>
             <div>{contributors()}</div>
-        </>
+        </div>
     );
 }

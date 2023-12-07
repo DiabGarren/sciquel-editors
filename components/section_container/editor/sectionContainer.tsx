@@ -32,9 +32,15 @@ export default function SectionContainerEditor(props: any) {
                         return <TextContainerEditor {...containerProps} />;
                 }
             })}
-            <div className="w-[60px] mx-auto">
+            <div className="md:w-[65px] mx-auto">
                 <Popup
-                    trigger={<Button color="primary">+</Button>}
+                    trigger={
+                        <Button
+                            className="w-[100%] text-[1.25rem] md:text-[1.1rem]"
+                            color="primary">
+                            +
+                        </Button>
+                    }
                     position={"bottom center"}>
                     <div className="popup">
                         {sectionItems.map((type: any, index: number) => {
