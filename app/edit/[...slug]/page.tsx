@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                     setHeading(data.data.heading);
                     setSubheading(data.data.subheading);
                     setFinalImage(data.data.finalImage);
-                    setKeywords(data.data.keywords);
+                    setKeywords(data.data.urlSlug.split("/")[3]);
                     setDate(data.data.date);
                     setMediaType(data.data.mediaType);
                     setArticleType(data.data.articleType);
@@ -99,9 +99,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
                     section: section,
                     dictionary: dictionary,
                 }),
-            })
-                .then((response) => response.json())
-                .then((data) => console.log(data));
+            }).then((response) => response.json());
         } catch (error) {
             console.log(error);
         }
