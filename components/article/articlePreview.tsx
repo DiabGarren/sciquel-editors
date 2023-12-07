@@ -105,7 +105,7 @@ export default function ArticlePreview(props: any) {
                     triviaPosition="pre"
                 />
             </div>
-            <div className="sections-preview m-[10px] md:mx-auto md:max-w-[800px]">
+            <div className="sections-preview m-[10px] md:mx-auto">
                 <SectionContainerPreview {...sectionContainerProps} />
             </div>
             <div className="mx-[10px] my-[25px]">
@@ -115,7 +115,7 @@ export default function ArticlePreview(props: any) {
                 />
             </div>
             <div className="mx-[10px] my-[25px]">
-                <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px]" />
+                <hr className="my-[15px] h-[3px] bg-teal-dark border-none rounded-[2px] lr:w-[800px] mx-auto" />
                 <AcknowledgementsPreview {...acknowldgeProps} />
             </div>
             <div className="mx-[10px] my-[25px]">
