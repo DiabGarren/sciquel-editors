@@ -27,28 +27,31 @@ export default async function Home() {
     };
 
     return (
-        <main className="m-[50px]">
-            <a
-                className="button"
-                href="/new-article">
-                New Article
-            </a>
+        <main className="p-[10px] pt-[20px]">
+            <div className="w-[100%] md:w-[80%] lr:w-[650px]  mx-auto">
+                <a
+                    className="button block text-center w-[100%] md:w-fit"
+                    href="/new-article">
+                    New Article
+                </a>
+            </div>
+
             <div className="flex flex-col">
                 {allArticles.data.map((data: any) => {
                     return (
-                        <div className="dashboard mx-auto grid grid-cols-[1fr_15px] my-[15px]">
+                        <div className="grid md:grid-cols-[1fr_0] w-[100%] md:w-[80%] lr:w-[650px] mx-auto my-[15px]">
                             <a
-                                className="border-4 border-teal rounded-lr p-[10px] grid grid-cols-[150px_1fr_150px]"
+                                className="border-2 border-teal rounded-[10px_10px_0_0] md:rounded-box p-[7px] grid md:grid-cols-[150px_1fr]"
                                 href={`stories/${data.urlSlug}`}>
                                 <Image
-                                    className="object-cover aspect-[1/1] rounded"
+                                    className="object-cover w-[100%] md:w-[150px] h-[100px] md:h-[150px] rounded "
                                     src={data.finalImage || "/images/bobtail.png"}
                                     alt="Cover image"
                                     width={150}
                                     height={150}
                                 />
 
-                                <div className="mx-[15px]">
+                                <div className="grid grid-cols-[1fr_110px] mt-[7px] md:mx-[15px]">
                                     <div
                                         style={{
                                             fontFamily: alegreya_sans_sc.style.fontFamily,
@@ -71,7 +74,13 @@ export default async function Home() {
                                             )}
                                         </div>
                                     </div>
-                                    <div className="text-[15px] indent-[-10px] pl-[10px] mt-[5px]">
+                                    <p className="text-[15px] text-right pt-[7px]">
+                                        {data.mediaType}
+                                        {data.mediaType === "Article"
+                                            ? ` | ${data.articleType}`
+                                            : ""}
+                                    </p>
+                                    <div className="col-[1/3] text-[16px] md:indent-[-10px] md:pl-[10px] md:mt-[5px]">
                                         {data.contributors.map((type: any) => {
                                             if (type.checked) {
                                                 let cons: string[] = [];
@@ -107,16 +116,7 @@ export default async function Home() {
                                         })}
                                     </div>
                                 </div>
-
-                                <div className="text-[15px] text-right">
-                                    <p>
-                                        {data.mediaType}
-                                        {data.mediaType === "Article"
-                                            ? ` | ${data.articleType}`
-                                            : ""}
-                                    </p>
-                                </div>
-                                <div className="col-[1/4] flex flex-wrap text-[14px] mt-[10px]">
+                                <div className="md:col-[1/4] flex flex-wrap text-[14px] mt-[10px]">
                                     {articleTags(data.topics)}
                                     {articleTags(data.subtopics)}
                                     {articleTags(data.subjects)}
@@ -124,8 +124,9 @@ export default async function Home() {
                             </a>
                             <a
                                 href={`edit/${data.urlSlug}`}
-                                className="self-end p-[5px] w-[35px] h-[35px] ml-[-45px] mb-[10px] rounded hover:bg-teal [&_*]:hover:stroke-white">
+                                className="block self-end p-[5px] w-[100%] md:w-[35px] h-[35px] md:ml-[-45px] mb-[10px] rounded-[0_0_10px_10px] md:rounded bg-teal lr:bg-white lr:hover:bg-teal [&_*]:hover:stroke-white">
                                 <svg
+                                    className="mx-auto"
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="25"
                                     height="25"
