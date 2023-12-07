@@ -744,50 +744,90 @@ export default function TriviaContainerPreview(props: any) {
                     }
                     return (
                         <div className="border border-grey-light-1 rounded-box p-[7px] mt-[7px]">
-                            <div
-                                className="question-con grid grid-cols-2 items-center  cursor-pointer [&_path]:hover:stroke-teal"
-                                onClick={(event: any) => {
-                                    let parent = event.target;
-                                    if (parent.classList.contains("question-con")) {
-                                        if (parent.childNodes[2].classList.contains("hidden"))
-                                            parent.childNodes[2].classList.remove("hidden");
-                                        else parent.childNodes[2].classList.add("hidden");
-                                    } else {
-                                        parent = event.target.parentNode;
+                            <div className="question-con">
+                                <div
+                                    className="grid grid-cols-2 items-center cursor-pointer [&_path]:hover:stroke-teal"
+                                    onClick={(event: any) => {
+                                        let parent = event.target;
                                         if (parent.classList.contains("question-con")) {
-                                            if (parent.childNodes[2].classList.contains("hidden"))
-                                                parent.childNodes[2].classList.remove("hidden");
-                                            else parent.childNodes[2].classList.add("hidden");
+                                            if (parent.childNodes[1].classList.contains("hidden")) {
+                                                parent.childNodes[1].classList.remove("hidden");
+                                                parent.childNodes[0].childNodes[1].checked = true;
+                                            } else {
+                                                parent.childNodes[1].classList.add("hidden");
+                                                parent.childNodes[0].childNodes[1].checked = false;
+                                            }
                                         } else {
-                                            parent = event.target.parentNode.parentNode;
+                                            parent = event.target.parentNode;
                                             if (parent.classList.contains("question-con")) {
                                                 if (
-                                                    parent.childNodes[2].classList.contains(
+                                                    parent.childNodes[1].classList.contains(
                                                         "hidden"
                                                     )
-                                                )
-                                                    parent.childNodes[2].classList.remove("hidden");
-                                                else parent.childNodes[2].classList.add("hidden");
+                                                ) {
+                                                    parent.childNodes[1].classList.remove("hidden");
+                                                    parent.childNodes[0].childNodes[1].checked =
+                                                        true;
+                                                } else {
+                                                    parent.childNodes[1].classList.add("hidden");
+                                                    parent.childNodes[0].childNodes[1].checked =
+                                                        false;
+                                                }
+                                            } else {
+                                                parent = event.target.parentNode.parentNode;
+                                                if (parent.classList.contains("question-con")) {
+                                                    if (
+                                                        parent.childNodes[1].classList.contains(
+                                                            "hidden"
+                                                        )
+                                                    ) {
+                                                        parent.childNodes[1].classList.remove(
+                                                            "hidden"
+                                                        );
+                                                        parent.childNodes[0].childNodes[1].checked =
+                                                            true;
+                                                    } else {
+                                                        parent.childNodes[1].classList.add(
+                                                            "hidden"
+                                                        );
+                                                        parent.childNodes[0].childNodes[1].checked =
+                                                            false;
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
-                                }}>
-                                <h3 className="p-[10px]">Question {questionIndex + 1}</h3>
-                                <svg
-                                    className="ml-auto mr-[10px]"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="15"
-                                    height="9"
-                                    viewBox="0 0 14 8"
-                                    fill="none">
-                                    <path
-                                        d="M1 1L7 7L13 1"
-                                        stroke="#000"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
+                                    }}>
+                                    <h3 className="p-[10px]">Question {questionIndex + 1}</h3>
+                                    <input
+                                        type="checkbox"
+                                        className="hidden first:[&~svg_path]:checked:hidden last:[&~svg_path]:checked:inline"
                                     />
-                                </svg>
+                                    <svg
+                                        className="ml-auto mr-[10px]"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="15"
+                                        height="9"
+                                        viewBox="0 0 14 8"
+                                        fill="none">
+                                        <path
+                                            className=""
+                                            d="M1 1L7 7L13 1"
+                                            stroke="#000"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                        />
+                                        <path
+                                            className="hidden"
+                                            d="M13 7L7 1L1 7"
+                                            stroke="#000"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                        />
+                                    </svg>
+                                </div>
+
                                 <div className="trivia-questions col-[1/3] border border-grey-light-1 rounded-box max-h-[350px] overflow-auto hidden">
                                     {content}
                                 </div>

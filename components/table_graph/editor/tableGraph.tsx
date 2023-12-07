@@ -557,15 +557,28 @@ export default function TableGraphEditor(props: any) {
                                         <p className="text-[16px]">Graph Type</p>
                                         <div className="flex">
                                             <p className="text-teal">{section.table.type}</p>
+                                            <input
+                                                type="checkbox"
+                                                className="hidden first:[&~svg_path]:checked:hidden last:[&~svg_path]:checked:inline"
+                                            />
                                             <svg
-                                                className="text-teal ml-auto mr-[5px]"
+                                                className="ml-auto mr-[5px]"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="15"
                                                 height="9"
                                                 viewBox="0 0 14 8"
                                                 fill="none">
                                                 <path
+                                                    className=""
                                                     d="M1 1L7 7L13 1"
+                                                    stroke="#109191"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                />
+                                                <path
+                                                    className="hidden"
+                                                    d="M13 7L7 1L1 7"
                                                     stroke="#109191"
                                                     strokeLinecap="round"
                                                     strokeLinejoin="round"
@@ -575,8 +588,56 @@ export default function TableGraphEditor(props: any) {
                                         </div>
                                     </div>
                                 }
-                                position="bottom left">
-                                <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px] md:w-[250px] md:mx-0">
+                                position="bottom right"
+                                closeOnDocumentClick={false}
+                                closeOnEscape={false}
+                                onOpen={(event: any) => {
+                                    let parent = event.target;
+                                    if (parent.classList.contains("popup-select")) {
+                                        parent.childNodes[1].childNodes[1].checked = true;
+                                    } else {
+                                        parent = event.target.parentNode;
+                                        if (parent.classList.contains("popup-select")) {
+                                            parent.childNodes[1].childNodes[1].checked = true;
+                                        } else {
+                                            parent = event.target.parentNode.parentNode;
+                                            if (parent.classList.contains("popup-select")) {
+                                                parent.childNodes[1].childNodes[1].checked = true;
+                                            } else {
+                                                parent =
+                                                    event.target.parentNode.parentNode.parentNode;
+                                                if (parent.classList.contains("popup-select")) {
+                                                    parent.childNodes[1].childNodes[1].checked =
+                                                        true;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }}
+                                onClose={(event: any) => {
+                                    let parent = event.target;
+                                    if (parent.classList.contains("popup-select")) {
+                                        parent.childNodes[1].childNodes[1].checked = false;
+                                    } else {
+                                        parent = event.target.parentNode;
+                                        if (parent.classList.contains("popup-select")) {
+                                            parent.childNodes[1].childNodes[1].checked = false;
+                                        } else {
+                                            parent = event.target.parentNode.parentNode;
+                                            if (parent.classList.contains("popup-select")) {
+                                                parent.childNodes[1].childNodes[1].checked = false;
+                                            } else {
+                                                parent =
+                                                    event.target.parentNode.parentNode.parentNode;
+                                                if (parent.classList.contains("popup-select")) {
+                                                    parent.childNodes[1].childNodes[1].checked =
+                                                        false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }}>
+                                <div className="popup">
                                     {graphTypes.map((type: any) => {
                                         return (
                                             <div

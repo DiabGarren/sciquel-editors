@@ -16,7 +16,9 @@ const partsOfSpeech = [
 export default function DictionaryContainerEditor(props: any) {
     return (
         <div className="border border-grey-light-1 rounded-lr p-[7px]">
-            <h3 className="border border-grey-light-1 rounded-box p-[15px]">Dictionary</h3>
+            <h3 className="border border-grey-light-1 rounded-box p-[15px] mb-[10px]">
+                Dictionary
+            </h3>
 
             {props.dictionary.map((def: any, index: number) => {
                 return (
@@ -43,18 +45,31 @@ export default function DictionaryContainerEditor(props: any) {
                         <Popup
                             trigger={
                                 <div className="popup-select col-[1/3] md:col-[2] md:row-[1/3] mb-[5px]">
-                                    <p className="text-[16px]">Part of speech</p>
+                                    <p className="text-[16px]">Part of Speech</p>
                                     <div className="flex">
                                         <p className="text-teal">{def.partOfSpeech.name}</p>
+                                        <input
+                                            type="checkbox"
+                                            className="hidden first:[&~svg_path]:checked:hidden last:[&~svg_path]:checked:inline"
+                                        />
                                         <svg
-                                            className="text-teal ml-auto mr-[5px]"
+                                            className="ml-auto mr-[5px]"
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="15"
                                             height="9"
                                             viewBox="0 0 14 8"
                                             fill="none">
                                             <path
+                                                className=""
                                                 d="M1 1L7 7L13 1"
+                                                stroke="#109191"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="2"
+                                            />
+                                            <path
+                                                className="hidden"
+                                                d="M13 7L7 1L1 7"
                                                 stroke="#109191"
                                                 strokeLinecap="round"
                                                 strokeLinejoin="round"
@@ -64,8 +79,52 @@ export default function DictionaryContainerEditor(props: any) {
                                     </div>
                                 </div>
                             }
-                            position="bottom left">
-                            <div className="popup w-[268px] xsm:w-[323px] sm:mx-[12%] sm:w-[300px]">
+                            position="bottom right"
+                            closeOnDocumentClick={false}
+                            closeOnEscape={false}
+                            onOpen={(event: any) => {
+                                let parent = event.target;
+                                if (parent.classList.contains("popup-select")) {
+                                    parent.childNodes[1].childNodes[1].checked = true;
+                                } else {
+                                    parent = event.target.parentNode;
+                                    if (parent.classList.contains("popup-select")) {
+                                        parent.childNodes[1].childNodes[1].checked = true;
+                                    } else {
+                                        parent = event.target.parentNode.parentNode;
+                                        if (parent.classList.contains("popup-select")) {
+                                            parent.childNodes[1].childNodes[1].checked = true;
+                                        } else {
+                                            parent = event.target.parentNode.parentNode.parentNode;
+                                            if (parent.classList.contains("popup-select")) {
+                                                parent.childNodes[1].childNodes[1].checked = true;
+                                            }
+                                        }
+                                    }
+                                }
+                            }}
+                            onClose={(event: any) => {
+                                let parent = event.target;
+                                if (parent.classList.contains("popup-select")) {
+                                    parent.childNodes[1].childNodes[1].checked = false;
+                                } else {
+                                    parent = event.target.parentNode;
+                                    if (parent.classList.contains("popup-select")) {
+                                        parent.childNodes[1].childNodes[1].checked = false;
+                                    } else {
+                                        parent = event.target.parentNode.parentNode;
+                                        if (parent.classList.contains("popup-select")) {
+                                            parent.childNodes[1].childNodes[1].checked = false;
+                                        } else {
+                                            parent = event.target.parentNode.parentNode.parentNode;
+                                            if (parent.classList.contains("popup-select")) {
+                                                parent.childNodes[1].childNodes[1].checked = false;
+                                            }
+                                        }
+                                    }
+                                }
+                            }}>
+                            <div className="popup">
                                 {partsOfSpeech.map((part: any) => {
                                     return (
                                         <div
@@ -132,8 +191,9 @@ export default function DictionaryContainerEditor(props: any) {
                     </div>
                 );
             })}
-            <div className="w-[60px] mx-[auto] mt-[7px]">
+            <div className="md:w-[65px] mx-[auto]">
                 <Button
+                    className="w-[100%] text-[1.25rem] md:text-[1.1rem]"
                     variant="solid"
                     color="primary"
                     onClick={() => {
