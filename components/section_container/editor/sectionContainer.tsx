@@ -43,69 +43,68 @@ export default function SectionContainerEditor(props: any) {
                     }
                     position={"bottom center"}>
                     <div className="popup">
-                        {sectionItems.map((type: any, index: number) => {
-                            return (
-                                <div
-                                    className="popup-item"
-                                    onClick={() => {
-                                        let section = {};
-                                        switch (type.key) {
-                                            case "image":
-                                                section = {
-                                                    type: type.key,
-                                                    imageUrl: "",
-                                                    width: 0,
-                                                    height: 0,
-                                                    altText: "",
-                                                    caption: "",
-                                                    credit: "",
-                                                    pos: "center",
-                                                    wrap: "true",
-                                                };
-                                                break;
-                                            case "tableGraph":
-                                                section = {
-                                                    type: type.key,
-                                                    table: {
-                                                        type: "Bar",
-                                                        headings: {
-                                                            axis: { x: "X", y: "Y" },
-                                                            rows: ["Row 1", "Row 2", "Row 3"],
-                                                            cols: ["Col 1", "Col 2"],
-                                                        },
-                                                        colors: ["#109191", "#57adde"],
-                                                        data: [
-                                                            [0, 0],
-                                                            [0, 0],
-                                                            [0, 0],
-                                                        ],
-                                                        references: [
-                                                            {
-                                                                label: "Ref 1",
-                                                                y: 0,
-                                                                x: null,
-                                                                color: "#109191",
-                                                            },
-                                                        ],
-                                                        display: { table: "true", graph: "true" },
-                                                    },
-                                                };
-                                                break;
-                                            default:
-                                                section = { type: type.key, text: "" };
-                                                break;
-                                        }
-                                        console.log(section);
+    {sectionItems.map((type: any, index: number) => {
+        return (
+            <div
+                className="popup-item"
+                onClick={() => {
+                    let section = {}; 
+                    if (type.key === "image") {
+                        section = {
+                            type: type.key,
+                            imageUrl: "",
+                            width: 0,
+                            height: 0,
+                            altText: "",
+                            caption: "",
+                            credit: "",
+                            pos: "center",
+                            wrap: "true",
+                        };
+                    } else if (type.key === "tableGraph") {
+                        section = {
+                            type: type.key,
+                            table: {
+                                type: "Bar",
+                                headings: {
+                                    axis: { x: "X", y: "Y" },
+                                    rows: ["Row 1", "Row 2", "Row 3"],
+                                    cols: ["Col 1", "Col 2"],
+                                },
+                                colors: ["#109191", "#57adde"],
+                                data: [
+                                    [0, 0],
+                                    [0, 0],
+                                    [0, 0],
+                                ],
+                                references: [
+                                    {
+                                        label: "Ref 1",
+                                        y: 0,
+                                        x: null,
+                                        color: "#109191",
+                                    },
+                                ],
+                                display: { table: "true", graph: "true" },
+                            },
+                        };
+                    } else {
+                        section = { type: type.key, text: "" };
+                    }
 
-                                        props.setSection([...props.section, section]);
-                                    }}>
-                                    <p className="inline pl-[4px]">{type.name}</p>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </Popup>
+                    console.log(section);
+
+                    props.setSection([...props.section, section]);
+                }}
+            >
+                <p className="inline pl-[4px]">{type.name}</p>
             </div>
-        </div>
-    );
+        );
+    })}
+</div>
+    
+</Popup>
+</div>
+</div>
+);
 }
